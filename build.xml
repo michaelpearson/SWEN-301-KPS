@@ -44,7 +44,7 @@
     </target>
 
     <target name="run_tests" depends="compile">
-        <junit fork="yes" showoutput="yes" dir="${tests_build_path}">
+        <junit fork="yes" showoutput="yes" dir="${tests_build_path}" failureproperty="test_fail">
             <classpath refid="program_classpath" />
             <classpath refid="tests_classpath" />
             <classpath refid="junit_classpath" />
@@ -52,5 +52,6 @@
                 <fileset dir="${tests_build_path}" />
             </batchtest>
         </junit>
+        <fail if="${test_fail}" message="Not all tests passed" />
     </target>
 </project>
