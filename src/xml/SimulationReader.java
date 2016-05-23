@@ -11,21 +11,24 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 
 public class SimulationReader extends StreamReaderDelegate {
-    public static xml.objects.Simulation readSimulationFromFile(String xmlPath) throws FileNotFoundException, XMLException {
+    public static xml.objects.Simulation readSimulationFromFile(InputStream xml) throws FileNotFoundException, XMLException {
         try {
             JAXBContext jc = JAXBContext.newInstance(Simulation.class);
             XMLInputFactory xif = XMLInputFactory.newInstance();
-            XMLStreamReader xsr = xif.createXMLStreamReader(new FileInputStream(xmlPath));
+            XMLStreamReader xsr = xif.createXMLStreamReader(xml);
             xsr = new SimulationReader(xsr);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
-            return (Simulation) unmarshaller.unmarshal(xsr);
-        } catch(JAXBException | XMLStreamException e) {
+            Simulation s = (Simulation) unmarshaller.unmarshal(xsr);
+            xml.close();
+            return s;
+        } catch(JAXBException | XMLStreamException | IOException e) {
             throw new XMLException(e);
         }
     }
