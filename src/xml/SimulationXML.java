@@ -17,13 +17,13 @@ import java.io.InputStream;
 import java.io.PrintStream;
 
 
-public class SimulationReader extends StreamReaderDelegate {
+public class SimulationXML extends StreamReaderDelegate {
     public static xml.objects.Simulation readSimulationFromFile(InputStream xml) throws FileNotFoundException, XMLException {
         try {
             JAXBContext jc = JAXBContext.newInstance(Simulation.class);
             XMLInputFactory xif = XMLInputFactory.newInstance();
             XMLStreamReader xsr = xif.createXMLStreamReader(xml);
-            xsr = new SimulationReader(xsr);
+            xsr = new SimulationXML(xsr);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             Simulation s = (Simulation) unmarshaller.unmarshal(xsr);
             xml.close();
@@ -44,7 +44,7 @@ public class SimulationReader extends StreamReaderDelegate {
         }
     }
 
-    private SimulationReader(XMLStreamReader xsr) {
+    private SimulationXML(XMLStreamReader xsr) {
         super(xsr);
     }
     @Override

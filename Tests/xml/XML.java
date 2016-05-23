@@ -11,12 +11,12 @@ public class XML {
 
     @Test
     public void testReadingAndWritingSimulationXML() throws IOException, XMLException {
-        InputStream xml = new FileInputStream(new File("Tests/data/Test.xml"));
-        Simulation s = SimulationReader.readSimulationFromFile(xml);
+        InputStream xml = new FileInputStream(new File("test_data/Test.xml"));
+        Simulation s = SimulationXML.readSimulationFromFile(xml);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PrintStream sw = new PrintStream(byteArrayOutputStream);
-        SimulationReader.writeSimulation(s, sw);
-        xml = new FileInputStream(new File("Tests/data/Test.xml"));
+        SimulationXML.writeSimulation(s, sw);
+        xml = new FileInputStream(new File("test_data/Test.xml"));
         byte xmlData[] = byteArrayOutputStream.toByteArray();
         int i = 0;
         while(true) {

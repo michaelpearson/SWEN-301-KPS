@@ -1,0 +1,2 @@
+language: jave
+script: ant run_tests
