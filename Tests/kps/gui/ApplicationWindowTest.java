@@ -1,4 +1,4 @@
-package gui;
+package kps.gui;
 
 import org.junit.Assert;
 import org.junit.Test;

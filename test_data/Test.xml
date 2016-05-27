@@ -2,8 +2,8 @@
 <simulation>
     <cost>
         <company>Air NZ</company>
-        <to>Rome</to>
-        <from>Wellington</from>
+        <to>4</to>
+        <from>1</from>
         <type>Air</type>
         <weightcost>6</weightcost>
         <volumecost>6</volumecost>
@@ -15,8 +15,8 @@
     </cost>
     <cost>
         <company>Kelburn Airways</company>
-        <to>Sydney</to>
-        <from>Wellington</from>
+        <to>2</to>
+        <from>1</from>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>0</volumecost>
@@ -28,8 +28,8 @@
     </cost>
     <cost>
         <company>Qantas</company>
-        <to>Sydney</to>
-        <from>Wellington</from>
+        <to>2</to>
+        <from>1</from>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>1</volumecost>
@@ -41,8 +41,8 @@
     </cost>
     <cost>
         <company>Kelburn Freight</company>
-        <to>Wellington</to>
-        <from>Auckland</from>
+        <to>1</to>
+        <from>3</from>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -54,8 +54,8 @@
     </cost>
     <cost>
         <company>Kelburn Freight</company>
-        <to>Wellington</to>
-        <from>Hamilton</from>
+        <to>1</to>
+        <from>7</from>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -67,8 +67,8 @@
     </cost>
     <cost>
         <company>Rodney's Longhaul</company>
-        <to>Hamilton</to>
-        <from>Auckland</from>
+        <to>7</to>
+        <from>3</from>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -80,8 +80,8 @@
     </cost>
     <cost>
         <company>Roman Air Freight Ltd</company>
-        <to>Rome</to>
-        <from>Sydney</from>
+        <to>4</to>
+        <from>2</from>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>3</volumecost>
@@ -93,8 +93,8 @@
     </cost>
     <cost>
         <company>Pacifica Merchants</company>
-        <to>Suva</to>
-        <from>Sydney</from>
+        <to>6</to>
+        <from>2</from>
         <type>Sea</type>
         <weightcost>3</weightcost>
         <volumecost>3</volumecost>
@@ -106,8 +106,8 @@
     </cost>
     <cost>
         <company>Davy Jones Ltd</company>
-        <to>Rome</to>
-        <from>Auckland</from>
+        <to>4</to>
+        <from>3</from>
         <type>Sea</type>
         <weightcost>5</weightcost>
         <volumecost>4</volumecost>
@@ -119,8 +119,8 @@
     </cost>
     <cost>
         <company>Qantas</company>
-        <to>Sydney</to>
-        <from>Wellington</from>
+        <to>2</to>
+        <from>1</from>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>1</volumecost>
@@ -132,127 +132,134 @@
     </cost>
     <mail>
         <day>Monday</day>
-        <to>Rome</to>
-        <from>Wellington</from>
+        <to>4</to>
+        <from>1</from>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
     <mail>
         <day>Monday</day>
-        <to>Sydney</to>
-        <from>Wellington</from>
+        <to>2</to>
+        <from>1</from>
         <weight>1000</weight>
         <volume>120</volume>
         <priority>International Air</priority>
     </mail>
     <mail>
         <day>Tuesday</day>
-        <to>Rome</to>
-        <from>Wellington</from>
+        <to>4</to>
+        <from>1</from>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
     <mail>
         <day>Thursday</day>
-        <to>Suva</to>
-        <from>Wellington</from>
+        <to>6</to>
+        <from>1</from>
         <weight>2000</weight>
         <volume>120</volume>
         <priority>International Standard</priority>
     </mail>
     <mail>
         <day>Thursday</day>
-        <to>Wellington</to>
-        <from>Auckland</from>
+        <to>1</to>
+        <from>3</from>
         <weight>100</weight>
         <volume>3</volume>
         <priority>Domestic Standard</priority>
     </mail>
     <mail>
         <day>Friday</day>
-        <to>Rome</to>
-        <from>Hamilton</from>
+        <to>4</to>
+        <from>7</from>
         <weight>400</weight>
         <volume>50</volume>
         <priority>International Air</priority>
     </mail>
     <mail>
         <day>Wednesday</day>
-        <to>Rome</to>
-        <from>Hamilton</from>
+        <to>4</to>
+        <from>7</from>
         <weight>400</weight>
         <volume>25</volume>
         <priority>International Standard</priority>
     </mail>
     <mail>
         <day>Wednesday</day>
-        <to>Sydney</to>
-        <from>Auckland</from>
+        <to>2</to>
+        <from>3</from>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Standard</priority>
     </mail>
     <mail>
         <day>Friday</day>
-        <to>Rome</to>
-        <from>Wellington</from>
+        <to>4</to>
+        <from>1</from>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
     <price>
-        <to>Rome</to>
-        <from>New Zealand</from>
+        <to>4</to>
+        <from>3</from>
         <priority>International Air</priority>
         <weightcost>6</weightcost>
         <volumecost>8</volumecost>
     </price>
     <price>
-        <to>Sydney</to>
-        <from>New Zealand</from>
+        <to>2</to>
+        <from>3</from>
         <priority>International Air</priority>
         <weightcost>3</weightcost>
         <volumecost>2</volumecost>
     </price>
     <price>
-        <to>Suva</to>
-        <from>New Zealand</from>
+        <to>6</to>
+        <from>3</from>
         <priority>International Air</priority>
         <weightcost>4</weightcost>
         <volumecost>4</volumecost>
     </price>
     <price>
-        <to>Suva</to>
-        <from>New Zealand</from>
+        <to>6</to>
+        <from>3</from>
         <priority>International Standard</priority>
         <weightcost>3</weightcost>
         <volumecost>2</volumecost>
     </price>
     <price>
-        <to>New Zealand</to>
-        <from>New Zealand</from>
+        <to>3</to>
+        <from>3</from>
         <priority>Domestic Standard</priority>
         <weightcost>1</weightcost>
         <volumecost>1</volumecost>
     </price>
     <price>
-        <to>New Zealand</to>
-        <from>New Zealand</from>
+        <to>3</to>
+        <from>3</from>
         <weightcost>1</weightcost>
         <volumecost>2</volumecost>
     </price>
     <price>
-        <to>Sydney</to>
-        <from>New Zealand</from>
+        <to>2</to>
+        <from>3</from>
         <priority>International Air</priority>
         <weightcost>3</weightcost>
         <volumecost>3</volumecost>
     </price>
     <discontinue>
         <company>Kelburn Airways</company>
-        <to>Sydney</to>
-        <from>Wellington</from>
+        <to>2</to>
+        <from>1</from>
     </discontinue>
+    <location id="1">Wellington</location>
+    <location id="2">Sydney</location>
+    <location id="3">Auckland</location>
+    <location id="4">New Zealand</location>
+    <location id="5">Rome</location>
+    <location id="6">Suva</location>
+    <location id="7">Hamilton</location>
 </simulation>

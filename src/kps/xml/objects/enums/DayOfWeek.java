@@ -1,4 +1,4 @@
-package xml.objects.enums;
+package kps.xml.objects.enums;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;

@@ -1,7 +1,8 @@
-package xml;
+package kps.xml;
 
-import xml.exceptions.XMLException;
-import xml.objects.Simulation;
+import kps.xml.exceptions.XMLException;
+import kps.xml.objects.ModelObject;
+import kps.xml.objects.Simulation;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,16 +19,27 @@ import java.io.PrintStream;
 
 
 public class SimulationXML extends StreamReaderDelegate {
-    public static xml.objects.Simulation readSimulationFromFile(InputStream xml) throws FileNotFoundException, XMLException {
+    private static Simulation simulation;
+
+    public static kps.xml.objects.Simulation readSimulationFromFile(InputStream xml) throws FileNotFoundException, XMLException {
         try {
             JAXBContext jc = JAXBContext.newInstance(Simulation.class);
             XMLInputFactory xif = XMLInputFactory.newInstance();
             XMLStreamReader xsr = xif.createXMLStreamReader(xml);
             xsr = new SimulationXML(xsr);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
-            Simulation s = (Simulation) unmarshaller.unmarshal(xsr);
+            unmarshaller.setListener(new Unmarshaller.Listener() {
+                @Override
+                public void afterUnmarshal(Object target, Object parent) {
+                    if(!(target instanceof Simulation)) {
+                        ModelObject mo = (ModelObject)target;
+                        mo.setSimulation(simulation);
+                    }
+                }
+            });
+            simulation = (Simulation) unmarshaller.unmarshal(xsr);
             xml.close();
-            return s;
+            return simulation;
         } catch(JAXBException | XMLStreamException | IOException e) {
             throw new XMLException(e);
         }
