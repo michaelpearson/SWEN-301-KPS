@@ -1,0 +1,73 @@
+package kps.gui;
+
+import kps.xml.objects.Simulation;
+import kps.xml.objects.enums.DayOfWeek;
+import kps.xml.objects.enums.TransportType;
+
+import javax.swing.*;
+import java.awt.*;
+
+public abstract class FormDialog extends JDialog {
+
+    protected Simulation simulation;
+
+    public FormDialog(Frame owner, String title, boolean modal, Simulation simulation) {
+        super(owner, title, modal);
+        this.simulation = simulation;
+    }
+
+    protected void buildDialog() {
+        JComponent[][] components = getAllFields();
+
+        setLayout(new BorderLayout());
+        JPanel formPanel = new JPanel();
+        formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridLayout layout = new GridLayout(0, 2);
+        layout.setHgap(5);
+        layout.setVgap(5);
+        formPanel.setLayout(layout);
+        for(JComponent[] c : components) {
+            for(int a = 0;a < 2;a++) {
+                formPanel.add(c[a]);
+            }
+        }
+
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(e -> save());
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(e -> cancel());
+
+        formPanel.add(cancelButton);
+        formPanel.add(saveButton);
+
+        add(formPanel, BorderLayout.CENTER);
+        pack();
+    }
+
+    protected static JComponent[] getField(String fieldName, Object fieldValue) {
+        JLabel label = new JLabel(fieldName);
+        JComponent field;
+        if(fieldValue.getClass().equals(Integer.class)) {
+            field = new JSpinner(new SpinnerNumberModel((Integer)fieldValue, null, null, 1));
+        } else if(fieldValue.getClass().equals(String.class)) {
+            field = new JTextField(String.valueOf(fieldValue));
+        } else if(fieldValue.getClass().equals(TransportType.class)) {
+            field = new JComboBox<>(TransportType.values());
+            ((JComboBox)field).setSelectedItem(fieldValue);
+        } else if(fieldValue.getClass().equals(DayOfWeek.class)) {
+            field = new JComboBox<>(DayOfWeek.values());
+            ((JComboBox)field).setSelectedItem(fieldValue);
+        } else {
+            throw new RuntimeException("Unsupported field type");
+        }
+        return new JComponent[] {label, field};
+    }
+
+    protected abstract JComponent[][] getAllFields();
+
+
+    protected abstract void save();
+    protected abstract void cancel();
+
+}
