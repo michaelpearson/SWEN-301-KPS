@@ -1,13 +1,12 @@
 package kps.xml.objects;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Arrays;
 import java.util.List;
 
 @XmlRootElement(name="simulation")
@@ -40,7 +39,8 @@ public class Simulation {
         return locations;
     }
 
-    @Nullable public Location getLocationById(int id) {
+    @Nullable
+    public Location getLocationById(int id) {
         for(Location l : locations) {
             if(l.getId() == id) {
                 return l;

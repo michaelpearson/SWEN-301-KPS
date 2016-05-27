@@ -14,7 +14,9 @@
     </path>
 
     <path id="program_classpath">
-        <pathelement location="${build_path}" />
+        <fileset dir="lib">
+            <include name="annotations-java8.jar" />
+        </fileset>
     </path>
 
     <path id="tests_classpath">
@@ -28,7 +30,9 @@
     </target>
 
     <target name="compile" depends="init">
-        <javac srcdir="${source_path}/" destdir="${build_path}/" includeantruntime="false" />
+        <javac srcdir="${source_path}/" destdir="${build_path}/" includeantruntime="false">
+            <classpath refid="program_classpath" />
+        </javac>
         <javac srcdir="${test_source_path}/" destdir="${tests_build_path}/" includeantruntime="false">
             <classpath refid="program_classpath" />
             <classpath refid="junit_classpath" />
@@ -45,7 +49,7 @@
 
     <target name="run_tests" depends="compile">
         <junit fork="yes" showoutput="yes" dir="${tests_build_path}" failureproperty="test_fail">
-            <classpath refid="program_classpath" />
+            <classpath path="${build_path}" />
             <classpath refid="tests_classpath" />
             <classpath refid="junit_classpath" />
             <batchtest>

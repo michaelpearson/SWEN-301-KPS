@@ -7,8 +7,6 @@ import kps.xml.objects.Simulation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 
 public class Main {
     public static void main(String[] args) throws XMLException, FileNotFoundException {
