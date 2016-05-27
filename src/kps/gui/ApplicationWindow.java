@@ -32,25 +32,15 @@ public class ApplicationWindow extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(APPLICATION_NAME);
         setLayout(new GridLayout(0, 1));
+
         JButton addRouteButton = new JButton("Add route");
-        addRouteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddRoute(ApplicationWindow.this, simulation);
-            }
-        });
+        addRouteButton.addActionListener(e->{new AddRoute(ApplicationWindow.this, simulation);});
         add(addRouteButton);
 
         JButton addMailDeliveryButton = new JButton("Add mail delivery");
-        addMailDeliveryButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddMail(ApplicationWindow.this, simulation);
-            }
-        });
+        addMailDeliveryButton.addActionListener(e->{new AddMail(ApplicationWindow.this, simulation);});
         add(addMailDeliveryButton);
-
-
+        
         setVisible(true);
     }
 }
