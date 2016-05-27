@@ -2,6 +2,7 @@ package kps.gui;
 
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
+import kps.xml.objects.enums.Priority;
 import kps.xml.objects.enums.TransportType;
 
 import javax.swing.*;
@@ -70,7 +71,11 @@ public abstract class FormDialog extends JDialog {
             field = new JComboBox<>(DayOfWeek.values());
             ((JComboBox)field).setSelectedItem(fieldValue);
             fieldGetter = ((JComboBox) field)::getSelectedItem;
-        } else {
+        } else if(fieldValue.getClass().equals(Priority.class)) {
+            field = new JComboBox<>(Priority.values());
+            ((JComboBox)field).setSelectedItem(fieldValue);
+            fieldGetter = ((JComboBox) field)::getSelectedItem;
+        }else {
             throw new RuntimeException("Unsupported field type");
         }
         componentMap.put(tag, fieldGetter);
