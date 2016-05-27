@@ -1,10 +1,10 @@
 package kps.gui.util;
 
-import com.sun.istack.internal.NotNull;
 import org.jdatepicker.JDatePanel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.text.ParseException;
@@ -30,7 +30,8 @@ public class DatePicker extends JFormattedTextField.AbstractFormatter {
         return "";
     }
 
-    @NotNull public static JDatePanel getDatePicker() {
+    @NotNull
+    public static JDatePanel getDatePicker() {
         UtilDateModel model = new UtilDateModel();
         model.setDate(20, 4,2014);
         Properties p = new Properties();

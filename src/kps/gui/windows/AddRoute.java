@@ -1,12 +1,12 @@
 package kps.gui.windows;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import kps.gui.FormDialog;
 import kps.xml.objects.Cost;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class AddRoute extends FormDialog {
-    @NotNull private Cost route;
+    @NotNull
+    private Cost route;
     private boolean isInDocument;
 
     private enum FieldNames {
