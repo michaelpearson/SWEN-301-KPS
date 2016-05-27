@@ -1,11 +1,11 @@
 package kps.xml.objects;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.*;
 
+@XmlAccessorType(XmlAccessType.NONE)
 public class Location extends ModelObject {
     @XmlAttribute(name="id") private int id;
-    private String name;
+    @XmlValue private String name;
 
 
 
@@ -41,4 +41,11 @@ public class Location extends ModelObject {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

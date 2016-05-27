@@ -1,2 +1,3 @@
-language: jave
+language: java
+jdk: oraclejdk8
 script: ant run_tests
