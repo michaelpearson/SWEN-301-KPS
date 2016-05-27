@@ -6,10 +6,17 @@ import kps.xml.objects.enums.TransportType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class FormDialog extends JDialog {
 
     protected Simulation simulation;
+    private Map<Object, Gettable> componentMap = new HashMap<>();
+
+    private interface Gettable {
+        Object getValue();
+    }
 
     public FormDialog(Frame owner, String title, boolean modal, Simulation simulation) {
         super(owner, title, modal);
@@ -45,28 +52,48 @@ public abstract class FormDialog extends JDialog {
         pack();
     }
 
-    protected static JComponent[] getField(String fieldName, Object fieldValue) {
+    protected JComponent[] getField(Object tag, String fieldName, Object fieldValue) {
         JLabel label = new JLabel(fieldName);
-        JComponent field;
+        final JComponent field;
+        Gettable fieldGetter;
         if(fieldValue.getClass().equals(Integer.class)) {
             field = new JSpinner(new SpinnerNumberModel((Integer)fieldValue, null, null, 1));
+            fieldGetter = ((JSpinner) field)::getValue;
         } else if(fieldValue.getClass().equals(String.class)) {
             field = new JTextField(String.valueOf(fieldValue));
+            fieldGetter = ((JTextField)field)::getText;
         } else if(fieldValue.getClass().equals(TransportType.class)) {
             field = new JComboBox<>(TransportType.values());
             ((JComboBox)field).setSelectedItem(fieldValue);
+            fieldGetter = ((JComboBox) field)::getSelectedItem;
         } else if(fieldValue.getClass().equals(DayOfWeek.class)) {
             field = new JComboBox<>(DayOfWeek.values());
             ((JComboBox)field).setSelectedItem(fieldValue);
+            fieldGetter = ((JComboBox) field)::getSelectedItem;
         } else {
             throw new RuntimeException("Unsupported field type");
         }
+        componentMap.put(tag, fieldGetter);
         return new JComponent[] {label, field};
     }
 
+    protected Object getComponentValue(Object tag) {
+        Gettable component = componentMap.get(tag);
+        if(component == null) {
+            throw new RuntimeException("Could not find component");
+        }
+        return component.getValue();
+    }
+
+    protected Map<Object, Object> getAllValues() {
+        Map<Object, Object> values = new HashMap<>();
+        for(Map.Entry<Object, Gettable> c : componentMap.entrySet()) {
+            values.put(c.getKey(), c.getValue().getValue());
+        }
+        return values;
+    }
+
     protected abstract JComponent[][] getAllFields();
-
-
     protected abstract void save();
     protected abstract void cancel();
 

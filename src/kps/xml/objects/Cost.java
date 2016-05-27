@@ -24,6 +24,60 @@ public class Cost extends ModelObject {
     public Cost() {
     }
 
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setTo(String to) {
+        Location location = getSimulation().getLocationByName(to);
+        if(location == null) {
+            location = new Location(simulation);
+            simulation.getLocations().add(location);
+        }
+        this.to = location.getId();
+    }
+
+    public void setFrom(String from) {
+        Location location = getSimulation().getLocationByName(from);
+        if(location == null) {
+            location = new Location(simulation);
+            simulation.getLocations().add(location);
+        }
+        this.from = location.getId();
+    }
+
+    public void setTransportType(TransportType transportType) {
+        this.transportType = transportType;
+    }
+
+    public void setWeightCost(int weightCost) {
+        this.weightCost = weightCost;
+    }
+
+    public void setVolumeCost(int volumeCost) {
+        this.volumeCost = volumeCost;
+    }
+
+    public void setMaxWeight(int maxWeight) {
+        this.maxWeight = maxWeight;
+    }
+
+    public void setMaxVolume(int maxVolume) {
+        this.maxVolume = maxVolume;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+
+    public void setDay(DayOfWeek day) {
+        this.day = day;
+    }
+
     public Cost(Simulation s) {
         super(s);
 

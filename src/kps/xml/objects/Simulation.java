@@ -1,5 +1,6 @@
 package kps.xml.objects;
 
+import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +14,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Simulation {
 
-    @XmlElement(name="cost") List<Cost> costs;
-    @XmlElement(name="mail") List<Mail> mail;
-    @XmlElement(name="price") List<Price> price;
-    @XmlElement(name="discontinue") List<Discontinue> discontinuedRoutes;
-    @XmlElement(name="location") List<Location> locations;
+    @XmlElement(name="cost") private List<Cost> costs;
+    @XmlElement(name="mail") private List<Mail> mail;
+    @XmlElement(name="price") private List<Price> price;
+    @XmlElement(name="discontinue") private List<Discontinue> discontinuedRoutes;
+    @XmlElement(name="location") private List<Location> locations;
 
     public List<Cost> getCosts() {
         return costs;
@@ -42,6 +43,15 @@ public class Simulation {
     @Nullable public Location getLocationById(int id) {
         for(Location l : locations) {
             if(l.getId() == id) {
+                return l;
+            }
+        }
+        return null;
+    }
+
+    @Nullable public Location getLocationByName(@NotNull String name) {
+        for(Location l : locations) {
+            if(name.equals(l.getName())) {
                 return l;
             }
         }
