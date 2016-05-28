@@ -1,5 +1,6 @@
 package kps.xml.objects;
 
+import kps.gui.windows.RouteDialog;
 import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
@@ -35,7 +36,7 @@ public class Cost extends BusinessEvent {
     }
 
     @Override public void edit(Frame owner) {
-        throw new RuntimeException("Cannot edit cost object yet");
+        new RouteDialog(owner, getSimulation(), this);
     }
 
     public void setCompany(String company) {
@@ -100,7 +101,7 @@ public class Cost extends BusinessEvent {
         return getSimulation().getLocationById(to);
     }
 
-    @NotNull public Location getFrom() {
+    @Nullable public Location getFrom() {
         return getSimulation().getLocationById(from);
     }
 
