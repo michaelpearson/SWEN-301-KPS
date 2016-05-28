@@ -48,7 +48,7 @@ public class CostUpdateDialog extends FormDialog {
     }
 
     public CostUpdateDialog(Frame owner, Simulation simulation, @Nullable Cost previousRoute) {
-        super(owner, "Update Transport Costs", true, simulation);
+        super(owner, "Mail Delivery", true, simulation);
         this.isInDocument = previousRoute != null;
         this.owner = owner;
         buildTable();
@@ -111,6 +111,7 @@ public class CostUpdateDialog extends FormDialog {
     protected void save() {
         Set<Map.Entry<Object, Object>> entries = getAllValues().entrySet();
         for(Map.Entry<Object, Object> entry : entries) {
+            System.out.println(entry.getValue());
             switch((FieldNames)entry.getKey()) {
                 case CompanyName:
                     route.setCompany((String)entry.getValue());
