@@ -1,6 +1,8 @@
 package kps.gui.models;
 
 import kps.xml.adapters.DateAdapter;
+import kps.xml.objects.Cost;
+import kps.xml.objects.Mail;
 import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.Simulation;
@@ -16,6 +18,8 @@ public class HomepageTableModel extends AbstractTableModel {
     private static final String EVENT_TYPE = "Event type";
     private static final String FROM = "From";
     private static final String TO = "To";
+    private static final String TRANSPORT_FIRM = "Company";
+    private static final String PRIORITY = "Priority";
     private final Simulation simulation;
     private List<BusinessEvent> businessEvents;
     private LinkedHashMap<String, FieldGetter> tableColumns = new LinkedHashMap<>();
@@ -34,6 +38,14 @@ public class HomepageTableModel extends AbstractTableModel {
         tableColumns.put(DATE, row -> dateFormat.format(businessEvents.get(row).getDate()));
         tableColumns.put(FROM, row -> businessEvents.get(row).getFrom().getName());
         tableColumns.put(TO, row -> businessEvents.get(row).getTo().getName());
+        tableColumns.put(TRANSPORT_FIRM, row -> {
+            BusinessEvent event = businessEvents.get(row);
+            return Cost.class.isAssignableFrom(event.getClass()) ? ((Cost)event).getCompany() : "N/A";
+        });
+        tableColumns.put(PRIORITY, row -> {
+            BusinessEvent event = businessEvents.get(row);
+            return Mail.class.isAssignableFrom(event.getClass()) ? ((Mail)event).getPriority().toString() : "N/A";
+        });
     }
 
     @Override
