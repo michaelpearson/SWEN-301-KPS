@@ -11,7 +11,7 @@ public class BusinessFigures extends JFrame {
 
 
     private JLabel totalRevenue;
-    private JLabel totalExpensiture;
+    private JLabel totalExpenditure;
     private JLabel totalNumberOfEvents;
     private JLabel totalAmountOfMail;
     private JLabel averageDeliveryTime;
@@ -71,7 +71,7 @@ public class BusinessFigures extends JFrame {
         figuresPanel.add(new JLabel("Total revenue:"));
         figuresPanel.add(totalRevenue = new JLabel());
         figuresPanel.add(new JLabel("Total expenditure:"));
-        figuresPanel.add(totalExpensiture = new JLabel());
+        figuresPanel.add(totalExpenditure = new JLabel());
         figuresPanel.add(new JLabel("Total number of events:"));
         figuresPanel.add(totalNumberOfEvents = new JLabel());
         figuresPanel.add(new JLabel("Total amount of mail:"));
@@ -86,7 +86,7 @@ public class BusinessFigures extends JFrame {
     private void dataReady(BusinessFiguresCalculator data) {
         totalAmountOfMail.setText(String.format("%d", data.getAmountOfMail()));
         totalRevenue.setText(String.format("%2.2f", data.getTotalRevenue()));
-        totalExpensiture.setText(String.format("%2.2f", data.getTotalExpenditure()));
+        totalExpenditure.setText(String.format("%2.2f", data.getTotalExpenditure()));
         totalNumberOfEvents.setText(String.format("%d", data.getTotalNumberOfEvents()));
         averageDeliveryTime.setText(String.format("%2.2f", data.getAverageDeliveryTime()));
         //criticalRoutes.setText(String.format("%d", data.getCriticalRoutes()));
