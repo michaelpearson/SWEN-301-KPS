@@ -1,7 +1,6 @@
 package kps.xml.objects;
 
 import kps.xml.objects.abstracts.BusinessEvent;
-import kps.xml.objects.abstracts.ModelObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,6 +12,8 @@ import java.util.*;
 @XmlRootElement(name="simulation") @XmlAccessorType(XmlAccessType.FIELD) public class Simulation {
 
     private static Set<SimulationUpdateListener> updateListeners = new HashSet<>();
+    private HashMap<Integer, Location> locationIdCache = new HashMap<>();
+    private HashMap<String, Location> locationNameCache = new HashMap<>();
 
     @XmlElement(name="cost") private List<Cost> costs;
     @XmlElement(name="mail") private List<Mail> mail;
@@ -45,8 +46,12 @@ import java.util.*;
     }
 
     @Nullable public Location getLocationById(int id) {
+        if(locationIdCache.get(id) != null) {
+            return locationIdCache.get(id);
+        }
         for(Location l : locations) {
             if(l.getId() == id) {
+                locationIdCache.put(id, l);
                 return l;
             }
         }
@@ -54,8 +59,12 @@ import java.util.*;
     }
 
     @Nullable public Location getLocationByName(@NotNull String name) {
+        if(locationNameCache.get(name) != null) {
+            return locationNameCache.get(name);
+        }
         for(Location l : locations) {
             if(name.equals(l.getName())) {
+                locationNameCache.put(name, l);
                 return l;
             }
         }

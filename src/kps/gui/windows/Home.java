@@ -7,8 +7,9 @@ import kps.xml.objects.Simulation;
 import org.jdesktop.swingx.JXTable;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
@@ -46,6 +47,16 @@ public class Home extends JFrame {
         table.setFillsViewportHeight(true);
         table.packColumn(0, 6);
         table.setBorder(BorderFactory.createEmptyBorder());
+        table.addMouseListener(new MouseAdapter() {
+            @Override public void mousePressed(MouseEvent e) {
+                JTable table =(JTable) e.getSource();
+                Point p = e.getPoint();
+                int row = table.rowAtPoint(p);
+                if (e.getClickCount() == 2) {
+                    ((HomepageTableModel)table.getModel()).edit(row, Home.this);
+                }
+            }
+        });
         tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
 
         add(tablePanel, BorderLayout.CENTER);
@@ -58,11 +69,11 @@ public class Home extends JFrame {
 
 
         JButton addRouteButton = new JButton("Add route");
-        addRouteButton.addActionListener(e -> new AddRoute(Home.this, simulation));
+        addRouteButton.addActionListener(e -> new RouteDialog(Home.this, simulation));
         buttonPanel.add(addRouteButton);
 
         JButton addMailDeliveryButton = new JButton("Add mail delivery");
-        addMailDeliveryButton.addActionListener(e -> new AddMail(Home.this, simulation));
+        addMailDeliveryButton.addActionListener(e -> new MailDialog(Home.this, simulation));
         buttonPanel.add(addMailDeliveryButton);
 
         JButton exitButton = new JButton("Save and exit");

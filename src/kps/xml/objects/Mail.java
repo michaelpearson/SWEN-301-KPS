@@ -1,13 +1,17 @@
 package kps.xml.objects;
 
+import com.sun.istack.internal.Nullable;
+import kps.gui.windows.MailDialog;
 import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
+import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import java.awt.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Mail extends BusinessEvent {
@@ -26,6 +30,10 @@ public class Mail extends BusinessEvent {
 
     @Override public String getEventType() {
         return "Mail delivery";
+    }
+
+    @Override public void edit(Frame owner) {
+        new MailDialog(owner, getSimulation(), this);
     }
 
     public void setTo(String to) {
@@ -62,11 +70,11 @@ public class Mail extends BusinessEvent {
         this.day = day;
     }
 
-    public Location getTo() {
+    @Nullable public Location getTo() {
         return getSimulation().getLocationById(to);
     }
 
-    public Location getFrom() {
+    @Nullable public Location getFrom() {
         return getSimulation().getLocationById(from);
     }
 

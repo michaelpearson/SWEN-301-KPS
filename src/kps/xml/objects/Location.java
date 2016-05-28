@@ -38,11 +38,4 @@ public class Location extends ModelObject {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
