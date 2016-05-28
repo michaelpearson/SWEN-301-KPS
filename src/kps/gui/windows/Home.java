@@ -24,7 +24,7 @@ public class Home extends JFrame {
         this.simulation = simulation;
         this.user = user;
 
-        setSize(700, 500);
+        setSize(900, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(APPLICATION_NAME);
         setLayout(new GridLayout(0, 2));
