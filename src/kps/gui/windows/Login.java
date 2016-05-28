@@ -18,6 +18,7 @@ public class Login extends FormDialog {
         pack();
         setSize(400, getHeight());
         JTextField passwordField = (JTextField)getField("password");
+        passwordField.requestFocus();
         passwordField.addKeyListener(new KeyListenerSlim() {
             @Override public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == 10) {
@@ -47,9 +48,9 @@ public class Login extends FormDialog {
         Map<Object, Object> values = getAllValues();
         UserName username = (UserName)values.get("username");
         String password = values.get("password").toString();
-        if(username == UserName.Clerk && password.equals("clerk")) {
+        if(username == UserName.Clerk && password.equals("")) {
             doLogin(username);
-        } else if(username == UserName.Manager && password.equals("manager")) {
+        } else if(username == UserName.Manager && password.equals("")) {
             doLogin(username);
         } else {
             JOptionPane.showMessageDialog(this, "Sorry the password you entered was incorrect.", "Invalid password", JOptionPane.WARNING_MESSAGE);
