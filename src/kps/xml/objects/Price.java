@@ -1,12 +1,8 @@
 package kps.xml.objects;
 
-import com.sun.istack.internal.Nullable;
 import kps.xml.objects.abstracts.BusinessEvent;
-import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.enums.Priority;
-import org.jetbrains.annotations.NotNull;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
+import org.jetbrains.annotations.Nullable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -31,10 +27,11 @@ import java.awt.*;
     }
 
     @Override public void edit(Frame owner) {
-        throw new NotImplementedException();
+        throw new RuntimeException("Cannot edit price object yet");
     }
 
-    @Nullable public Location getTo() {
+    @Nullable
+    public Location getTo() {
         return getSimulation().getLocationById(to);
     }
 

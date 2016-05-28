@@ -1,12 +1,10 @@
 package kps.xml.objects;
 
-import com.sun.istack.internal.Nullable;
 import kps.gui.windows.MailDialog;
 import kps.xml.objects.abstracts.BusinessEvent;
-import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

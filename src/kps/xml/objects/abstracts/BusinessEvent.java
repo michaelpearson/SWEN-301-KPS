@@ -1,10 +1,9 @@
 package kps.xml.objects.abstracts;
 
-import com.sun.istack.internal.Nullable;
 import kps.xml.adapters.DateAdapter;
 import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
