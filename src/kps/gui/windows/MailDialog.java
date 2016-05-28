@@ -47,8 +47,8 @@ public class MailDialog extends FormDialog {
                 getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
                 getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
                 getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
-                getField(FieldNames.Weight, "Weight", route.getWeight(), Integer.class),
-                getField(FieldNames.Volume, "Volume", route.getVolume(), Integer.class),
+                getField(FieldNames.Weight, "Weight (grams)", route.getWeight(), Integer.class),
+                getField(FieldNames.Volume, "Volume (cm^3)", route.getVolume(), Integer.class),
                 getField(FieldNames.Priority, "Priority", route.getPriority(), Priority.class)
         };
     }

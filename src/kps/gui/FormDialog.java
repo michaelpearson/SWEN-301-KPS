@@ -74,6 +74,11 @@ public abstract class FormDialog extends JDialog {
         formPanel.add(cancelButton);
         formPanel.add(saveButton);
     }
+    protected JComponent[] getField(Object tag, String fieldName, Object fieldValue, Class c, String tooltip) {
+        JComponent[] components = getField(tag, fieldName, fieldValue, c);
+        components[1].setToolTipText(tooltip);
+        return components;
+    }
 
     @SuppressWarnings("unchecked")
     protected JComponent[] getField(Object tag, String fieldName, Object fieldValue, Class c) {

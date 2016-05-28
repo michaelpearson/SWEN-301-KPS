@@ -55,13 +55,13 @@ public class RouteDialog extends FormDialog {
                 getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
                 getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
                 getField(FieldNames.TransportType, "Transportation type", route.getTransportType(), TransportType.class),
-                getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost(), Integer.class),
-                getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost(), Integer.class),
-                getField(FieldNames.MaxWeight, "Max weight", route.getMaxWeight(), Integer.class),
-                getField(FieldNames.MaxVolume, "Max volume", route.getMaxVolume(), Integer.class),
-                getField(FieldNames.Duration, "Duration", route.getDuration(), Integer.class),
+                getField(FieldNames.WeightCost, "Weight cost (cents/grams)", route.getWeightCost(), Integer.class),
+                getField(FieldNames.VolumeCost, "Volume cost (cents/cm^3)", route.getVolumeCost(), Integer.class),
+                getField(FieldNames.MaxWeight, "Max weight (grams)", route.getMaxWeight(), Integer.class),
+                getField(FieldNames.MaxVolume, "Max volume (cm^3)", route.getMaxVolume(), Integer.class),
+                getField(FieldNames.Duration, "Duration (days)", route.getDuration(), Integer.class),
                 getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
-                getField(FieldNames.Frequency, "Frequency of delivery", route.getFrequency(), Integer.class)
+                getField(FieldNames.Frequency, "Frequency of delivery (days)", route.getFrequency(), Integer.class)
         };
     }
 
