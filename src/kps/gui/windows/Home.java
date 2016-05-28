@@ -1,6 +1,7 @@
 package kps.gui.windows;
 
 import kps.gui.models.CostUpdateTableModel;
+import kps.gui.models.HomepageTableModel;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
 import kps.xml.objects.Simulation;
