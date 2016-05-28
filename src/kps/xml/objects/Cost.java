@@ -1,5 +1,7 @@
 package kps.xml.objects;
 
+import kps.xml.objects.abstracts.BusinessEvent;
+import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
 
@@ -8,7 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Cost extends ModelObject {
+public class Cost extends BusinessEvent {
     @XmlElement private String company;
     @XmlElement private int to;
     @XmlElement private int from;
@@ -21,7 +23,15 @@ public class Cost extends ModelObject {
     @XmlElement private int frequency;
     @XmlElement(name="day") private DayOfWeek day;
 
-    public Cost() {
+    public Cost(Simulation s) {
+        super(s);
+    }
+
+    public Cost() {}
+
+    @Override
+    public String getEventType() {
+        return "Transport cost update";
     }
 
     public void setCompany(String company) {
@@ -76,11 +86,6 @@ public class Cost extends ModelObject {
 
     public void setDay(DayOfWeek day) {
         this.day = day;
-    }
-
-    public Cost(Simulation s) {
-        super(s);
-
     }
 
     public String getCompany() {

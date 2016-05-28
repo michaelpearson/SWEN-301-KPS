@@ -1,13 +1,17 @@
-package kps.xml.objects;
+package kps.xml.objects.abstracts;
+
+import kps.xml.objects.Simulation;
 
 import javax.xml.bind.annotation.XmlTransient;
 
 @XmlTransient
 public abstract class ModelObject {
     protected Simulation simulation;
+
     public void setSimulation(Simulation simulation) {
         this.simulation = simulation;
     }
+
     protected Simulation getSimulation() {
         return simulation;
     }
@@ -16,6 +20,5 @@ public abstract class ModelObject {
         setSimulation(s);
     }
 
-    public ModelObject() {
-    }
+    public ModelObject() {}
 }

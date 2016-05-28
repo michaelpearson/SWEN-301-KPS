@@ -1,13 +1,13 @@
 package kps.xml.objects;
 
+import kps.xml.objects.abstracts.ModelObject;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class Location extends ModelObject {
     @XmlAttribute(name="id") private int id;
     @XmlValue private String name;
-
-
 
     public Location(Simulation s) {
         super(s);
@@ -20,10 +20,7 @@ public class Location extends ModelObject {
         setId(maxLocationId);
     }
 
-    public Location() {
-    }
-
-
+    public Location() {}
 
     public int getId() {
         return id;

@@ -1,19 +1,23 @@
 package kps.gui.models;
 
+import kps.xml.adapters.DateAdapter;
+import kps.xml.objects.abstracts.BusinessEvent;
+import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.Simulation;
 
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class HomepageTableModel extends AbstractTableModel {
     private static final String DATE = "Date";
-
-
+    private static final String EVENT_TYPE = "Event type";
     private final Simulation simulation;
+    private List<BusinessEvent> businessEvents;
+    private LinkedHashMap<String, FieldGetter> tableColumns = new LinkedHashMap<>();
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DateAdapter.DATE_FORMAT);
 
-    private Map<String, FieldGetter> tableColumns = new HashMap<>();
+
 
     private interface FieldGetter {
         String getField(int row);
@@ -21,41 +25,28 @@ public class HomepageTableModel extends AbstractTableModel {
 
     public HomepageTableModel(Simulation simulation) {
         this.simulation = simulation;
-
-        //tableColumns.put(DATE, (r) -> simulation.get);
+        this.businessEvents = simulation.getAllBusinessEvents();
+        tableColumns.put(EVENT_TYPE, row -> businessEvents.get(row).getEventType());
+        tableColumns.put(DATE, row -> dateFormat.format(businessEvents.get(row).getDate()));
     }
 
     @Override
     public int getRowCount() {
-        return 1;
+        return businessEvents.size();
     }
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return tableColumns.size();
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return "Test " + columnIndex;
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return false;
+        return new LinkedList<>(tableColumns.entrySet()).get(columnIndex).getKey();
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return "HI";
+        return tableColumns.get(getColumnName(columnIndex)).getField(rowIndex);
     }
-
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
-
-    @Override
-    public void addTableModelListener(TableModelListener l) {}
-
-    @Override
-    public void removeTableModelListener(TableModelListener l) {}
 }

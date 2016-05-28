@@ -1,7 +1,7 @@
 package kps.xml;
 
 import kps.xml.exceptions.XMLException;
-import kps.xml.objects.ModelObject;
+import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.Simulation;
 
 import javax.xml.bind.JAXBContext;
