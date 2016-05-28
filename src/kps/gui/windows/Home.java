@@ -76,6 +76,10 @@ public class Home extends JFrame {
         addMailDeliveryButton.addActionListener(e -> new MailDialog(Home.this, simulation));
         buttonPanel.add(addMailDeliveryButton);
 
+        JButton viewBusinessFiguresButton = new JButton("View business figures");
+        viewBusinessFiguresButton.addActionListener(e -> new BusinessFigures(simulation));
+        buttonPanel.add(viewBusinessFiguresButton);
+
         JButton exitButton = new JButton("Save and exit");
         exitButton.addActionListener(e -> save(true));
         buttonPanel.add(exitButton);

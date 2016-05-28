@@ -131,7 +131,7 @@ public abstract class FormDialog extends JDialog {
                 comboBox.setSelectedItem(l);
             }
         });
-        Field field = new Field();
+        Field<Object> field = new Field<>();
         field.getter = () -> {
             if(comboBox.getSelectedItem() == model.getDummyLocation()) {
                 return null;

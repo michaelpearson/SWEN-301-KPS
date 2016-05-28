@@ -1,10 +1,9 @@
 package kps.xml.objects;
 
 import kps.gui.windows.MailDialog;
-import kps.xml.objects.abstracts.BusinessEvent;
+import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
-import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,10 +11,8 @@ import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Mail extends BusinessEvent {
+public class Mail extends BusinessEventWithLocation {
     @XmlElement(name="day") private DayOfWeek day;
-    @XmlElement private int to;
-    @XmlElement private int from;
     @XmlElement(name="weight") private int weight;
     @XmlElement(name="volume") private int volume;
     @XmlElement(name="priority") private Priority priority;
@@ -34,24 +31,6 @@ public class Mail extends BusinessEvent {
         new MailDialog(owner, getSimulation(), this);
     }
 
-    public void setTo(String to) {
-        Location location = getSimulation().getLocationByName(to);
-        if(location == null) {
-            location = new Location(simulation);
-            simulation.getLocations().add(location);
-        }
-        this.to = location.getId();
-    }
-
-    public void setFrom(String from) {
-        Location location = getSimulation().getLocationByName(from);
-        if(location == null) {
-            location = new Location(simulation);
-            simulation.getLocations().add(location);
-        }
-        this.from = location.getId();
-    }
-
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
@@ -68,14 +47,6 @@ public class Mail extends BusinessEvent {
         this.day = day;
     }
 
-    @Nullable public Location getTo() {
-        return getSimulation().getLocationById(to);
-    }
-
-    @Nullable public Location getFrom() {
-        return getSimulation().getLocationById(from);
-    }
-
     public Priority getPriority() { return priority; }
 
     public int getWeight() {
@@ -88,5 +59,17 @@ public class Mail extends BusinessEvent {
 
     public DayOfWeek getDay() {
         return day;
+    }
+
+    @Override public double getExpenditure() {
+        return 0;
+    }
+
+    @Override public double getRevenue() {
+        return 0;
+    }
+
+    public int getDeliveryTime() {
+        return 0;
     }
 }
