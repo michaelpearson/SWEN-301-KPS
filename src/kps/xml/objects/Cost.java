@@ -43,22 +43,28 @@ public class Cost extends BusinessEvent {
         this.company = company;
     }
 
-    public void setTo(String to) {
+    public void setTo(@NotNull String to) {
         Location location = getSimulation().getLocationByName(to);
         if(location == null) {
-            location = new Location(simulation);
-            simulation.getLocations().add(location);
+            throw new RuntimeException("Location cannot be null");
         }
         this.to = location.getId();
     }
 
-    public void setFrom(String from) {
+    public void setTo(@NotNull Location to) {
+        this.to = to.getId();
+    }
+
+    public void setFrom(@NotNull String from) {
         Location location = getSimulation().getLocationByName(from);
         if(location == null) {
-            location = new Location(simulation);
-            simulation.getLocations().add(location);
+            throw new RuntimeException("Location cannot be null");
         }
         this.from = location.getId();
+    }
+
+    public void setFrom(@NotNull Location from) {
+        this.from = from.getId();
     }
 
     public void setTransportType(TransportType transportType) {

@@ -44,8 +44,8 @@ public class MailDialog extends FormDialog {
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
                 getField(FieldNames.DayOfWeek, "Day of the week", route.getDay() == null ? DayOfWeek.Monday : route.getDay()),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom() != null ? route.getFrom().getName() : ""),
-                getField(FieldNames.LocationTo, "Location to", route.getTo() != null ? route.getTo().getName() : ""),
+                getField(FieldNames.LocationFrom, "Location from", route.getFrom()),
+                getField(FieldNames.LocationTo, "Location to", route.getTo()),
                 getField(FieldNames.Weight, "Weight", route.getWeight()),
                 getField(FieldNames.Volume, "Volume", route.getVolume()),
                 getField(FieldNames.Priority, "Priority", route.getPriority() == null ? Priority.DOMESTIC_STANDARD : route.getPriority())

@@ -2,6 +2,7 @@ package kps.gui.windows;
 
 import kps.gui.FormDialog;
 import kps.xml.objects.Cost;
+import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
@@ -50,8 +51,8 @@ public class RouteDialog extends FormDialog {
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
                 getField(FieldNames.CompanyName, "Company name", route.getCompany() == null ? "" : route.getCompany()),
-                getField(FieldNames.LocationTo, "Location to", route.getTo() != null ? route.getTo().getName() : ""),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom() != null ? route.getFrom().getName() : ""),
+                getField(FieldNames.LocationTo, "Location to", route.getTo()),
+                getField(FieldNames.LocationFrom, "Location from", route.getFrom()),
                 getField(FieldNames.TransportType, "Transportation type", route.getTransportType() == null ? TransportType.Air : route.getTransportType()),
                 getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost()),
                 getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost()),
@@ -71,10 +72,10 @@ public class RouteDialog extends FormDialog {
                     route.setCompany((String)entry.getValue());
                     break;
                 case LocationTo:
-                    route.setTo((String)entry.getValue());
+                    route.setTo((Location)entry.getValue());
                     break;
                 case LocationFrom:
-                    route.setFrom((String)entry.getValue());
+                    route.setFrom((Location) entry.getValue());
                     break;
                 case DayOfWeek:
                     route.setDay(Arrays.asList(DayOfWeek.values()).stream().filter(v -> v.equals((DayOfWeek)entry.getValue())).findFirst().get());

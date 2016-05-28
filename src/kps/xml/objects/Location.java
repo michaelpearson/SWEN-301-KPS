@@ -17,7 +17,7 @@ public class Location extends ModelObject {
                 maxLocationId = l.getId();
             }
         }
-        setId(maxLocationId);
+        setId(maxLocationId + 1);
     }
 
     public Location() {}
@@ -38,4 +38,8 @@ public class Location extends ModelObject {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
