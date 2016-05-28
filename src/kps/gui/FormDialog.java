@@ -64,6 +64,7 @@ public abstract class FormDialog extends JDialog {
         formPanel.add(saveButton);
     }
 
+    @SuppressWarnings("unchecked")
     protected JComponent[] getField(Object tag, String fieldName, Object fieldValue) {
         JLabel label = new JLabel(fieldName);
         final JComponent field;
@@ -78,7 +79,7 @@ public abstract class FormDialog extends JDialog {
         } else if(Enum.class.isAssignableFrom(fieldValue.getClass())) {
             Class c = (Class)fieldValue.getClass();
             try {
-                field = new JComboBox<>((Enum[])c.getMethod("values").invoke(null));
+                field = new JComboBox<>((Enum<?>[])c.getMethod("values").invoke(null));
                 ((JComboBox) field).setSelectedItem(fieldValue);
                 fieldGetter = ((JComboBox) field)::getSelectedItem;
             } catch (Exception ignore) {

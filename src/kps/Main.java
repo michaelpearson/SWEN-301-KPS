@@ -1,6 +1,5 @@
 package kps;
 
-import kps.gui.ApplicationWindow;
 import kps.gui.windows.Login;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
@@ -13,7 +12,7 @@ import java.io.FileNotFoundException;
 public class Main {
     static {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");
         } catch (Exception ignore) {}
     }
     public static void main(String[] args) throws XMLException, FileNotFoundException {

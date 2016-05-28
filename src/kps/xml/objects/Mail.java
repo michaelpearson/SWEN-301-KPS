@@ -1,21 +1,18 @@
 package kps.xml.objects;
 
-import kps.xml.SimulationXML;
-import kps.xml.exceptions.XMLException;
+import kps.gui.windows.MailDialog;
+import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
-import kps.xml.objects.enums.TransportType;
+import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.awt.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Mail extends ModelObject {
+public class Mail extends BusinessEvent {
     @XmlElement(name="day") private DayOfWeek day;
     @XmlElement private int to;
     @XmlElement private int from;
@@ -27,7 +24,14 @@ public class Mail extends ModelObject {
         super(s);
     }
 
-    public Mail() {
+    public Mail() {}
+
+    @Override public String getEventType() {
+        return "Mail delivery";
+    }
+
+    @Override public void edit(Frame owner) {
+        new MailDialog(owner, getSimulation(), this);
     }
 
     public void setTo(String to) {
@@ -64,11 +68,11 @@ public class Mail extends ModelObject {
         this.day = day;
     }
 
-    public Location getTo() {
+    @Nullable public Location getTo() {
         return getSimulation().getLocationById(to);
     }
 
-    public Location getFrom() {
+    @Nullable public Location getFrom() {
         return getSimulation().getLocationById(from);
     }
 

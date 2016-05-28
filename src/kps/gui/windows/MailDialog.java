@@ -5,7 +5,6 @@ import kps.xml.objects.Mail;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
-import kps.xml.objects.enums.TransportType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +14,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
-public class AddMail extends FormDialog {
+public class MailDialog extends FormDialog {
     private @NotNull Mail route;
     private boolean isInDocument;
 
@@ -28,12 +27,12 @@ public class AddMail extends FormDialog {
         Priority
     }
 
-    public AddMail(Frame owner, Simulation simulation) {
+    public MailDialog(Frame owner, Simulation simulation) {
         this(owner, simulation, null);
     }
 
-    public AddMail(Frame owner, Simulation simulation, @Nullable Mail previousRoute) {
-        super(owner, "Add route", true, simulation);
+    public MailDialog(Frame owner, Simulation simulation, @Nullable Mail previousRoute) {
+        super(owner, "Mail Delivery", true, simulation);
         this.isInDocument = previousRoute != null;
         this.route = previousRoute == null ? new Mail(simulation) : previousRoute;
 
@@ -45,8 +44,8 @@ public class AddMail extends FormDialog {
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
                 getField(FieldNames.DayOfWeek, "Day of the week", route.getDay() == null ? DayOfWeek.Monday : route.getDay()),
-                getField(FieldNames.LocationTo, "Location to", route.getTo() != null ? route.getTo().getName() : ""),
                 getField(FieldNames.LocationFrom, "Location from", route.getFrom() != null ? route.getFrom().getName() : ""),
+                getField(FieldNames.LocationTo, "Location to", route.getTo() != null ? route.getTo().getName() : ""),
                 getField(FieldNames.Weight, "Weight", route.getWeight()),
                 getField(FieldNames.Volume, "Volume", route.getVolume()),
                 getField(FieldNames.Priority, "Priority", route.getPriority() == null ? Priority.DOMESTIC_STANDARD : route.getPriority())

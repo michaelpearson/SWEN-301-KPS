@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
-public class AddRoute extends FormDialog {
+public class RouteDialog extends FormDialog {
     @NotNull
     private Cost route;
     private boolean isInDocument;
@@ -33,11 +33,11 @@ public class AddRoute extends FormDialog {
         Frequency
     }
 
-    public AddRoute(Frame owner, Simulation simulation) {
+    public RouteDialog(Frame owner, Simulation simulation) {
         this(owner, simulation, null);
     }
 
-    public AddRoute(Frame owner, Simulation simulation, @Nullable Cost previousRoute) {
+    public RouteDialog(Frame owner, Simulation simulation, @Nullable Cost previousRoute) {
         super(owner, "Add route", true, simulation);
         this.isInDocument = previousRoute != null;
         this.route = previousRoute == null ? new Cost(simulation) : previousRoute;

@@ -1,14 +1,18 @@
 package kps.xml.objects;
 
+import kps.gui.windows.RouteDialog;
+import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
-
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import java.awt.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Cost extends ModelObject {
+public class Cost extends BusinessEvent {
     @XmlElement private String company;
     @XmlElement private int to;
     @XmlElement private int from;
@@ -21,7 +25,18 @@ public class Cost extends ModelObject {
     @XmlElement private int frequency;
     @XmlElement(name="day") private DayOfWeek day;
 
-    public Cost() {
+    public Cost(Simulation s) {
+        super(s);
+    }
+
+    public Cost() {}
+
+    @Override public String getEventType() {
+        return "Transport cost update";
+    }
+
+    @Override public void edit(Frame owner) {
+        new RouteDialog(owner, getSimulation(), this);
     }
 
     public void setCompany(String company) {
@@ -78,20 +93,15 @@ public class Cost extends ModelObject {
         this.day = day;
     }
 
-    public Cost(Simulation s) {
-        super(s);
-
-    }
-
     public String getCompany() {
         return company;
     }
 
-    public Location getTo() {
+    @Nullable public Location getTo() {
         return getSimulation().getLocationById(to);
     }
 
-    public Location getFrom() {
+    @Nullable public Location getFrom() {
         return getSimulation().getLocationById(from);
     }
 

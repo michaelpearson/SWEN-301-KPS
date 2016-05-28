@@ -1,6 +1,5 @@
 package kps.gui.windows;
 
-import kps.gui.ApplicationWindow;
 import kps.gui.FormDialog;
 import kps.gui.util.KeyListenerSlim;
 import kps.xml.objects.Simulation;
@@ -16,7 +15,6 @@ public class Login extends FormDialog {
         buildDialog();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pack();
-        setSize(400, getHeight());
         JTextField passwordField = (JTextField)getField("password");
         passwordField.requestFocus();
         passwordField.addKeyListener(new KeyListenerSlim() {
@@ -59,7 +57,7 @@ public class Login extends FormDialog {
 
     private void doLogin(UserName user) {
         dispose();
-        new ApplicationWindow(simulation, user);
+        new Home(simulation, user);
     }
 
     @Override

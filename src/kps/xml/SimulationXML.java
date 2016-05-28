@@ -1,7 +1,7 @@
 package kps.xml;
 
 import kps.xml.exceptions.XMLException;
-import kps.xml.objects.ModelObject;
+import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.Simulation;
 
 import javax.xml.bind.JAXBContext;
@@ -16,6 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SimulationXML extends StreamReaderDelegate {
@@ -28,17 +30,20 @@ public class SimulationXML extends StreamReaderDelegate {
             XMLStreamReader xsr = xif.createXMLStreamReader(xml);
             xsr = new SimulationXML(xsr);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
+            final List<ModelObject> modelObjects = new ArrayList<>();
             unmarshaller.setListener(new Unmarshaller.Listener() {
                 @Override
                 public void afterUnmarshal(Object target, Object parent) {
                     if(!(target instanceof Simulation)) {
-                        ModelObject mo = (ModelObject)target;
-                        mo.setSimulation(simulation);
+                        modelObjects.add((ModelObject)target);
                     }
                 }
             });
             simulation = (Simulation) unmarshaller.unmarshal(xsr);
             xml.close();
+            for(ModelObject mo : modelObjects) {
+                mo.setSimulation(simulation);
+            }
             return simulation;
         } catch(JAXBException | XMLStreamException | IOException e) {
             throw new XMLException(e);
