@@ -51,8 +51,8 @@ public class RouteDialog extends FormDialog {
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
                 getField(FieldNames.CompanyName, "Company name", route.getCompany() == null ? "" : route.getCompany()),
-                getField(FieldNames.LocationTo, "Location to", route.getTo()),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom()),
+                getField(FieldNames.LocationTo, "Location to", route.getTo() == null ? simulation.getLocations().get(0) : route.getTo()),
+                getField(FieldNames.LocationFrom, "Location from", route.getFrom() == null ? simulation.getLocations().get(1) : route.getFrom()),
                 getField(FieldNames.TransportType, "Transportation type", route.getTransportType() == null ? TransportType.Air : route.getTransportType()),
                 getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost()),
                 getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost()),

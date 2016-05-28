@@ -49,10 +49,9 @@ public class Home extends JFrame {
         table.setBorder(BorderFactory.createEmptyBorder());
         table.addMouseListener(new MouseAdapter() {
             @Override public void mousePressed(MouseEvent e) {
-                JTable table =(JTable) e.getSource();
-                Point p = e.getPoint();
-                int row = table.rowAtPoint(p);
                 if (e.getClickCount() == 2) {
+                    JXTable table = (JXTable) e.getSource();
+                    int row = table.convertRowIndexToModel(table.getSelectedRow());
                     ((HomepageTableModel)table.getModel()).edit(row, Home.this);
                 }
             }
