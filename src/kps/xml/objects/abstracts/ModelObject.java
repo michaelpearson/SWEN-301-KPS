@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @XmlTransient
 public abstract class ModelObject {
-    protected Simulation simulation;
+    @XmlTransient protected Simulation simulation;
 
     public ModelObject(Simulation s) {
         setSimulation(s);
@@ -18,9 +18,7 @@ public abstract class ModelObject {
         this.simulation = simulation;
     }
 
-    protected Simulation getSimulation() {
+    @XmlTransient protected Simulation getSimulation() {
         return simulation;
     }
-
-
 }

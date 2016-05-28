@@ -1,9 +1,13 @@
 package kps.gui;
 
+import kps.gui.models.LocationsModel;
+import kps.gui.windows.LocationDialog;
+import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,8 +17,14 @@ public abstract class FormDialog extends JDialog {
     private Map<Object, Gettable<Object>> valueMap = new HashMap<>();
     private Map<Object, Gettable<JComponent>> componentMap = new HashMap<>();
 
+
     private interface Gettable<T> {
         T getValue();
+    }
+
+    private static class Field<T> {
+        JComponent field;
+        Gettable<T> getter;
     }
 
     public FormDialog(Frame owner, String title, boolean modal, Simulation simulation) {
@@ -49,6 +59,7 @@ public abstract class FormDialog extends JDialog {
         buildOptionButtons(formPanel);
 
         add(formPanel, BorderLayout.CENTER);
+        setResizable(false);
         pack();
 
     }
@@ -63,21 +74,25 @@ public abstract class FormDialog extends JDialog {
         formPanel.add(cancelButton);
         formPanel.add(saveButton);
     }
+    protected JComponent[] getField(Object tag, String fieldName, Object fieldValue, Class c, String tooltip) {
+        JComponent[] components = getField(tag, fieldName, fieldValue, c);
+        components[1].setToolTipText(tooltip);
+        return components;
+    }
 
     @SuppressWarnings("unchecked")
-    protected JComponent[] getField(Object tag, String fieldName, Object fieldValue) {
+    protected JComponent[] getField(Object tag, String fieldName, Object fieldValue, Class c) {
         JLabel label = new JLabel(fieldName);
         final JComponent field;
         Gettable<Object> fieldGetter;
 
-        if(fieldValue.getClass().equals(Integer.class)) {
+        if(c.equals(Integer.class)) {
             field = new JSpinner(new SpinnerNumberModel((Integer)fieldValue, null, null, 1));
             fieldGetter = ((JSpinner) field)::getValue;
-        } else if(fieldValue.getClass().equals(String.class)) {
-            field = new JTextField(String.valueOf(fieldValue));
+        } else if(c.equals(String.class)) {
+            field = new JTextField(String.valueOf(fieldValue == null ? "" : fieldValue));
             fieldGetter = ((JTextField)field)::getText;
-        } else if(Enum.class.isAssignableFrom(fieldValue.getClass())) {
-            Class c = (Class)fieldValue.getClass();
+        } else if(Enum.class.isAssignableFrom(c)) {
             try {
                 field = new JComboBox<>((Enum<?>[])c.getMethod("values").invoke(null));
                 ((JComboBox) field).setSelectedItem(fieldValue);
@@ -85,19 +100,59 @@ public abstract class FormDialog extends JDialog {
             } catch (Exception ignore) {
                 throw new RuntimeException("This will never happen");
             }
+        } else if(c.equals(Location.class)) {
+            Field<Object> locationField = makeLocationField((Location)fieldValue);
+            fieldGetter = locationField.getter;
+            field = locationField.field;
         } else {
             throw new RuntimeException("Unsupported field type");
         }
+        field.setPreferredSize(new Dimension(200, 30));
         valueMap.put(tag, fieldGetter);
         componentMap.put(tag, () -> field);
         return new JComponent[] {label, field};
     }
 
+    private Field<Object> makeLocationField(Location fieldValue) {
+        JComboBox<Location> comboBox = new JComboBox<>();
+        LocationsModel model = new LocationsModel(simulation);
+        comboBox.setModel(model);
+        comboBox.setSelectedItem(fieldValue);
+        comboBox.addItemListener((e) -> {
+            if(e.getStateChange() != ItemEvent.SELECTED) {
+                return;
+            }
+            if(comboBox.getSelectedItem() == model.getDummyLocation()) {
+                FormDialog dialog = new LocationDialog(null, "Add a new location", true, simulation);
+                String newLocation = (String)dialog.getComponentValue(LocationDialog.NAME);
+                if(newLocation == null || newLocation.equals("")) {
+                    JOptionPane.showMessageDialog(this, "Sorry one or more fields was invalid. Please fill in all of the fields and try again.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+                    comboBox.setSelectedIndex(0);
+                }
+                Location l = new Location(simulation);
+                l.setName(newLocation);
+                simulation.getLocations().add(l);
+                comboBox.setSelectedItem(l);
+            }
+        });
+        Field<Object> field = new Field<>();
+        field.getter = () -> {
+            if(comboBox.getSelectedItem() == model.getDummyLocation()) {
+                return null;
+            }
+            return comboBox.getSelectedItem();
+        };
+        field.field = comboBox;
+        return field;
+    }
+
+
+
     protected JComponent getField(Object tag) {
         return componentMap.get(tag).getValue();
     }
 
-    protected Object getComponentValue(Object tag) {
+    private Object getComponentValue(Object tag) {
         Gettable<Object> component = valueMap.get(tag);
         if(component == null) {
             throw new RuntimeException("Could not find component");

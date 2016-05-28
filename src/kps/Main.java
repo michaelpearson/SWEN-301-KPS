@@ -20,7 +20,13 @@ public class Main {
             System.err.println("You must provide the simulation log file as the first argument");
             System.exit(1);
         }
-        Simulation simulation = SimulationXML.readSimulationFromFile(new FileInputStream(args[0]));
+        Simulation simulation;
+        try {
+            simulation = SimulationXML.readSimulationFromFile(new FileInputStream(args[0]));
+        } catch (Exception e) {
+            e.printStackTrace();
+            simulation = new Simulation();
+        }
         new Login(simulation);
     }
 }

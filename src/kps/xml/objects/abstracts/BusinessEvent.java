@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.Date;
 
 @XmlTransient
-public abstract class BusinessEvent extends ModelObject {
+public abstract class BusinessEvent extends ModelObject implements Priceable {
 
     @XmlJavaTypeAdapter(DateAdapter.class) @XmlAttribute private Date date;
 

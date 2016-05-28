@@ -36,8 +36,8 @@ public class Login extends FormDialog {
     @Override
     protected JComponent[][] getAllFields() {
         return new JComponent[][] {
-                getField("username", "User", UserName.Manager),
-                getField("password", "Password", "")
+                getField("username", "User", UserName.Manager, UserName.class),
+                getField("password", "Password", "", String.class)
         };
     }
 
