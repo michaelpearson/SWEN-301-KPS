@@ -3,23 +3,29 @@ package kps.xml.objects;
 import kps.xml.objects.abstracts.BusinessEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+
+import javax.xml.bind.annotation.*;
 import java.util.*;
 
 @XmlRootElement(name="simulation") @XmlAccessorType(XmlAccessType.FIELD) public class Simulation {
 
     private static Set<SimulationUpdateListener> updateListeners = new HashSet<>();
-    private HashMap<Integer, Location> locationIdCache = new HashMap<>();
-    private HashMap<String, Location> locationNameCache = new HashMap<>();
+    @XmlTransient private HashMap<Integer, Location> locationIdCache = new HashMap<>();
+    @XmlTransient private HashMap<String, Location> locationNameCache = new HashMap<>();
 
     @XmlElement(name="cost") private List<Cost> costs;
     @XmlElement(name="mail") private List<Mail> mail;
     @XmlElement(name="price") private List<Price> price;
     @XmlElement(name="discontinue") private List<Discontinue> discontinuedRoutes;
     @XmlElement(name="location") private List<Location> locations;
+
+    public Simulation() {
+        this.costs = new ArrayList<>();
+        this.mail = new ArrayList<>();
+        this.price = new ArrayList<>();
+        this.discontinuedRoutes = new ArrayList<>();
+        this.locations = new ArrayList<>();
+    }
 
     public interface SimulationUpdateListener {
         void simulationUpdated();

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.IntSummaryStatistics;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,17 +51,17 @@ public class RouteDialog extends FormDialog {
     @Override
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
-                getField(FieldNames.CompanyName, "Company name", route.getCompany() == null ? "" : route.getCompany()),
-                getField(FieldNames.LocationTo, "Location to", route.getTo() == null ? simulation.getLocations().get(0) : route.getTo()),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom() == null ? simulation.getLocations().get(1) : route.getFrom()),
-                getField(FieldNames.TransportType, "Transportation type", route.getTransportType() == null ? TransportType.Air : route.getTransportType()),
-                getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost()),
-                getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost()),
-                getField(FieldNames.MaxWeight, "Max weight", route.getMaxWeight()),
-                getField(FieldNames.MaxVolume, "Max volume", route.getMaxVolume()),
-                getField(FieldNames.Duration, "Duration", route.getDuration()),
-                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay() == null ? DayOfWeek.Monday : route.getDay()),
-                getField(FieldNames.Frequency, "Frequency of delivery", route.getFrequency())
+                getField(FieldNames.CompanyName, "Company name", route.getCompany(), String.class),
+                getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
+                getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
+                getField(FieldNames.TransportType, "Transportation type", route.getTransportType(), TransportType.class),
+                getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost(), Integer.class),
+                getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost(), Integer.class),
+                getField(FieldNames.MaxWeight, "Max weight", route.getMaxWeight(), Integer.class),
+                getField(FieldNames.MaxVolume, "Max volume", route.getMaxVolume(), Integer.class),
+                getField(FieldNames.Duration, "Duration", route.getDuration(), Integer.class),
+                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
+                getField(FieldNames.Frequency, "Frequency of delivery", route.getFrequency(), Integer.class)
         };
     }
 

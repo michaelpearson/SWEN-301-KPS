@@ -76,19 +76,18 @@ public abstract class FormDialog extends JDialog {
     }
 
     @SuppressWarnings("unchecked")
-    protected JComponent[] getField(Object tag, String fieldName, Object fieldValue) {
+    protected JComponent[] getField(Object tag, String fieldName, Object fieldValue, Class c) {
         JLabel label = new JLabel(fieldName);
         final JComponent field;
         Gettable<Object> fieldGetter;
 
-        if(fieldValue.getClass().equals(Integer.class)) {
+        if(c.equals(Integer.class)) {
             field = new JSpinner(new SpinnerNumberModel((Integer)fieldValue, null, null, 1));
             fieldGetter = ((JSpinner) field)::getValue;
-        } else if(fieldValue.getClass().equals(String.class)) {
-            field = new JTextField(String.valueOf(fieldValue));
+        } else if(c.equals(String.class)) {
+            field = new JTextField(String.valueOf(fieldValue == null ? "" : fieldValue));
             fieldGetter = ((JTextField)field)::getText;
-        } else if(Enum.class.isAssignableFrom(fieldValue.getClass())) {
-            Class c = (Class)fieldValue.getClass();
+        } else if(Enum.class.isAssignableFrom(c)) {
             try {
                 field = new JComboBox<>((Enum<?>[])c.getMethod("values").invoke(null));
                 ((JComboBox) field).setSelectedItem(fieldValue);
@@ -96,7 +95,7 @@ public abstract class FormDialog extends JDialog {
             } catch (Exception ignore) {
                 throw new RuntimeException("This will never happen");
             }
-        } else if(fieldValue.getClass().equals(Location.class)) {
+        } else if(c.equals(Location.class)) {
             Field<Object> locationField = makeLocationField((Location)fieldValue);
             fieldGetter = locationField.getter;
             field = locationField.field;

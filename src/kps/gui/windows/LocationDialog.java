@@ -22,7 +22,7 @@ public class LocationDialog extends FormDialog {
     @Override
     protected JComponent[][] getAllFields() {
         return new JComponent[][] {
-            getField(NAME, "Location Name", "")
+            getField(NAME, "Location Name", "", String.class)
         };
     }
 

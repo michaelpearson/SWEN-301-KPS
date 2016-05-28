@@ -44,12 +44,12 @@ public class MailDialog extends FormDialog {
     @Override
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
-                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay() == null ? DayOfWeek.Monday : route.getDay()),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom() == null ? simulation.getLocations().get(0) : route.getFrom()),
-                getField(FieldNames.LocationTo, "Location to", route.getTo() == null ? simulation.getLocations().get(1) : route.getTo()),
-                getField(FieldNames.Weight, "Weight", route.getWeight()),
-                getField(FieldNames.Volume, "Volume", route.getVolume()),
-                getField(FieldNames.Priority, "Priority", route.getPriority() == null ? Priority.DOMESTIC_STANDARD : route.getPriority())
+                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
+                getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
+                getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
+                getField(FieldNames.Weight, "Weight", route.getWeight(), Integer.class),
+                getField(FieldNames.Volume, "Volume", route.getVolume(), Integer.class),
+                getField(FieldNames.Priority, "Priority", route.getPriority(), Priority.class)
         };
     }
 

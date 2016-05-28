@@ -39,8 +39,6 @@ public class Cost extends BusinessEventWithLocation {
         this.company = company;
     }
 
-
-
     public void setTransportType(TransportType transportType) {
         this.transportType = transportType;
     }
