@@ -49,6 +49,7 @@ public abstract class FormDialog extends JDialog {
         buildOptionButtons(formPanel);
 
         add(formPanel, BorderLayout.CENTER);
+        setResizable(false);
         pack();
 
     }

@@ -31,10 +31,10 @@ public class MailDialog extends FormDialog {
         this(owner, simulation, null);
     }
 
-    public MailDialog(Frame owner, Simulation simulation, @Nullable Mail previousRoute) {
-        super(owner, "Mail Delivery", true, simulation);
-        this.isInDocument = previousRoute != null;
-        this.route = previousRoute == null ? new Mail(simulation) : previousRoute;
+    public MailDialog(Frame owner, Simulation simulation, @Nullable Mail previousMailEvent) {
+        super(owner, previousMailEvent == null ? "New mail Delivery" : "Edit mail delivery", true, simulation);
+        this.isInDocument = previousMailEvent != null;
+        this.route = previousMailEvent == null ? new Mail(simulation) : previousMailEvent;
 
         buildDialog();
         setVisible(true);

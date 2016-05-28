@@ -38,7 +38,7 @@ public class RouteDialog extends FormDialog {
     }
 
     public RouteDialog(Frame owner, Simulation simulation, @Nullable Cost previousRoute) {
-        super(owner, "Add route", true, simulation);
+        super(owner, previousRoute == null ? "Add route" : "Edit route", true, simulation);
         this.isInDocument = previousRoute != null;
         this.route = previousRoute == null ? new Cost(simulation) : previousRoute;
 
