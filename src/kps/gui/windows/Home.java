@@ -24,7 +24,9 @@ public class Home extends JFrame {
         this.simulation = simulation;
         this.user = user;
 
-        setSize(900, 500);
+        Dimension size = new Dimension(900, 500);
+        setMinimumSize(size);
+        setSize(size);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(APPLICATION_NAME);
         setLayout(new GridLayout(0, 2));
@@ -49,10 +51,9 @@ public class Home extends JFrame {
         table.setBorder(BorderFactory.createEmptyBorder());
         table.addMouseListener(new MouseAdapter() {
             @Override public void mousePressed(MouseEvent e) {
-                JTable table =(JTable) e.getSource();
-                Point p = e.getPoint();
-                int row = table.rowAtPoint(p);
                 if (e.getClickCount() == 2) {
+                    JXTable table = (JXTable) e.getSource();
+                    int row = table.convertRowIndexToModel(table.getSelectedRow());
                     ((HomepageTableModel)table.getModel()).edit(row, Home.this);
                 }
             }
@@ -75,6 +76,10 @@ public class Home extends JFrame {
         JButton addMailDeliveryButton = new JButton("Add mail delivery");
         addMailDeliveryButton.addActionListener(e -> new MailDialog(Home.this, simulation));
         buttonPanel.add(addMailDeliveryButton);
+
+        JButton viewBusinessFiguresButton = new JButton("View business figures");
+        viewBusinessFiguresButton.addActionListener(e -> new BusinessFigures(simulation));
+        buttonPanel.add(viewBusinessFiguresButton);
 
         JButton exitButton = new JButton("Save and exit");
         exitButton.addActionListener(e -> save(true));

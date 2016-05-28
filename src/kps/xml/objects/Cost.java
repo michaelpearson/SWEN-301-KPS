@@ -1,21 +1,17 @@
 package kps.xml.objects;
 
 import kps.gui.windows.RouteDialog;
-import kps.xml.objects.abstracts.BusinessEvent;
+import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Cost extends BusinessEvent {
+public class Cost extends BusinessEventWithLocation {
     @XmlElement private String company;
-    @XmlElement private int to;
-    @XmlElement private int from;
     @XmlElement(name="type") private TransportType transportType;
     @XmlElement(name="weightcost") private int weightCost;
     @XmlElement(name="volumecost") private int volumeCost;
@@ -41,24 +37,6 @@ public class Cost extends BusinessEvent {
 
     public void setCompany(String company) {
         this.company = company;
-    }
-
-    public void setTo(String to) {
-        Location location = getSimulation().getLocationByName(to);
-        if(location == null) {
-            location = new Location(simulation);
-            simulation.getLocations().add(location);
-        }
-        this.to = location.getId();
-    }
-
-    public void setFrom(String from) {
-        Location location = getSimulation().getLocationByName(from);
-        if(location == null) {
-            location = new Location(simulation);
-            simulation.getLocations().add(location);
-        }
-        this.from = location.getId();
     }
 
     public void setTransportType(TransportType transportType) {
@@ -97,14 +75,6 @@ public class Cost extends BusinessEvent {
         return company;
     }
 
-    @Nullable public Location getTo() {
-        return getSimulation().getLocationById(to);
-    }
-
-    @Nullable public Location getFrom() {
-        return getSimulation().getLocationById(from);
-    }
-
     public TransportType getTransportType() {
         return transportType;
     }
@@ -137,4 +107,13 @@ public class Cost extends BusinessEvent {
         return day;
     }
 
+    @Override
+    public double getExpenditure() {
+        return 0;
+    }
+
+    @Override
+    public double getRevenue() {
+        return 0;
+    }
 }

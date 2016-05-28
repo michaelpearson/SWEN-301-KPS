@@ -61,4 +61,8 @@ public class Discontinue extends BusinessEvent {
     public void setTransportType(TransportType transportType) {
         this.transportType = transportType;
     }
+
+    @Override public double getExpenditure() { return 0; }
+
+    @Override public double getRevenue() { return 0; }
 }

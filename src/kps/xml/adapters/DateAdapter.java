@@ -13,6 +13,9 @@ public class DateAdapter extends XmlAdapter<String, Date> {
     @Override
     public String marshal(Date v) throws Exception {
         synchronized (dateFormat) {
+            if(v == null) {
+                v = new Date();
+            }
             return dateFormat.format(v);
         }
     }
@@ -20,6 +23,9 @@ public class DateAdapter extends XmlAdapter<String, Date> {
     @Override
     public Date unmarshal(String v) throws Exception {
         synchronized (dateFormat) {
+            if(v == null) {
+                v = dateFormat.format(new Date());
+            }
             return dateFormat.parse(v);
         }
     }

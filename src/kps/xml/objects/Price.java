@@ -70,4 +70,12 @@ import java.awt.*;
     public void setVolumeCost(int volumeCost) {
         this.volumeCost = volumeCost;
     }
+
+    @Override public double getExpenditure() {
+        return 0;
+    }
+
+    @Override public double getRevenue() {
+        return 0;
+    }
 }

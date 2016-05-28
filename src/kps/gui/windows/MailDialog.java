@@ -1,6 +1,7 @@
 package kps.gui.windows;
 
 import kps.gui.FormDialog;
+import kps.xml.objects.Location;
 import kps.xml.objects.Mail;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
@@ -43,12 +44,12 @@ public class MailDialog extends FormDialog {
     @Override
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
-                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay() == null ? DayOfWeek.Monday : route.getDay()),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom() != null ? route.getFrom().getName() : ""),
-                getField(FieldNames.LocationTo, "Location to", route.getTo() != null ? route.getTo().getName() : ""),
-                getField(FieldNames.Weight, "Weight", route.getWeight()),
-                getField(FieldNames.Volume, "Volume", route.getVolume()),
-                getField(FieldNames.Priority, "Priority", route.getPriority() == null ? Priority.DOMESTIC_STANDARD : route.getPriority())
+                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
+                getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
+                getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
+                getField(FieldNames.Weight, "Weight (grams)", route.getWeight(), Integer.class),
+                getField(FieldNames.Volume, "Volume (cm^3)", route.getVolume(), Integer.class),
+                getField(FieldNames.Priority, "Priority", route.getPriority(), Priority.class)
         };
     }
 
@@ -57,10 +58,10 @@ public class MailDialog extends FormDialog {
         for(Map.Entry<Object, Object> entry : entries) {
             switch((FieldNames)entry.getKey()) {
                 case LocationTo:
-                    route.setTo((String)entry.getValue());
+                    route.setTo((Location)entry.getValue());
                     break;
                 case LocationFrom:
-                    route.setFrom((String)entry.getValue());
+                    route.setFrom((Location)entry.getValue());
                     break;
                 case DayOfWeek:
                     route.setDay(Arrays.asList(DayOfWeek.values()).stream().filter(v -> v.equals((DayOfWeek)entry.getValue())).findFirst().get());

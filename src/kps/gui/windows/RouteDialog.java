@@ -2,6 +2,7 @@ package kps.gui.windows;
 
 import kps.gui.FormDialog;
 import kps.xml.objects.Cost;
+import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.IntSummaryStatistics;
 import java.util.Map;
 import java.util.Set;
 
@@ -49,17 +51,17 @@ public class RouteDialog extends FormDialog {
     @Override
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
-                getField(FieldNames.CompanyName, "Company name", route.getCompany() == null ? "" : route.getCompany()),
-                getField(FieldNames.LocationTo, "Location to", route.getTo() != null ? route.getTo().getName() : ""),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom() != null ? route.getFrom().getName() : ""),
-                getField(FieldNames.TransportType, "Transportation type", route.getTransportType() == null ? TransportType.Air : route.getTransportType()),
-                getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost()),
-                getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost()),
-                getField(FieldNames.MaxWeight, "Max weight", route.getMaxWeight()),
-                getField(FieldNames.MaxVolume, "Max volume", route.getMaxVolume()),
-                getField(FieldNames.Duration, "Duration", route.getDuration()),
-                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay() == null ? DayOfWeek.Monday : route.getDay()),
-                getField(FieldNames.Frequency, "Frequency of delivery", route.getFrequency())
+                getField(FieldNames.CompanyName, "Company name", route.getCompany(), String.class),
+                getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
+                getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
+                getField(FieldNames.TransportType, "Transportation type", route.getTransportType(), TransportType.class),
+                getField(FieldNames.WeightCost, "Weight cost (cents/grams)", route.getWeightCost(), Integer.class),
+                getField(FieldNames.VolumeCost, "Volume cost (cents/cm^3)", route.getVolumeCost(), Integer.class),
+                getField(FieldNames.MaxWeight, "Max weight (grams)", route.getMaxWeight(), Integer.class),
+                getField(FieldNames.MaxVolume, "Max volume (cm^3)", route.getMaxVolume(), Integer.class),
+                getField(FieldNames.Duration, "Duration (days)", route.getDuration(), Integer.class),
+                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
+                getField(FieldNames.Frequency, "Frequency of delivery (days)", route.getFrequency(), Integer.class)
         };
     }
 
@@ -71,10 +73,10 @@ public class RouteDialog extends FormDialog {
                     route.setCompany((String)entry.getValue());
                     break;
                 case LocationTo:
-                    route.setTo((String)entry.getValue());
+                    route.setTo((Location)entry.getValue());
                     break;
                 case LocationFrom:
-                    route.setFrom((String)entry.getValue());
+                    route.setFrom((Location) entry.getValue());
                     break;
                 case DayOfWeek:
                     route.setDay(Arrays.asList(DayOfWeek.values()).stream().filter(v -> v.equals((DayOfWeek)entry.getValue())).findFirst().get());
