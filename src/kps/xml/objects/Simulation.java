@@ -7,11 +7,17 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @XmlRootElement(name="simulation")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Simulation {
+    private static Set<SimulationUpdateListener> updateListeners = new HashSet<>();
+    public interface SimulationUpdateListener {
+        void simulationUpdated();
+    }
 
     @XmlElement(name="cost") private List<Cost> costs;
     @XmlElement(name="mail") private List<Mail> mail;
@@ -56,5 +62,18 @@ public class Simulation {
             }
         }
         return null;
+    }
+
+    public void addUpdateListener(SimulationUpdateListener updateListener) {
+        updateListeners.add(updateListener);
+    }
+
+    public void fireUpdateListeners() {
+        new Thread() {
+            @Override
+            public void run() {
+                Simulation.updateListeners.forEach(SimulationUpdateListener::simulationUpdated);
+            }
+        }.start();
     }
 }
