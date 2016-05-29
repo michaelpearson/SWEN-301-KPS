@@ -250,11 +250,6 @@
         <weightcost>3</weightcost>
         <volumecost>3</volumecost>
     </price>
-    <discontinue>
-        <company>Kelburn Airways</company>
-        <to>2</to>
-        <from>1</from>
-    </discontinue>
     <location id="1">Wellington</location>
     <location id="2">Sydney</location>
     <location id="3">Auckland</location>

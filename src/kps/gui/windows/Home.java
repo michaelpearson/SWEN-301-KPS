@@ -55,7 +55,8 @@ public class Home extends JFrame {
                 if (e.getClickCount() == 2) {
                     JXTable table = (JXTable) e.getSource();
                     int row = table.convertRowIndexToModel(table.getSelectedRow());
-                    ((HomepageTableModel)table.getModel()).edit(row, Home.this);
+                    tableModel.edit(row, Home.this);
+                    tableModel.fireTableDataChanged();
                 }
             }
         });

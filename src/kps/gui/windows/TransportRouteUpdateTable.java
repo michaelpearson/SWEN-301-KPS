@@ -1,10 +1,11 @@
 package kps.gui.windows;
 
-import kps.gui.models.CostUpdateTableModel;
+import kps.gui.models.RouteUpdateTableModel;
 import kps.xml.objects.Simulation;
 import org.jdesktop.swingx.JXTable;
 
 import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,16 +29,28 @@ public class TransportRouteUpdateTable extends JDialog {
         JPanel tablePanel = new JPanel();
         tablePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tablePanel.setLayout(new BorderLayout());
-        JXTable table = new JXTable(new CostUpdateTableModel(simulation));
+
+        RouteUpdateTableModel model = new RouteUpdateTableModel(simulation);
+        JTable table = new JXTable(model) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                if(model.getRow(row).isDiscontinued()) {
+                    c.setBackground(Color.decode("#333333"));
+                }
+                return c;
+            }
+        };
         table.setFillsViewportHeight(true);
-        table.packColumn(0, 6);
         table.setBorder(BorderFactory.createEmptyBorder());
         table.addMouseListener(new MouseAdapter() {
             @Override public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     JXTable table = (JXTable) e.getSource();
                     int row = table.convertRowIndexToModel(table.getSelectedRow());
-                    ((CostUpdateTableModel)table.getModel()).update(row, owner);
+                    ((RouteUpdateTableModel)table.getModel()).update(row, owner);
+                    model.updateTable();
+                    model.fireTableDataChanged();
                 }
             }
         });

@@ -16,14 +16,12 @@ import java.util.*;
     @XmlElement(name="cost") private List<Cost> costs;
     @XmlElement(name="mail") private List<Mail> mail;
     @XmlElement(name="price") private List<Price> price;
-    @XmlElement(name="discontinue") private List<Discontinue> discontinuedRoutes;
     @XmlElement(name="location") private List<Location> locations;
 
     public Simulation() {
         this.costs = new ArrayList<>();
         this.mail = new ArrayList<>();
         this.price = new ArrayList<>();
-        this.discontinuedRoutes = new ArrayList<>();
         this.locations = new ArrayList<>();
     }
 
@@ -43,9 +41,6 @@ import java.util.*;
         return price;
     }
 
-    public List<Discontinue> getDiscontinuedRoutes() {
-        return discontinuedRoutes;
-    }
 
     public List<Location> getLocations() {
         return locations;
@@ -95,7 +90,6 @@ import java.util.*;
         build.addAll(costs);
         build.addAll(mail);
         build.addAll(price);
-        build.addAll(discontinuedRoutes);
         build.sort((left, right) -> right.getDate().compareTo(left.getDate()));
         return build;
     }

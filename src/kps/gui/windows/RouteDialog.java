@@ -32,7 +32,8 @@ public class RouteDialog extends FormDialog {
         MaxVolume,
         Duration,
         DayOfWeek,
-        Frequency
+        Frequency,
+        Discontinued
     }
 
     public RouteDialog(Frame owner, Simulation simulation) {
@@ -70,52 +71,26 @@ public class RouteDialog extends FormDialog {
                 getField(FieldNames.MaxVolume, "Max volume (cm^3)", route.getMaxVolume(), Integer.class),
                 getField(FieldNames.Duration, "Duration (days)", route.getDuration(), Integer.class),
                 getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
-                getField(FieldNames.Frequency, "Frequency of delivery (days)", route.getFrequency(), Integer.class)
+                getField(FieldNames.Frequency, "Frequency of delivery (days)", route.getFrequency(), Integer.class),
+                getField(FieldNames.Discontinued, "Is discontinued", route.isDiscontinued(), Boolean.class)
         };
     }
 
     protected void save() {
         if (!fieldsValid()) return;
-        Set<Map.Entry<Object, Object>> entries = getAllValues().entrySet();
-        for(Map.Entry<Object, Object> entry : entries) {
-            switch((FieldNames)entry.getKey()) {
-                case CompanyName:
-                    route.setCompany((String)entry.getValue());
-                    break;
-                case LocationTo:
-                    route.setTo((Location)entry.getValue());
-                    break;
-                case LocationFrom:
-                    route.setFrom((Location) entry.getValue());
-                    break;
-                case DayOfWeek:
-                    route.setDay(Arrays.asList(DayOfWeek.values()).stream().filter(v -> v.equals((DayOfWeek)entry.getValue())).findFirst().get());
-                    break;
-                case Duration:
-                    route.setDuration((Integer)entry.getValue());
-                    break;
-                case Frequency:
-                    route.setFrequency((Integer)entry.getValue());
-                    break;
-                case MaxVolume:
-                    route.setMaxVolume((Integer)entry.getValue());
-                    break;
-                case MaxWeight:
-                    route.setMaxWeight((Integer)entry.getValue());
-                    break;
-                case TransportType:
-                    route.setTransportType(Arrays.asList(TransportType.values()).stream().filter(v -> v.equals((TransportType)entry.getValue())).findFirst().get());
-                    break;
-                case VolumeCost:
-                    route.setVolumeCost((Integer)entry.getValue());
-                    break;
-                case WeightCost:
-                    route.setWeightCost((Integer)entry.getValue());
-                    break;
-                default:
-                    throw new RuntimeException("Unknown field");
-            }
-        }
+        Map<Object, Object> entries = getAllValues();
+        route.setCompany((String)entries.get(FieldNames.CompanyName));
+        route.setTo((Location)entries.get(FieldNames.LocationTo));
+        route.setFrom((Location)entries.get(FieldNames.LocationFrom));
+        route.setDay((DayOfWeek)entries.get(FieldNames.DayOfWeek));
+        route.setDuration((Integer)entries.get(FieldNames.Duration));
+        route.setFrequency((Integer)entries.get(FieldNames.Frequency));
+        route.setMaxVolume((Integer)entries.get(FieldNames.MaxVolume));
+        route.setMaxWeight((Integer)entries.get(FieldNames.MaxWeight));
+        route.setTransportType((TransportType)entries.get(FieldNames.TransportType));
+        route.setVolumeCost((Integer)entries.get(FieldNames.VolumeCost));
+        route.setWeightCost((Integer)entries.get(FieldNames.WeightCost));
+        route.setDiscontinued((Boolean)entries.get(FieldNames.Discontinued));
         if(!isInDocument) {
             simulation.getCosts().add(route);
         }
