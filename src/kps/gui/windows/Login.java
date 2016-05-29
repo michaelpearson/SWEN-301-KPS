@@ -61,8 +61,9 @@ public class Login extends FormDialog {
     }
 
     @Override
-    protected void cancel() {
+    protected boolean cancel() {
         System.exit(0);
+        return true;
     }
 
     @Override
