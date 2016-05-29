@@ -85,8 +85,9 @@ public class MailDialog extends FormDialog {
         cancel();
     }
 
-    protected void cancel() {
+    protected boolean cancel() {
         dispose();
+        return true;
     }
 
 }

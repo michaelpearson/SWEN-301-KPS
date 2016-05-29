@@ -32,7 +32,8 @@ public class LocationDialog extends FormDialog {
     }
 
     @Override
-    protected void cancel() {
+    protected boolean cancel() {
         dispose();
+        return true;
     }
 }
