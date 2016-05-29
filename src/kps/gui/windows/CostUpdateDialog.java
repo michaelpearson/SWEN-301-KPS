@@ -4,6 +4,7 @@ import kps.gui.FormDialog;
 import kps.gui.models.CostUpdateTableModel;
 import kps.gui.models.HomepageTableModel;
 import kps.xml.objects.Cost;
+import kps.xml.objects.Location;
 import kps.xml.objects.Mail;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
@@ -66,45 +67,31 @@ public class CostUpdateDialog extends FormDialog {
         table.setBorder(BorderFactory.createEmptyBorder());
         table.addMouseListener(new MouseAdapter() {
             @Override public void mousePressed(MouseEvent e) {
-                JTable table =(JTable) e.getSource();
-                Point p = e.getPoint();
-                int row = table.rowAtPoint(p);
                 if (e.getClickCount() == 2) {
-                    ((HomepageTableModel)table.getModel()).edit(row, owner);
+                    JXTable table = (JXTable) e.getSource();
+                    int row = table.convertRowIndexToModel(table.getSelectedRow());
+                    ((CostUpdateTableModel)table.getModel()).update(row, owner);
                 }
             }
         });
-
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                System.out.println(simulation.getCosts().get(table.getSelectedRow()).toString());
-                route = simulation.getCosts().get(table.getSelectedRow());
-                tablePanel.setVisible(false);
-                tablePanel.removeAll();
-                isInDocument = true;
-                buildDialog();
-            }
-        });
         tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
-
         add(tablePanel, BorderLayout.CENTER);
-
     }
 
     @Override
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
-                getField(FieldNames.CompanyName, "Company name", route.getCompany() == null ? "" : route.getCompany()),
-                getField(FieldNames.LocationTo, "Location to", route.getTo() != null ? route.getTo().getName() : ""),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom() != null ? route.getFrom().getName() : ""),
-                getField(FieldNames.TransportType, "Transportation type", route.getTransportType() == null ? TransportType.Air : route.getTransportType()),
-                getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost()),
-                getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost()),
-                getField(FieldNames.MaxWeight, "Max weight", route.getMaxWeight()),
-                getField(FieldNames.MaxVolume, "Max volume", route.getMaxVolume()),
-                getField(FieldNames.Duration, "Duration", route.getDuration()),
-                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay() == null ? DayOfWeek.Monday : route.getDay()),
-                getField(FieldNames.Frequency, "Frequency of delivery", route.getFrequency())
+                getField(FieldNames.CompanyName, "Company name", route.getCompany(), String.class),
+                getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
+                getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
+                getField(FieldNames.TransportType, "Transportation type", route.getTransportType(), TransportType.class),
+                getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost(), Integer.class),
+                getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost(), Integer.class),
+                getField(FieldNames.MaxWeight, "Max weight", route.getMaxWeight(), Integer.class),
+                getField(FieldNames.MaxVolume, "Max volume", route.getMaxVolume(), Integer.class),
+                getField(FieldNames.Duration, "Duration", route.getDuration(), Integer.class),
+                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
+                getField(FieldNames.Frequency, "Frequency of delivery", route.getFrequency(), Integer.class)
         };
     }
 

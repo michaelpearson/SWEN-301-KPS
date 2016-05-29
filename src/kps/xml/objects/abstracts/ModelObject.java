@@ -21,4 +21,5 @@ public abstract class ModelObject {
     @XmlTransient protected Simulation getSimulation() {
         return simulation;
     }
+
 }

@@ -40,13 +40,22 @@ public class RouteDialog extends FormDialog {
     }
 
     public RouteDialog(Frame owner, Simulation simulation, @Nullable Cost previousRoute) {
+        this(owner, simulation, false, previousRoute);
+    }
+    public RouteDialog(@Nullable Frame owner, @NotNull Simulation simulation, boolean isUpdate, @Nullable Cost previousRoute) {
         super(owner, previousRoute == null ? "Add route" : "Edit route", true, simulation);
-        this.isInDocument = previousRoute != null;
+        if(isUpdate) {
+            isInDocument = false;
+            setTitle("Update route");
+        } else {
+            this.isInDocument = previousRoute != null;
+        }
         this.route = previousRoute == null ? new Cost(simulation) : previousRoute;
-
         buildDialog();
         setVisible(true);
     }
+
+
 
     @Override
     protected JComponent[][] getAllFields() {

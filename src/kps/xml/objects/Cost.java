@@ -35,6 +35,10 @@ public class Cost extends BusinessEventWithLocation {
         new RouteDialog(owner, getSimulation(), this);
     }
 
+    public void update(Frame owner) {
+        new RouteDialog(owner, getSimulation(), true, this.copy());
+    }
+
     public void setCompany(String company) {
         this.company = company;
     }
@@ -115,5 +119,21 @@ public class Cost extends BusinessEventWithLocation {
     @Override
     public double getRevenue() {
         return 0;
+    }
+
+    protected Cost copy() {
+        Cost object = new Cost(simulation);
+        object.setTransportType(getTransportType());
+        object.setWeightCost(getWeightCost());
+        object.setVolumeCost(getVolumeCost());
+        object.setMaxWeight(getMaxWeight());
+        object.setMaxVolume(getMaxVolume());
+        object.setCompany(getCompany());
+        object.setDay(getDay());
+        object.setDuration(getDuration());
+        object.setFrequency(getFrequency());
+        object.setFrom(getFrom());
+        object.setTo(getTo());
+        return object;
     }
 }
