@@ -2,9 +2,11 @@ package kps.gui.windows;
 
 import kps.business.BusinessFiguresCalculator;
 import kps.xml.objects.Simulation;
+import org.jdesktop.swingx.JXDatePicker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Date;
 
 public class BusinessFigures extends JFrame {
     private final Simulation simulation;
@@ -22,7 +24,11 @@ public class BusinessFigures extends JFrame {
         buildGui();
         pack();
         setLocationRelativeTo(null);
+        buildBusinessFigures(new Date());
         setVisible(true);
+    }
+
+    private void buildBusinessFigures(Date date) {
         new JDialog(this, true) {
             {
                 JPanel panel = new JPanel();
@@ -32,7 +38,7 @@ public class BusinessFigures extends JFrame {
                 panel.setLayout(layout);
 
                 JProgressBar progress = new JProgressBar(0, 100);
-                new BusinessFiguresCalculator(simulation, null, (s) -> dataReady(s), p -> {
+                new BusinessFiguresCalculator(simulation, date, (s) -> dataReady(s), p -> {
                     progress.setValue((int)(p * 100));
                     if(p == 1) {
                         this.dispose();
@@ -59,9 +65,11 @@ public class BusinessFigures extends JFrame {
     }
 
     private void buildGui() {
-        setLayout(new BorderLayout());
+        JPanel outerPanel = new JPanel();
+        outerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        outerPanel.setLayout(new BorderLayout());
+
         JPanel figuresPanel = new JPanel();
-        figuresPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         GridLayout layout = new GridLayout(0, 2);
         layout.setVgap(10);
         layout.setHgap(10);
@@ -80,7 +88,22 @@ public class BusinessFigures extends JFrame {
         figuresPanel.add(averageDeliveryTime = new JLabel());
         figuresPanel.add(new JLabel("Critical routes:"));
         figuresPanel.add(criticalRoutes = new JLabel());
-        add(figuresPanel, BorderLayout.CENTER);
+
+        outerPanel.add(figuresPanel, BorderLayout.CENTER);
+
+        JPanel datePanel = new JPanel();
+        GridLayout dateLayout = new GridLayout(2, 1);
+        dateLayout.setVgap(10);
+        datePanel.setLayout(dateLayout);
+
+
+        JXDatePicker datePicker = new JXDatePicker(new Date());
+        datePicker.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        datePicker.addActionListener(e -> buildBusinessFigures(datePicker.getDate()));
+        datePanel.add(new JLabel("Select the date to calculate the business figures up to:"));
+        datePanel.add(datePicker);
+        outerPanel.add(datePanel, BorderLayout.SOUTH);
+        add(outerPanel);
     }
 
     private void dataReady(BusinessFiguresCalculator data) {
