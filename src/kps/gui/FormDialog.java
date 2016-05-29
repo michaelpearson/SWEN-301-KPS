@@ -112,9 +112,14 @@ public abstract class FormDialog extends JDialog {
                 throw new RuntimeException("This will never happen");
             }
         } else if(c.equals(Location.class)) {
-            Field<Object> locationField = makeLocationField((Location)fieldValue);
+            Field<Object> locationField = makeLocationField((Location) fieldValue);
             fieldGetter = locationField.getter;
             field = locationField.field;
+        } else if(c.equals(Boolean.class)) {
+            JCheckBox cb;
+            field = cb = new JCheckBox();
+            cb.setSelected(fieldValue != null && (boolean) fieldValue);
+            fieldGetter = cb::isSelected;
         } else {
             throw new RuntimeException("Unsupported field type");
         }

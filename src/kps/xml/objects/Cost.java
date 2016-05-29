@@ -9,8 +9,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Cost extends BusinessEventWithLocation {
+/**
+ * The cost object represents the cost of a route given a transport provider. Because the schema given to us is somewhat
+ * questionable, it also defines a route. So no cost between a and b means there is no route between a and b.
+ */
+@XmlAccessorType(XmlAccessType.FIELD) public class Cost extends BusinessEventWithLocation {
     @XmlElement private String company;
     @XmlElement(name="type") private TransportType transportType;
     @XmlElement(name="weightcost") private int weightCost;
@@ -20,6 +23,7 @@ public class Cost extends BusinessEventWithLocation {
     @XmlElement private int duration;
     @XmlElement private int frequency;
     @XmlElement(name="day") private DayOfWeek day;
+    @XmlElement private boolean discontinued;
 
     public Cost(Simulation s) {
         super(s);
@@ -28,7 +32,11 @@ public class Cost extends BusinessEventWithLocation {
     public Cost() {}
 
     @Override public String getEventType() {
-        return "Transport cost update";
+        if(isDiscontinued()) {
+            return "Route discontinuation";
+        } else {
+            return "Route update";
+        }
     }
 
     @Override public void edit(Frame owner) {
@@ -111,14 +119,20 @@ public class Cost extends BusinessEventWithLocation {
         return day;
     }
 
-    @Override
-    public double getExpenditure() {
+    @Override public double getExpenditure() {
         return 0;
     }
 
-    @Override
-    public double getRevenue() {
+    @Override public double getRevenue() {
         return 0;
+    }
+
+    public boolean isDiscontinued() {
+        return discontinued;
+    }
+
+    public void setDiscontinued(boolean discontinued) {
+        this.discontinued = discontinued;
     }
 
     protected Cost copy() {
@@ -134,6 +148,7 @@ public class Cost extends BusinessEventWithLocation {
         object.setFrequency(getFrequency());
         object.setFrom(getFrom());
         object.setTo(getTo());
+        object.setDiscontinued(isDiscontinued());
         return object;
     }
 }
