@@ -1,6 +1,5 @@
 package kps.gui.windows;
 
-import kps.gui.models.CostUpdateTableModel;
 import kps.gui.models.HomepageTableModel;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
@@ -79,7 +78,7 @@ public class Home extends JFrame {
         buttonPanel.add(addMailDeliveryButton);
 
         JButton updateTransportCostButton = new JButton("Update transport cost");
-        updateTransportCostButton.addActionListener(e -> new CostUpdateDialog(Home.this, simulation));
+        updateTransportCostButton.addActionListener(e -> new TransportRouteUpdateTable(Home.this, simulation));
         buttonPanel.add(updateTransportCostButton);
 
         JButton viewBusinessFiguresButton = new JButton("View business figures");
