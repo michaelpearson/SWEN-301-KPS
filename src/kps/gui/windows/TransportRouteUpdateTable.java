@@ -19,6 +19,7 @@ public class TransportRouteUpdateTable extends JDialog {
         this.owner = owner;
         buildTable();
         setLocationRelativeTo(null);
+        setTitle("View all routes");
         setVisible(true);
     }
 
