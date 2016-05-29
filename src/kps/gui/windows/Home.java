@@ -45,7 +45,8 @@ public class Home extends JFrame {
         tablePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
         tablePanel.setLayout(new BorderLayout());
 
-        JXTable table = new JXTable(new HomepageTableModel(simulation));
+        HomepageTableModel tableModel = new HomepageTableModel(simulation);
+        JXTable table = new JXTable(tableModel);
         table.setFillsViewportHeight(true);
         table.packColumn(0, 6);
         table.setBorder(BorderFactory.createEmptyBorder());
@@ -70,15 +71,15 @@ public class Home extends JFrame {
 
 
         JButton addRouteButton = new JButton("Add route");
-        addRouteButton.addActionListener(e -> new RouteDialog(Home.this, simulation));
+        addRouteButton.addActionListener(e -> {new RouteDialog(Home.this, simulation); tableModel.updateTable();});
         buttonPanel.add(addRouteButton);
 
         JButton addMailDeliveryButton = new JButton("Add mail delivery");
-        addMailDeliveryButton.addActionListener(e -> new MailDialog(Home.this, simulation));
+        addMailDeliveryButton.addActionListener(e -> {new MailDialog(Home.this, simulation); tableModel.updateTable();});
         buttonPanel.add(addMailDeliveryButton);
 
         JButton updateTransportCostButton = new JButton("Update transport cost");
-        updateTransportCostButton.addActionListener(e -> new TransportRouteUpdateTable(Home.this, simulation));
+        updateTransportCostButton.addActionListener(e -> {new TransportRouteUpdateTable(Home.this, simulation); tableModel.updateTable();});
         buttonPanel.add(updateTransportCostButton);
 
         JButton viewBusinessFiguresButton = new JButton("View business figures");
