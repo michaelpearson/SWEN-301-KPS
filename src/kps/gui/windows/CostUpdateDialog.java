@@ -1,25 +1,34 @@
 package kps.gui.windows;
 
 import kps.gui.FormDialog;
+import kps.gui.models.CostUpdateTableModel;
+import kps.gui.models.HomepageTableModel;
 import kps.xml.objects.Cost;
 import kps.xml.objects.Location;
+import kps.xml.objects.Mail;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
+import kps.xml.objects.enums.Priority;
 import kps.xml.objects.enums.TransportType;
+import org.jdesktop.swingx.JXTable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
-import java.util.IntSummaryStatistics;
 import java.util.Map;
 import java.util.Set;
 
-public class RouteDialog extends FormDialog {
-    @NotNull
-    private Cost route;
+public class CostUpdateDialog extends FormDialog {
+    private @NotNull Cost route;
     private boolean isInDocument;
+    private final Frame owner;
+
 
     private enum FieldNames {
         CompanyName,
@@ -35,27 +44,39 @@ public class RouteDialog extends FormDialog {
         Frequency
     }
 
-    public RouteDialog(Frame owner, Simulation simulation) {
+    public CostUpdateDialog(Frame owner, Simulation simulation) {
         this(owner, simulation, null);
     }
 
-    public RouteDialog(Frame owner, Simulation simulation, @Nullable Cost previousRoute) {
-        this(owner, simulation, false, previousRoute);
-    }
-    public RouteDialog(@Nullable Frame owner, @NotNull Simulation simulation, boolean isUpdate, @Nullable Cost previousRoute) {
-        super(owner, previousRoute == null ? "Add route" : "Edit route", true, simulation);
-        if(isUpdate) {
-            isInDocument = false;
-            setTitle("Update route");
-        } else {
-            this.isInDocument = previousRoute != null;
-        }
-        this.route = previousRoute == null ? new Cost(simulation) : previousRoute;
-        buildDialog();
+    public CostUpdateDialog(Frame owner, Simulation simulation, @Nullable Cost previousRoute) {
+        super(owner, "Update Transport Costs", true, simulation);
+        this.isInDocument = previousRoute != null;
+        this.owner = owner;
+        buildTable();
         setVisible(true);
     }
 
-
+    private void buildTable() {
+        setSize(900, 300);
+        JPanel tablePanel = new JPanel();
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
+        tablePanel.setLayout(new BorderLayout());
+        JXTable table = new JXTable(new CostUpdateTableModel(simulation));
+        table.setFillsViewportHeight(true);
+        table.packColumn(0, 6);
+        table.setBorder(BorderFactory.createEmptyBorder());
+        table.addMouseListener(new MouseAdapter() {
+            @Override public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JXTable table = (JXTable) e.getSource();
+                    int row = table.convertRowIndexToModel(table.getSelectedRow());
+                    ((CostUpdateTableModel)table.getModel()).update(row, owner);
+                }
+            }
+        });
+        tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
+        add(tablePanel, BorderLayout.CENTER);
+    }
 
     @Override
     protected JComponent[][] getAllFields() {
@@ -64,13 +85,13 @@ public class RouteDialog extends FormDialog {
                 getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
                 getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
                 getField(FieldNames.TransportType, "Transportation type", route.getTransportType(), TransportType.class),
-                getField(FieldNames.WeightCost, "Weight cost (cents/grams)", route.getWeightCost(), Integer.class),
-                getField(FieldNames.VolumeCost, "Volume cost (cents/cm^3)", route.getVolumeCost(), Integer.class),
-                getField(FieldNames.MaxWeight, "Max weight (grams)", route.getMaxWeight(), Integer.class),
-                getField(FieldNames.MaxVolume, "Max volume (cm^3)", route.getMaxVolume(), Integer.class),
-                getField(FieldNames.Duration, "Duration (days)", route.getDuration(), Integer.class),
+                getField(FieldNames.WeightCost, "Weight cost", route.getWeightCost(), Integer.class),
+                getField(FieldNames.VolumeCost, "Volume cost", route.getVolumeCost(), Integer.class),
+                getField(FieldNames.MaxWeight, "Max weight", route.getMaxWeight(), Integer.class),
+                getField(FieldNames.MaxVolume, "Max volume", route.getMaxVolume(), Integer.class),
+                getField(FieldNames.Duration, "Duration", route.getDuration(), Integer.class),
                 getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
-                getField(FieldNames.Frequency, "Frequency of delivery (days)", route.getFrequency(), Integer.class)
+                getField(FieldNames.Frequency, "Frequency of delivery", route.getFrequency(), Integer.class)
         };
     }
 
@@ -82,10 +103,10 @@ public class RouteDialog extends FormDialog {
                     route.setCompany((String)entry.getValue());
                     break;
                 case LocationTo:
-                    route.setTo((Location)entry.getValue());
+                    route.setTo((String)entry.getValue());
                     break;
                 case LocationFrom:
-                    route.setFrom((Location) entry.getValue());
+                    route.setFrom((String)entry.getValue());
                     break;
                 case DayOfWeek:
                     route.setDay(Arrays.asList(DayOfWeek.values()).stream().filter(v -> v.equals((DayOfWeek)entry.getValue())).findFirst().get());
