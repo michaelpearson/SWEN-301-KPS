@@ -19,7 +19,7 @@ public class HomepageTableModel extends AbstractTableModel {
     private static final String FROM = "From";
     private static final String TO = "To";
     private static final String TRANSPORT_FIRM = "Company";
-    private static final String PRIORITY = "Priority";
+    private static final String PRIORITY = "Priority/Transport type";
     private final Simulation simulation;
     private List<BusinessEvent> businessEvents;
     private LinkedHashMap<String, FieldGetter> tableColumns = new LinkedHashMap<>();
@@ -44,7 +44,13 @@ public class HomepageTableModel extends AbstractTableModel {
         });
         tableColumns.put(PRIORITY, row -> {
             BusinessEvent event = businessEvents.get(row);
-            return Mail.class.isAssignableFrom(event.getClass()) ? ((Mail)event).getPriority().toString() : "N/A";
+            if(Mail.class.isAssignableFrom(event.getClass())) {
+                return ((Mail)event).getPriority().toString();
+            } else if (Cost.class.isAssignableFrom(event.getClass())) {
+                return ((Cost)event).getTransportType().toString();
+            } else {
+                return "N/A";
+            }
         });
     }
 
