@@ -27,6 +27,7 @@ public class Main {
             e.printStackTrace();
             simulation = new Simulation();
         }
+
         new Login(simulation);
     }
 }

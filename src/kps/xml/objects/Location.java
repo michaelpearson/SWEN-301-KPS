@@ -4,8 +4,7 @@ import kps.xml.objects.abstracts.ModelObject;
 
 import javax.xml.bind.annotation.*;
 
-@XmlAccessorType(XmlAccessType.NONE)
-public class Location extends ModelObject {
+@XmlAccessorType(XmlAccessType.NONE) public class Location extends ModelObject {
     @XmlAttribute(name="id") private int id;
     @XmlValue private String name;
 

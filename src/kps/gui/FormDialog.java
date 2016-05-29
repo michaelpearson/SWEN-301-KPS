@@ -168,7 +168,7 @@ public abstract class FormDialog extends JDialog {
         return componentMap.get(tag).getValue();
     }
 
-    private Object getComponentValue(Object tag) {
+    protected Object getComponentValue(Object tag) {
         Gettable<Object> component = valueMap.get(tag);
         if(component == null) {
             throw new RuntimeException("Could not find component");
@@ -184,7 +184,7 @@ public abstract class FormDialog extends JDialog {
         return values;
     }
 
-    protected boolean fieldsValid(){
+    protected boolean validateFields(){
         for(Map.Entry<Object, Gettable<Object>> c : valueMap.entrySet()) {
             if (c.getValue().getValue() == null || c.getValue().getValue().toString().length() == 0) {
                 JOptionPane.showMessageDialog(this, "Sorry one or more fields was invalid. Please fill in all of the fields and try again.", "Invalid input", JOptionPane.WARNING_MESSAGE);

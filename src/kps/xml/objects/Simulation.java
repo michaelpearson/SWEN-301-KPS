@@ -1,48 +1,39 @@
 package kps.xml.objects;
 
 import kps.xml.objects.abstracts.BusinessEvent;
+import kps.xml.objects.enums.Priority;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
-@XmlRootElement(name="simulation") @XmlAccessorType(XmlAccessType.FIELD) public class Simulation {
+@XmlRootElement(name="simulation") @XmlAccessorType(XmlAccessType.NONE) public class Simulation {
+    //Fields which are not preserved in XML
+    private HashMap<Integer, Location> locationIdCache = new HashMap<>();
+    private HashMap<String, Location> locationNameCache = new HashMap<>();
 
-    private static Set<SimulationUpdateListener> updateListeners = new HashSet<>();
-    @XmlTransient private HashMap<Integer, Location> locationIdCache = new HashMap<>();
-    @XmlTransient private HashMap<String, Location> locationNameCache = new HashMap<>();
-
-    @XmlElement(name="cost") private List<Cost> costs;
+    //These fields are saved in the XML log
+    @XmlElement(name="route") private List<Route> routes;
     @XmlElement(name="mail") private List<Mail> mail;
-    @XmlElement(name="price") private List<Price> price;
     @XmlElement(name="location") private List<Location> locations;
 
     public Simulation() {
-        this.costs = new ArrayList<>();
+        this.routes = new ArrayList<>();
         this.mail = new ArrayList<>();
-        this.price = new ArrayList<>();
         this.locations = new ArrayList<>();
     }
 
-    public interface SimulationUpdateListener {
-        void simulationUpdated();
-    }
-
-    public List<Cost> getCosts() {
-        return costs;
+    public List<Route> getRoutes() {
+        return routes;
     }
 
     public List<Mail> getMail() {
         return mail;
     }
 
-    public List<Price> getPrice() {
-        return price;
-    }
-
-
-    public List<Location> getLocations() {
+    @NotNull public List<Location> getLocations() {
         return locations;
     }
 
@@ -72,25 +63,64 @@ import java.util.*;
         return null;
     }
 
-    public void addUpdateListener(SimulationUpdateListener updateListener) {
-        updateListeners.add(updateListener);
-    }
-
-    public void fireUpdateListeners() {
-        new Thread() {
-            @Override
-            public void run() {
-                Simulation.updateListeners.forEach(SimulationUpdateListener::simulationUpdated);
-            }
-        }.start();
-    }
-
-    public List<BusinessEvent> getAllBusinessEvents() {
+    @NotNull public List<BusinessEvent> getAllBusinessEvents() {
         ArrayList<BusinessEvent> build = new ArrayList<>();
-        build.addAll(costs);
+        build.addAll(routes);
         build.addAll(mail);
-        build.addAll(price);
         build.sort((left, right) -> right.getDate().compareTo(left.getDate()));
         return build;
+    }
+
+    @NotNull public List<Route> getUniqueRoutes() {
+        List<Route> uniqueRoutes = new ArrayList<>();
+        for(Route r1 : routes) {
+            boolean allBefore = true;
+            for(Route r2 : routes) {
+                if(r1 == r2 || !r1.getCompany().equals(r2.getCompany()) || r1.getTransportType() != r2.getTransportType()) {
+                    continue;
+                }
+                if(!r1.getDate().after(r2.getDate())) {
+                    allBefore = false;
+                }
+            }
+            if(allBefore) {
+                uniqueRoutes.add(r1);
+            }
+        }
+        return uniqueRoutes;
+    }
+
+    @Nullable public CalculatedRoute buildCalculatedRoute(@NotNull Location from, @NotNull Location to, @NotNull Priority priority) {
+        Set<CalculatedRoute> calculatedRoutes = new RouteCalculator().buildCalculatedRoute(from, to, priority);
+
+        if(calculatedRoutes.size() > 0) {
+            return calculatedRoutes.iterator().next();
+        }
+        return null;
+    }
+
+    private class RouteCalculator {
+        private List<Location> visitedNodes = new ArrayList<>();
+        private List<Route> uniqueRoutes = getUniqueRoutes();
+
+        @NotNull Set<CalculatedRoute> buildCalculatedRoute(@NotNull Location from, @NotNull Location to, @NotNull Priority priority) {
+            return calculateRoute(from, to, priority, new CalculatedRoute());
+        }
+
+        @NotNull Set<CalculatedRoute> calculateRoute(@NotNull Location from, @NotNull Location to, @NotNull Priority priority, @NotNull CalculatedRoute calculatedRoute) {
+            visitedNodes.add(from);
+            Set<Route> routesWithMatchingFrom = uniqueRoutes.stream().filter(n -> from.equals(n.getFrom())).filter(r -> priority.willSettleFor(r.getTransportType())).collect(Collectors.toSet());
+            Set<CalculatedRoute> newRoutes = new HashSet<>();
+            for(Route r : routesWithMatchingFrom) {
+                if(visitedNodes.contains(r.getTo())) {
+
+                } else if(r.getTo().equals(to)) {
+                    newRoutes.add(new CalculatedRoute(calculatedRoute, r));
+                } else {
+                    newRoutes.addAll(calculateRoute(r.getTo(), to, priority, new CalculatedRoute(calculatedRoute, r)));
+                }
+            }
+            return newRoutes;
+        }
     }
 }

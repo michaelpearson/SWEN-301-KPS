@@ -1,6 +1,7 @@
 package kps.gui.windows;
 
 import kps.gui.FormDialog;
+import kps.xml.objects.CalculatedRoute;
 import kps.xml.objects.Location;
 import kps.xml.objects.Mail;
 import kps.xml.objects.Simulation;
@@ -11,13 +12,12 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 
 public class MailDialog extends FormDialog {
-    private @NotNull Mail route;
+    private @NotNull Mail mailDeliveryEvent;
     private boolean isInDocument;
+    private @Nullable CalculatedRoute calculatedRoute = null;
 
     private enum FieldNames {
         DayOfWeek,
@@ -28,15 +28,14 @@ public class MailDialog extends FormDialog {
         Priority
     }
 
-    public MailDialog(Frame owner, Simulation simulation) {
+    MailDialog(Frame owner, Simulation simulation) {
         this(owner, simulation, null);
     }
 
     public MailDialog(Frame owner, Simulation simulation, @Nullable Mail previousMailEvent) {
         super(owner, previousMailEvent == null ? "New mail Delivery" : "Edit mail delivery", true, simulation);
         this.isInDocument = previousMailEvent != null;
-        this.route = previousMailEvent == null ? new Mail(simulation) : previousMailEvent;
-
+        this.mailDeliveryEvent = previousMailEvent == null ? new Mail(simulation) : previousMailEvent;
         buildDialog();
         setVisible(true);
     }
@@ -44,44 +43,51 @@ public class MailDialog extends FormDialog {
     @Override
     protected JComponent[][] getAllFields() {
         return new JComponent[][]{
-                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
-                getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
-                getField(FieldNames.Weight, "Weight (grams)", route.getWeight(), Integer.class),
-                getField(FieldNames.Volume, "Volume (cm^3)", route.getVolume(), Integer.class),
-                getField(FieldNames.Priority, "Priority", route.getPriority(), Priority.class)
+                getField(FieldNames.DayOfWeek, "Day of the week", mailDeliveryEvent.getDay(), DayOfWeek.class),
+                getField(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom(), Location.class),
+                getField(FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo(), Location.class),
+                getField(FieldNames.Weight, "Weight (grams)", mailDeliveryEvent.getWeight(), Integer.class),
+                getField(FieldNames.Volume, "Volume (cm^3)", mailDeliveryEvent.getVolume(), Integer.class),
+                getField(FieldNames.Priority, "Priority", mailDeliveryEvent.getPriority(), Priority.class)
         };
     }
 
-    protected void save() {
-        if (!fieldsValid()) return;
-        Set<Map.Entry<Object, Object>> entries = getAllValues().entrySet();
-        for(Map.Entry<Object, Object> entry : entries) {
-            switch((FieldNames)entry.getKey()) {
-                case LocationTo:
-                    route.setTo((Location)entry.getValue());
-                    break;
-                case LocationFrom:
-                    route.setFrom((Location)entry.getValue());
-                    break;
-                case DayOfWeek:
-                    route.setDay(Arrays.asList(DayOfWeek.values()).stream().filter(v -> v.equals((DayOfWeek)entry.getValue())).findFirst().get());
-                    break;
-                case Priority:
-                    route.setPriority(Arrays.asList(Priority.values()).stream().filter(v -> v.equals((Priority)entry.getValue())).findFirst().get());
-                    break;
-                case Volume:
-                    route.setVolume((Integer)entry.getValue());
-                    break;
-                case Weight:
-                    route.setWeight((Integer)entry.getValue());
-                    break;
-                default:
-                    throw new RuntimeException("Unknown field");
-            }
+    @Override
+    protected boolean validateFields() {
+        boolean valid = super.validateFields();
+        if(!valid) {
+            return false;
         }
+        Location from = (Location)getComponentValue(FieldNames.LocationFrom);
+        Location to = (Location)getComponentValue(FieldNames.LocationTo);
+        Priority priority = (Priority)getComponentValue(FieldNames.Priority);
+        calculatedRoute = simulation.buildCalculatedRoute(from, to, priority);
+        if(calculatedRoute == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    String.format("Sorry, no route between %s and %s using %s was found. Please change your origin and destination and try again", from.toString(), to.toString(), priority.toString()),
+                    "No viable route", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    protected void save() {
+        if (!validateFields()) {
+            return;
+        }
+        Map<Object, Object> entries = getAllValues();
+
+        mailDeliveryEvent.setCalculatedRoute(calculatedRoute);
+        mailDeliveryEvent.setTo((Location)entries.get(FieldNames.LocationTo));
+        mailDeliveryEvent.setFrom((Location)entries.get(FieldNames.LocationFrom));
+        mailDeliveryEvent.setDay((DayOfWeek)entries.get(FieldNames.DayOfWeek));
+        mailDeliveryEvent.setPriority((Priority)entries.get(FieldNames.Priority));
+        mailDeliveryEvent.setVolume((Integer)entries.get(FieldNames.Volume));
+        mailDeliveryEvent.setWeight((Integer)entries.get(FieldNames.Weight));
+
         if(!isInDocument) {
-            simulation.getMail().add(route);
+            simulation.getMail().add(mailDeliveryEvent);
         }
         cancel();
     }

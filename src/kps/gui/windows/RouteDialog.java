@@ -1,7 +1,7 @@
 package kps.gui.windows;
 
 import kps.gui.FormDialog;
-import kps.xml.objects.Cost;
+import kps.xml.objects.Route;
 import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
@@ -11,14 +11,10 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.IntSummaryStatistics;
 import java.util.Map;
-import java.util.Set;
 
 public class RouteDialog extends FormDialog {
-    @NotNull
-    private Cost route;
+    private @NotNull Route route;
     private boolean isInDocument;
 
     private enum FieldNames {
@@ -40,10 +36,10 @@ public class RouteDialog extends FormDialog {
         this(owner, simulation, null);
     }
 
-    public RouteDialog(Frame owner, Simulation simulation, @Nullable Cost previousRoute) {
+    public RouteDialog(Frame owner, Simulation simulation, @Nullable Route previousRoute) {
         this(owner, simulation, false, previousRoute);
     }
-    public RouteDialog(@Nullable Frame owner, @NotNull Simulation simulation, boolean isUpdate, @Nullable Cost previousRoute) {
+    public RouteDialog(@Nullable Frame owner, @NotNull Simulation simulation, boolean isUpdate, @Nullable Route previousRoute) {
         super(owner, previousRoute == null ? "Add route" : "Edit route", true, simulation);
         if(isUpdate) {
             isInDocument = false;
@@ -51,7 +47,7 @@ public class RouteDialog extends FormDialog {
         } else {
             this.isInDocument = previousRoute != null;
         }
-        this.route = previousRoute == null ? new Cost(simulation) : previousRoute;
+        this.route = previousRoute == null ? new Route(simulation) : previousRoute;
         buildDialog();
         setVisible(true);
     }
@@ -77,7 +73,7 @@ public class RouteDialog extends FormDialog {
     }
 
     protected void save() {
-        if (!fieldsValid()) return;
+        if (!validateFields()) return;
         Map<Object, Object> entries = getAllValues();
         route.setCompany((String)entries.get(FieldNames.CompanyName));
         route.setTo((Location)entries.get(FieldNames.LocationTo));
@@ -92,7 +88,7 @@ public class RouteDialog extends FormDialog {
         route.setWeightCost((Integer)entries.get(FieldNames.WeightCost));
         route.setDiscontinued((Boolean)entries.get(FieldNames.Discontinued));
         if(!isInDocument) {
-            simulation.getCosts().add(route);
+            simulation.getRoutes().add(route);
         }
         cancel();
     }

@@ -10,10 +10,10 @@ import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
 /**
- * The cost object represents the cost of a route given a transport provider. Because the schema given to us is somewhat
- * questionable, it also defines a route. So no cost between a and b means there is no route between a and b.
+ * The route object represents a route on a given transport provider.
  */
-@XmlAccessorType(XmlAccessType.FIELD) public class Cost extends BusinessEventWithLocation {
+@XmlAccessorType(XmlAccessType.NONE) public class Route extends BusinessEventWithLocation {
+
     @XmlElement private String company;
     @XmlElement(name="type") private TransportType transportType;
     @XmlElement(name="weightcost") private int weightCost;
@@ -25,11 +25,11 @@ import java.awt.*;
     @XmlElement(name="day") private DayOfWeek day;
     @XmlElement private boolean discontinued;
 
-    public Cost(Simulation s) {
+    Route() {}
+
+    public Route(Simulation s) {
         super(s);
     }
-
-    public Cost() {}
 
     @Override public String getEventType() {
         if(isDiscontinued()) {
@@ -135,8 +135,8 @@ import java.awt.*;
         this.discontinued = discontinued;
     }
 
-    protected Cost copy() {
-        Cost object = new Cost(simulation);
+    private Route copy() {
+        Route object = new Route(simulation);
         object.setTransportType(getTransportType());
         object.setWeightCost(getWeightCost());
         object.setVolumeCost(getVolumeCost());
