@@ -75,6 +75,7 @@ public class RouteDialog extends FormDialog {
     }
 
     protected void save() {
+        if (!fieldsValid()) return;
         Set<Map.Entry<Object, Object>> entries = getAllValues().entrySet();
         for(Map.Entry<Object, Object> entry : entries) {
             switch((FieldNames)entry.getKey()) {
