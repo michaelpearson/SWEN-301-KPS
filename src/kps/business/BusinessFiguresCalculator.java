@@ -55,16 +55,13 @@ public class BusinessFiguresCalculator {
         businessEvents.sort((l, r) -> l.getDate().compareTo(r.getDate()));
         int a = 0;
         for(BusinessEvent businessEvent : businessEvents) {
-            try {
-                Thread.sleep(50);
-                //TODO: Remove this. Just for testing.
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             if(Thread.interrupted()) {
                 return;
             }
             if(dateTo != null && businessEvent.getDate().after(dateTo)) {
+                if(progressCallback != null) {
+                    progressCallback.progress(1);
+                }
                 fireCallback();
                 return;
             }
