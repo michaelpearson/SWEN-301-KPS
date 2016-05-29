@@ -4,7 +4,6 @@ import kps.xml.adapters.DateAdapter;
 import kps.xml.objects.Cost;
 import kps.xml.objects.Mail;
 import kps.xml.objects.abstracts.BusinessEvent;
-import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.Simulation;
 
 import javax.swing.table.AbstractTableModel;
@@ -76,5 +75,10 @@ public class HomepageTableModel extends AbstractTableModel {
 
     public void edit(int row, Frame owner) {
         businessEvents.get(row).edit(owner);
+        updateTable();
+    }
+
+    public void updateTable(){
+        this.businessEvents = simulation.getAllBusinessEvents();
     }
 }
