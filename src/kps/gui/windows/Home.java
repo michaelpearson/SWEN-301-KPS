@@ -24,7 +24,7 @@ public class Home extends JFrame {
         this.simulation = simulation;
         this.user = user;
 
-        Dimension size = new Dimension(900, 500);
+        Dimension size = new Dimension(1300, 700);
         setMinimumSize(size);
         setSize(size);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
