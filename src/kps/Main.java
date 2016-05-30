@@ -30,7 +30,6 @@ public class Main {
             e.printStackTrace();
             simulation = new Simulation();
         }
-        new RouteConfirmationDialog(null, simulation.buildCalculatedRoute(simulation.getLocationByName("Wellington"), simulation.getLocationByName("Suva"), Priority.DOMESTIC));
-        //new Login(simulation);
+        new Login(simulation);
     }
 }

@@ -8,6 +8,8 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +28,7 @@ public class RouteConfirmationDialog extends JDialog {
             selectedRoute = this.possibleRoutes.get(0);
         } else {
             buildDialog();
+            setLocationRelativeTo(null);
             setVisible(true);
         }
     }
@@ -33,7 +36,7 @@ public class RouteConfirmationDialog extends JDialog {
     private void buildDialog() {
         setLayout(new BorderLayout());
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        panel.setLayout(new BorderLayout(0, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JXTable table = new JXTable(new RouteSelectionTableModel());
@@ -41,8 +44,17 @@ public class RouteConfirmationDialog extends JDialog {
         panel.add(new JScrollPane(table), BorderLayout.CENTER);
         add(panel, BorderLayout.CENTER);
 
+        JButton okbutton;
+        panel.add(okbutton = new JButton("Ok"), BorderLayout.SOUTH);
 
-
+        okbutton.addActionListener(e -> {
+            if(table.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a single route.", "No route selected", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            selectedRoute = possibleRoutes.get(table.getSelectedRow());
+            setVisible(false);
+        });
         setSize(500, 300);
         table.packAll();
     }
