@@ -1,7 +1,7 @@
 package kps.gui;
 
 import kps.gui.models.LocationsModel;
-import kps.gui.windows.LocationDialog;
+import kps.gui.windows.dialogs.LocationDialog;
 import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
 

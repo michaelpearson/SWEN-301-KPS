@@ -1,6 +1,6 @@
 package kps.xml.objects;
 
-import kps.gui.windows.MailDialog;
+import kps.gui.windows.dialogs.MailDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;

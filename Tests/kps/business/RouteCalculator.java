@@ -10,18 +10,20 @@ import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Set;
 
 public class RouteCalculator {
     @Test public void ensureThatSystemCanCalculateARouteFromTestData() throws FileNotFoundException, XMLException {
         Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
-        CalculatedRoute calculatedRoute = s.buildCalculatedRoute(s.getLocationByName("Wellington"), s.getLocationByName("Suva"), Priority.INTERNATIONAL_STANDARD);
-        Assert.assertNotNull(calculatedRoute);
+        Set<CalculatedRoute> calculatedRoutes = s.buildCalculatedRoute(s.getLocationByName("Wellington"), s.getLocationByName("Suva"), Priority.INTERNATIONAL_STANDARD);
+        Assert.assertNotNull(calculatedRoutes);
+        Assert.assertTrue(calculatedRoutes.size() > 0);
     }
 
     @Test public void ensureThatSystemWillNotPickInferiorRoute() throws FileNotFoundException, XMLException {
         Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
-        CalculatedRoute calculatedRoute = s.buildCalculatedRoute(s.getLocationByName("Wellington"), s.getLocationByName("Suva"), Priority.INTERNATIONAL_AIR);
-        Assert.assertNull(calculatedRoute);
+        Set<CalculatedRoute> calculatedRoute = s.buildCalculatedRoute(s.getLocationByName("Wellington"), s.getLocationByName("Suva"), Priority.INTERNATIONAL_AIR);
+        Assert.assertTrue(calculatedRoute == null || calculatedRoute.size() == 0);
     }
 
 }

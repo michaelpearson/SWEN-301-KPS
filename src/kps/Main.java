@@ -1,9 +1,12 @@
 package kps;
 
 import kps.gui.windows.Login;
+import kps.gui.windows.dialogs.RouteConfirmationDialog;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
+import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
+import kps.xml.objects.enums.Priority;
 
 import javax.swing.*;
 import java.io.FileInputStream;
@@ -27,7 +30,7 @@ public class Main {
             e.printStackTrace();
             simulation = new Simulation();
         }
-
-        new Login(simulation);
+        new RouteConfirmationDialog(null, simulation.buildCalculatedRoute(simulation.getLocationByName("Wellington"), simulation.getLocationByName("Suva"), Priority.DOMESTIC));
+        //new Login(simulation);
     }
 }

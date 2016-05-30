@@ -1,6 +1,6 @@
 package kps.xml.objects;
 
-import kps.gui.windows.RouteDialog;
+import kps.gui.windows.dialogs.RouteDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;

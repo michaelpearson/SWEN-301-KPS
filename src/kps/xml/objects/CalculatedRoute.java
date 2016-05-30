@@ -34,6 +34,10 @@ import java.util.List;
 
     @Override
     public String toString() {
-        return "CalculatedRoute: " + routes;
+        StringBuilder builder = new StringBuilder("" + routes.get(0).getFrom());
+        for(Route r : routes) {
+            builder.append(" -> " + r.getTo());
+        }
+        return builder.toString();
     }
 }

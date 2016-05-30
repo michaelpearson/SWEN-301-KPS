@@ -90,13 +90,8 @@ import java.util.stream.Collectors;
         return uniqueRoutes;
     }
 
-    @Nullable public CalculatedRoute buildCalculatedRoute(@NotNull Location from, @NotNull Location to, @NotNull Priority priority) {
-        Set<CalculatedRoute> calculatedRoutes = new RouteCalculator().buildCalculatedRoute(from, to, priority);
-
-        if(calculatedRoutes.size() > 0) {
-            return calculatedRoutes.iterator().next();
-        }
-        return null;
+    @Nullable public Set<CalculatedRoute> buildCalculatedRoute(@NotNull Location from, @NotNull Location to, @NotNull Priority priority) {
+        return new RouteCalculator().buildCalculatedRoute(from, to, priority);
     }
 
     private class RouteCalculator {
