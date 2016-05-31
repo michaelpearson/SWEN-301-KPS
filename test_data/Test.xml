@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <simulation>
-    <cost date="4:25:0 PM 29/06/2016">
-        <company>Air NZ</company>
+    <route date="12:36:10AM 21/05/2016">
         <to>4</to>
         <from>1</from>
+        <company>Air NZ</company>
         <type>Air</type>
         <weightcost>6</weightcost>
         <volumecost>6</volumecost>
@@ -12,11 +12,12 @@
         <duration>16</duration>
         <frequency>36</frequency>
         <day>Thursday</day>
-    </cost>
-    <cost>
-        <company>Kelburn Airways</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 21/05/2016">
         <to>2</to>
         <from>1</from>
+        <company>Kelburn Airways</company>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>0</volumecost>
@@ -25,11 +26,12 @@
         <duration>3</duration>
         <frequency>12</frequency>
         <day>Friday</day>
-    </cost>
-    <cost>
-        <company>Qantas</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 20/05/2016">
         <to>2</to>
         <from>1</from>
+        <company>Qantas</company>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>1</volumecost>
@@ -38,11 +40,12 @@
         <duration>3</duration>
         <frequency>12</frequency>
         <day>Monday</day>
-    </cost>
-    <cost>
-        <company>Kelburn Freight</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 20/05/2016">
         <to>1</to>
         <from>3</from>
+        <company>Kelburn Freight</company>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -51,11 +54,12 @@
         <duration>14</duration>
         <frequency>24</frequency>
         <day>Thursday</day>
-    </cost>
-    <cost>
-        <company>Kelburn Freight</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 20/05/2016">
         <to>1</to>
         <from>7</from>
+        <company>Kelburn Freight</company>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -64,11 +68,12 @@
         <duration>10</duration>
         <frequency>24</frequency>
         <day>Tuesday</day>
-    </cost>
-    <cost>
-        <company>Rodney's Longhaul</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 20/05/2016">
         <to>7</to>
         <from>3</from>
+        <company>Rodney's Longhaul</company>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -77,11 +82,12 @@
         <duration>2</duration>
         <frequency>12</frequency>
         <day>Monday</day>
-    </cost>
-    <cost>
-        <company>Roman Air Freight Ltd</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 20/05/2016">
         <to>4</to>
         <from>2</from>
+        <company>Roman Air Freight Ltd</company>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>3</volumecost>
@@ -90,11 +96,12 @@
         <duration>12</duration>
         <frequency>24</frequency>
         <day>Monday</day>
-    </cost>
-    <cost>
-        <company>Pacifica Merchants</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 20/05/2016">
         <to>6</to>
         <from>2</from>
+        <company>Pacifica Merchants</company>
         <type>Sea</type>
         <weightcost>3</weightcost>
         <volumecost>3</volumecost>
@@ -103,11 +110,12 @@
         <duration>36</duration>
         <frequency>168</frequency>
         <day>Monday</day>
-    </cost>
-    <cost>
-        <company>Davy Jones Ltd</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 20/05/2016">
         <to>4</to>
         <from>3</from>
+        <company>Davy Jones Ltd</company>
         <type>Sea</type>
         <weightcost>5</weightcost>
         <volumecost>4</volumecost>
@@ -116,11 +124,12 @@
         <duration>36</duration>
         <frequency>168</frequency>
         <day>Monday</day>
-    </cost>
-    <cost>
-        <company>Qantas</company>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:36:10AM 20/05/2016">
         <to>2</to>
         <from>1</from>
+        <company>Qantas</company>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>1</volumecost>
@@ -129,121 +138,192 @@
         <duration>3</duration>
         <frequency>12</frequency>
         <day>Monday</day>
-    </cost>
-    <mail>
-        <day>Monday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="11:27:37AM 20/05/2016">
         <to>4</to>
         <from>1</from>
+        <company>Air NZ</company>
+        <type>Air</type>
+        <weightcost>9</weightcost>
+        <volumecost>6</volumecost>
+        <maxWeight>0</maxWeight>
+        <maxVolume>0</maxVolume>
+        <duration>16</duration>
+        <frequency>36</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:01:46PM 29/05/2016">
+        <to>4</to>
+        <from>1</from>
+        <company>Air NZ</company>
+        <type>Air</type>
+        <weightcost>9</weightcost>
+        <volumecost>6</volumecost>
+        <maxWeight>0</maxWeight>
+        <maxVolume>0</maxVolume>
+        <duration>16</duration>
+        <frequency>36</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="12:03:48PM 29/05/2016">
+        <to>4</to>
+        <from>1</from>
+        <company>Air NZ</company>
+        <type>Sea</type>
+        <weightcost>9</weightcost>
+        <volumecost>6</volumecost>
+        <maxWeight>0</maxWeight>
+        <maxVolume>0</maxVolume>
+        <duration>16</duration>
+        <frequency>36</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:12:15PM 29/05/2016">
+        <to>4</to>
+        <from>1</from>
+        <company>Air NZ</company>
+        <type>Sea</type>
+        <weightcost>10</weightcost>
+        <volumecost>6</volumecost>
+        <maxWeight>0</maxWeight>
+        <maxVolume>0</maxVolume>
+        <duration>16</duration>
+        <frequency>36</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="6:53:30PM 29/05/2016">
+        <to>4</to>
+        <from>1</from>
+        <company>Air NZ</company>
+        <type>Sea</type>
+        <weightcost>10</weightcost>
+        <volumecost>6</volumecost>
+        <maxWeight>0</maxWeight>
+        <maxVolume>0</maxVolume>
+        <duration>16</duration>
+        <frequency>36</frequency>
+        <day>Thursday</day>
+        <discontinued>true</discontinued>
+    </route>
+    <mail date="12:36:10AM 20/05/2016">
+        <to>4</to>
+        <from>1</from>
+        <day>Monday</day>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
-    <mail>
-        <day>Monday</day>
+    <mail date="12:36:10AM 20/05/2016">
         <to>2</to>
         <from>1</from>
+        <day>Monday</day>
         <weight>1000</weight>
         <volume>120</volume>
         <priority>International Air</priority>
     </mail>
-    <mail>
-        <day>Tuesday</day>
+    <mail date="12:36:10AM 20/05/2016">
         <to>4</to>
         <from>1</from>
+        <day>Tuesday</day>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
-    <mail>
-        <day>Thursday</day>
+    <mail date="12:36:10AM 20/05/2016">
         <to>6</to>
         <from>1</from>
+        <day>Thursday</day>
         <weight>2000</weight>
         <volume>120</volume>
         <priority>International Standard</priority>
     </mail>
-    <mail>
-        <day>Thursday</day>
+    <mail date="12:36:10AM 20/05/2016">
         <to>1</to>
         <from>3</from>
+        <day>Thursday</day>
         <weight>100</weight>
         <volume>3</volume>
-        <priority>Domestic Standard</priority>
+        <priority>Domestic</priority>
     </mail>
-    <mail>
-        <day>Friday</day>
+    <mail date="12:36:10AM 20/05/2016">
         <to>4</to>
         <from>7</from>
+        <day>Friday</day>
         <weight>400</weight>
         <volume>50</volume>
         <priority>International Air</priority>
     </mail>
-    <mail>
-        <day>Wednesday</day>
+    <mail date="12:36:10AM 20/05/2016">
         <to>4</to>
         <from>7</from>
+        <day>Wednesday</day>
         <weight>400</weight>
         <volume>25</volume>
         <priority>International Standard</priority>
     </mail>
-    <mail>
-        <day>Wednesday</day>
+    <mail date="12:36:10AM 20/05/2016">
         <to>2</to>
         <from>3</from>
+        <day>Wednesday</day>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Standard</priority>
     </mail>
-    <mail>
-        <day>Friday</day>
+    <mail date="12:36:10AM 20/05/2016">
         <to>4</to>
         <from>1</from>
+        <day>Friday</day>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
-    <price>
+    <price date="12:36:10AM 20/05/2016">
         <to>4</to>
         <from>3</from>
         <priority>International Air</priority>
         <weightcost>6</weightcost>
         <volumecost>8</volumecost>
     </price>
-    <price>
+    <price date="12:36:10AM 20/05/2016">
         <to>2</to>
         <from>3</from>
         <priority>International Air</priority>
         <weightcost>3</weightcost>
         <volumecost>2</volumecost>
     </price>
-    <price>
+    <price date="12:36:10AM 20/05/2016">
         <to>6</to>
         <from>3</from>
         <priority>International Air</priority>
         <weightcost>4</weightcost>
         <volumecost>4</volumecost>
     </price>
-    <price>
+    <price date="12:36:10AM 20/05/2016">
         <to>6</to>
         <from>3</from>
         <priority>International Standard</priority>
         <weightcost>3</weightcost>
         <volumecost>2</volumecost>
     </price>
-    <price>
+    <price date="12:36:10AM 20/05/2016">
         <to>3</to>
         <from>3</from>
-        <priority>Domestic Standard</priority>
+        <priority>Domestic</priority>
         <weightcost>1</weightcost>
         <volumecost>1</volumecost>
     </price>
-    <price>
+    <price date="12:36:10AM 20/05/2016">
         <to>3</to>
         <from>3</from>
         <weightcost>1</weightcost>
         <volumecost>2</volumecost>
     </price>
-    <price>
+    <price date="12:36:10AM 20/05/2016">
         <to>2</to>
         <from>3</from>
         <priority>International Air</priority>

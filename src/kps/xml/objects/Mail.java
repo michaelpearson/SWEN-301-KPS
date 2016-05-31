@@ -1,6 +1,6 @@
 package kps.xml.objects;
 
-import kps.gui.windows.MailDialog;
+import kps.gui.windows.dialogs.MailDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
@@ -10,12 +10,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Mail extends BusinessEventWithLocation {
+@XmlAccessorType(XmlAccessType.FIELD) public class Mail extends BusinessEventWithLocation {
     @XmlElement(name="day") private DayOfWeek day;
     @XmlElement(name="weight") private int weight;
     @XmlElement(name="volume") private int volume;
     @XmlElement(name="priority") private Priority priority;
+    @XmlElement(name="calculatedRoute") private CalculatedRoute calculatedRoute;
 
     public Mail(Simulation s) {
         super(s);
@@ -47,6 +47,10 @@ public class Mail extends BusinessEventWithLocation {
         this.day = day;
     }
 
+    public void setCalculatedRoute(CalculatedRoute calculatedRoute) {
+        this.calculatedRoute = calculatedRoute;
+    }
+
     public Priority getPriority() { return priority; }
 
     public int getWeight() {
@@ -71,5 +75,9 @@ public class Mail extends BusinessEventWithLocation {
 
     public int getDeliveryTime() {
         return 0;
+    }
+
+    public CalculatedRoute getCalculatedRoute() {
+        return calculatedRoute;
     }
 }

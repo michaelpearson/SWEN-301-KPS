@@ -1,6 +1,8 @@
 package kps.gui.windows;
 
 import kps.gui.models.HomepageTableModel;
+import kps.gui.windows.dialogs.MailDialog;
+import kps.gui.windows.dialogs.RouteDialog;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
 import kps.xml.objects.Simulation;

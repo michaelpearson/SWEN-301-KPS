@@ -2,8 +2,7 @@ package kps.gui.models;
 
 import kps.xml.adapters.DateAdapter;
 import kps.xml.objects.Simulation;
-import kps.xml.objects.Cost;
-import kps.xml.objects.abstracts.BusinessEvent;
+import kps.xml.objects.Route;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -11,12 +10,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class RouteUpdateTableModel extends AbstractTableModel {
     private static final String DATE = "Date";
@@ -26,7 +22,7 @@ public class RouteUpdateTableModel extends AbstractTableModel {
     private static final String TYPE = "Transport type";
     private static final String STATUS = "Route status";
     private final Simulation simulation;
-    private List<Cost> costEvents;
+    private List<Route> routes;
     private LinkedHashMap<String, FieldGetter> tableColumns = new LinkedHashMap<>();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DateAdapter.DATE_FORMAT);
 
@@ -41,38 +37,22 @@ public class RouteUpdateTableModel extends AbstractTableModel {
 
         updateTable();
 
-        tableColumns.put(DATE, row -> dateFormat.format(costEvents.get(row).getDate()));
-        tableColumns.put(STATUS, row -> costEvents.get(row).isDiscontinued() ? "Discontinued" : "Active");
-        tableColumns.put(COMPANY, row -> costEvents.get(row).getCompany());
-        tableColumns.put(TYPE, row -> costEvents.get(row).getTransportType().toString());
-        tableColumns.put(FROM, row -> costEvents.get(row).getFrom().getName());
-        tableColumns.put(TO, row -> costEvents.get(row).getTo().getName());
+        tableColumns.put(DATE, row -> dateFormat.format(routes.get(row).getDate()));
+        tableColumns.put(STATUS, row -> routes.get(row).isDiscontinued() ? "Discontinued" : "Active");
+        tableColumns.put(COMPANY, row -> routes.get(row).getCompany());
+        tableColumns.put(TYPE, row -> routes.get(row).getTransportType().toString());
+        tableColumns.put(FROM, row -> routes.get(row).getFrom().getName());
+        tableColumns.put(TO, row -> routes.get(row).getTo().getName());
     }
 
     public void updateTable() {
-        this.costEvents = simulation.getCosts();
-        List<Cost> ce = new ArrayList<>();
-        for(Cost c1 : costEvents) {
-            boolean allBefore = true;
-            for(Cost c2 : costEvents) {
-                if(c1 == c2 || !c1.getCompany().equals(c2.getCompany()) || c1.getTransportType() != c2.getTransportType()) {
-                    continue;
-                }
-                if(!c1.getDate().after(c2.getDate())) {
-                    allBefore = false;
-                }
-            }
-            if(allBefore) {
-                ce.add(c1);
-            }
-        }
-        this.costEvents = ce;
-        this.costEvents.sort((l, r) -> r.getDate().compareTo(l.getDate()));
+        this.routes = simulation.getUniqueRoutes();
+        this.routes.sort((l, r) -> r.getDate().compareTo(l.getDate()));
     }
 
     @Override
     public int getRowCount() {
-        return costEvents.size();
+        return routes.size();
     }
 
     @Override
@@ -91,11 +71,11 @@ public class RouteUpdateTableModel extends AbstractTableModel {
     }
 
     public void edit(int row, Frame owner) {
-        costEvents.get(row).edit(owner);
+        routes.get(row).edit(owner);
     }
 
     public void update(int row, Frame owner) {
-        costEvents.get(row).update(owner);
+        routes.get(row).update(owner);
     }
 
     public TableCellRenderer getRenderer() {
@@ -118,7 +98,7 @@ public class RouteUpdateTableModel extends AbstractTableModel {
         }
     }
 
-    public Cost getRow(int row) {
-        return costEvents.get(row);
+    public Route getRow(int row) {
+        return routes.get(row);
     }
 }

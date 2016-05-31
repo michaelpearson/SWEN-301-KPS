@@ -1,7 +1,7 @@
 package kps.gui.models;
 
 import kps.xml.adapters.DateAdapter;
-import kps.xml.objects.Cost;
+import kps.xml.objects.Route;
 import kps.xml.objects.Mail;
 import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.Simulation;
@@ -39,14 +39,14 @@ public class HomepageTableModel extends AbstractTableModel {
         tableColumns.put(TO, row -> businessEvents.get(row).getTo().getName());
         tableColumns.put(TRANSPORT_FIRM, row -> {
             BusinessEvent event = businessEvents.get(row);
-            return Cost.class.isAssignableFrom(event.getClass()) ? ((Cost)event).getCompany() : "N/A";
+            return Route.class.isAssignableFrom(event.getClass()) ? ((Route)event).getCompany() : "N/A";
         });
         tableColumns.put(PRIORITY, row -> {
             BusinessEvent event = businessEvents.get(row);
             if(Mail.class.isAssignableFrom(event.getClass())) {
                 return ((Mail)event).getPriority().toString();
-            } else if (Cost.class.isAssignableFrom(event.getClass())) {
-                return ((Cost)event).getTransportType().toString();
+            } else if (Route.class.isAssignableFrom(event.getClass())) {
+                return ((Route)event).getTransportType().toString();
             } else {
                 return "N/A";
             }

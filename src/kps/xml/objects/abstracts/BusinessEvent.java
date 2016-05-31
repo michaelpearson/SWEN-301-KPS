@@ -11,20 +11,15 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.awt.*;
 import java.util.Date;
 
-@XmlTransient
-public abstract class BusinessEvent extends ModelObject implements Priceable {
+@XmlTransient public abstract class BusinessEvent extends ModelObject implements Priceable {
 
     @XmlJavaTypeAdapter(DateAdapter.class) @XmlAttribute private Date date;
 
-    public BusinessEvent(Simulation s) {
+    BusinessEvent(Simulation s) {
         super(s);
     }
 
-    public BusinessEvent() {}
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    BusinessEvent() {}
 
     public Date getDate() {
         if(date == null) {

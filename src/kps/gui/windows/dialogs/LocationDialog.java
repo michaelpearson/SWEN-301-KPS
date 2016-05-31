@@ -1,4 +1,4 @@
-package kps.gui.windows;
+package kps.gui.windows.dialogs;
 
 import kps.gui.FormDialog;
 import kps.xml.objects.Simulation;

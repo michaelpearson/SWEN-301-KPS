@@ -8,8 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-@XmlTransient
-public abstract class BusinessEventWithLocation extends BusinessEvent {
+@XmlTransient public abstract class BusinessEventWithLocation extends BusinessEvent {
     @XmlElement private int to;
     @XmlElement private int from;
 
@@ -17,7 +16,7 @@ public abstract class BusinessEventWithLocation extends BusinessEvent {
         super(s);
     }
 
-    public BusinessEventWithLocation() {}
+    protected BusinessEventWithLocation() {}
 
     public void setTo(@NotNull String to) {
         Location location = getSimulation().getLocationByName(to);
@@ -49,5 +48,11 @@ public abstract class BusinessEventWithLocation extends BusinessEvent {
 
     @Nullable public Location getFrom() {
         return getSimulation().getLocationById(from);
+    }
+
+
+    @Override
+    public String toString() {
+        return "{ to=" + getTo() + ", from=" + getFrom() + '}';
     }
 }
