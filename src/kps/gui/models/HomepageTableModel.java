@@ -1,6 +1,7 @@
 package kps.gui.models;
 
 import kps.xml.adapters.DateAdapter;
+import kps.xml.objects.Price;
 import kps.xml.objects.Route;
 import kps.xml.objects.Mail;
 import kps.xml.objects.abstracts.BusinessEvent;
@@ -47,6 +48,8 @@ public class HomepageTableModel extends AbstractTableModel {
                 return ((Mail)event).getPriority().toString();
             } else if (Route.class.isAssignableFrom(event.getClass())) {
                 return ((Route)event).getTransportType().toString();
+            } else if (Price.class.isAssignableFrom(event.getClass())) {
+                return ((Price)event).getPriority().toString();
             } else {
                 return "N/A";
             }
