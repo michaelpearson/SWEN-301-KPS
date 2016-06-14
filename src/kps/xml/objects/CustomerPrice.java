@@ -1,11 +1,8 @@
 package kps.xml.objects;
 
-import kps.gui.windows.dialogs.PriceDialog;
-import kps.gui.windows.dialogs.RouteDialog;
+import kps.gui.windows.dialogs.CustomerPriceDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
-import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
-import kps.xml.objects.enums.TransportType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,28 +13,28 @@ import java.awt.*;
 /**
  * The route object represents a route on a given transport provider.
  */
-@XmlAccessorType(XmlAccessType.NONE) public class Price extends BusinessEventWithLocation {
+@XmlAccessorType(XmlAccessType.NONE) public class CustomerPrice extends BusinessEventWithLocation {
     @XmlElement(name="priority") private Priority priority;
     @XmlElement(name="weightcost") private int weightCost;
     @XmlElement(name="volumecost") private int volumeCost;
 
-    Price() {}
+    CustomerPrice() {}
 
     @Override
     @NotNull public String getEventType() {
-        return "Customer Price Update";
+        return "Customer Price";
     }
 
-    public Price(@NotNull Simulation s) {
+    public CustomerPrice(@NotNull Simulation s) {
         super(s);
     }
 
     @Override public void edit(Frame owner) {
-        new PriceDialog(owner, getSimulation(), this);
+        new CustomerPriceDialog(owner, getSimulation(), this);
     }
 
     public void update(Frame owner) {
-        new PriceDialog(owner, getSimulation(), true, this.copy());
+        new CustomerPriceDialog(owner, getSimulation(), true, this.copy());
     }
 
     public void setWeightCost(int weightCost) {
@@ -58,6 +55,9 @@ import java.awt.*;
     }
 
     @NotNull public Priority getPriority() {
+        if(priority == null) {
+            priority = Priority.DOMESTIC;
+        }
         return priority;
     }
 
@@ -73,8 +73,8 @@ import java.awt.*;
         return 0;
     }
 
-    private Price copy() {
-        Price object = new Price(simulation);
+    private CustomerPrice copy() {
+        CustomerPrice object = new CustomerPrice(simulation);
         object.setPriority(getPriority());
         object.setWeightCost(getWeightCost());
         object.setVolumeCost(getVolumeCost());
