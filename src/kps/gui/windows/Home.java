@@ -3,7 +3,7 @@ package kps.gui.windows;
 import kps.gui.models.HomepageTableModel;
 import kps.gui.windows.form.dialogs.MailDialog;
 import kps.gui.windows.form.dialogs.RouteDialog;
-import kps.gui.windows.dialogs.CustomerPriceDialog;
+import kps.gui.windows.form.dialogs.CustomerPriceDialog;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
 import kps.xml.objects.Simulation;

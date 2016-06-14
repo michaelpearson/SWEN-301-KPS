@@ -45,7 +45,7 @@ public class HomepageTableModel extends AbstractTableModel {
         tableColumns.put(PRIORITY, row -> {
             BusinessEvent event = businessEvents.get(row);
             if(Mail.class.isAssignableFrom(event.getClass())) {
-                return ((Mail)event).getPriority().toString();
+                return String.valueOf(((Mail)event).getPriority());
             } else if (Route.class.isAssignableFrom(event.getClass())) {
                 return ((Route)event).getTransportType().toString();
             } else if (CustomerPrice.class.isAssignableFrom(event.getClass())) {

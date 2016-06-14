@@ -1,6 +1,6 @@
 package kps.xml.objects;
 
-import kps.gui.windows.dialogs.CustomerPriceDialog;
+import kps.gui.windows.form.dialogs.CustomerPriceDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.Priority;
 import org.jetbrains.annotations.NotNull;
@@ -56,7 +56,7 @@ import java.awt.*;
 
     @NotNull public Priority getPriority() {
         if(priority == null) {
-            priority = Priority.DOMESTIC;
+            priority = Priority.values()[0];
         }
         return priority;
     }

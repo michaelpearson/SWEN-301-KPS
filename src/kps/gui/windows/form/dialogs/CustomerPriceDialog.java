@@ -1,11 +1,10 @@
-package kps.gui.windows.dialogs;
+package kps.gui.windows.form.dialogs;
 
-import kps.gui.FormDialog;
+import kps.gui.windows.form.FormBuilder;
+import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.CustomerPrice;
-import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.Priority;
-import kps.xml.objects.enums.TransportType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,32 +44,27 @@ public class CustomerPriceDialog extends FormDialog {
         setVisible(true);
     }
 
-
-
     @Override
-    protected JComponent[][] getAllFields() {
-        return new JComponent[][]{
-                getField(FieldNames.LocationFrom, "Location from", customerPrice.getFrom(), Location.class),
-                getField(FieldNames.LocationTo, "Location to", customerPrice.getTo(), Location.class),
-                getField(FieldNames.Priority, "Priority", customerPrice.getPriority(), Priority.class),
-                getField(FieldNames.WeightCost, "Weight cost (cents/grams)", customerPrice.getWeightCost(), Integer.class),
-                getField(FieldNames.VolumeCost, "Volume cost (cents/cm^3)", customerPrice.getVolumeCost(), Integer.class),
-        };
+    protected void initializeForm(FormBuilder builder) {
+        builder.addLocationField(FieldNames.LocationFrom, "Location from", customerPrice.getFrom());
+        builder.addLocationField(FieldNames.LocationTo, "Location to", customerPrice.getTo());
+        builder.addEnumField(FieldNames.Priority, "Priority", customerPrice.getPriority(), Priority.class);
+        builder.addIntegerField(FieldNames.WeightCost, "Weight cost (cents/grams)", customerPrice.getWeightCost());
+        builder.addIntegerField(FieldNames.VolumeCost, "Volume cost (cents/cm^3)", customerPrice.getVolumeCost());
     }
 
     protected void save() {
         if (!validateFields()) return;
-        Map<Object, Object> entries = getAllValues();
-        customerPrice.setTo((Location)entries.get(FieldNames.LocationTo));
-        customerPrice.setFrom((Location)entries.get(FieldNames.LocationFrom));
-        customerPrice.setPriority((Priority)entries.get(FieldNames.Priority));
-        customerPrice.setVolumeCost((Integer)entries.get(FieldNames.VolumeCost));
-        customerPrice.setWeightCost((Integer)entries.get(FieldNames.WeightCost));
+        customerPrice.setTo((String)getValue(FieldNames.LocationTo));
+        customerPrice.setFrom((String)getValue(FieldNames.LocationFrom));
+        customerPrice.setPriority((Priority)getValue(FieldNames.Priority));
+        customerPrice.setVolumeCost((Integer)getValue(FieldNames.VolumeCost));
+        customerPrice.setWeightCost((Integer)getValue(FieldNames.WeightCost));
 
-        if(customerPrice.getPriority() == Priority.DOMESTIC && !customerPrice.isDomestic()) {
+        if(customerPrice.getPriority().isDomestic() && !customerPrice.isDomestic()) {
             JOptionPane.showMessageDialog(this, "Please set the route to be domestic if the priority is domestic", "Invalid option selected", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if(customerPrice.getPriority() != Priority.DOMESTIC && customerPrice.isDomestic()) {
+        } else if(!customerPrice.getPriority().isDomestic() && customerPrice.isDomestic()) {
             JOptionPane.showMessageDialog(this, "Please set the priority to domestic if the route is domestic", "Invalid option selected", JOptionPane.ERROR_MESSAGE);
             return;
         }
