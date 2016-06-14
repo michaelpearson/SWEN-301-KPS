@@ -330,11 +330,4 @@
         <weightcost>3</weightcost>
         <volumecost>3</volumecost>
     </price>
-    <location id="1">Wellington</location>
-    <location id="2">Sydney</location>
-    <location id="3">Auckland</location>
-    <location id="4">New Zealand</location>
-    <location id="5">Rome</location>
-    <location id="6">Suva</location>
-    <location id="7">Hamilton</location>
 </simulation>

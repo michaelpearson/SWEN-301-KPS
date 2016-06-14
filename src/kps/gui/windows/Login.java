@@ -29,7 +29,9 @@ public class Login extends FormDialog {
     }
 
 
-    enum UserName {
+
+    @SuppressWarnings("WeakerAccess") //This class is used with reflection!
+    public enum UserName {
         Manager,
         Clerk
     }
