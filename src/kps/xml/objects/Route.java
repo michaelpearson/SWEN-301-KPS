@@ -1,6 +1,6 @@
 package kps.xml.objects;
 
-import kps.gui.windows.dialogs.RouteDialog;
+import kps.gui.windows.form.dialogs.RouteDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
@@ -25,7 +25,9 @@ import java.awt.*;
     @XmlElement(name="day") private DayOfWeek day;
     @XmlElement private boolean discontinued;
 
-    Route() {}
+
+    @SuppressWarnings("unused")
+    public Route() {}
 
     public Route(Simulation s) {
         super(s);

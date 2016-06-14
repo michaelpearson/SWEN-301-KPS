@@ -1,13 +1,10 @@
 package kps.gui.models;
 
 import kps.xml.adapters.DateAdapter;
-import kps.xml.objects.Simulation;
 import kps.xml.objects.Route;
+import kps.xml.objects.Simulation;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
@@ -41,8 +38,8 @@ public class RouteUpdateTableModel extends AbstractTableModel {
         tableColumns.put(STATUS, row -> routes.get(row).isDiscontinued() ? "Discontinued" : "Active");
         tableColumns.put(COMPANY, row -> routes.get(row).getCompany());
         tableColumns.put(TYPE, row -> routes.get(row).getTransportType().toString());
-        tableColumns.put(FROM, row -> routes.get(row).getFrom().getName());
-        tableColumns.put(TO, row -> routes.get(row).getTo().getName());
+        tableColumns.put(FROM, row -> routes.get(row).getFrom());
+        tableColumns.put(TO, row -> routes.get(row).getTo());
     }
 
     public void updateTable() {
@@ -70,32 +67,8 @@ public class RouteUpdateTableModel extends AbstractTableModel {
         return tableColumns.get(getColumnName(columnIndex)).getField(rowIndex);
     }
 
-    public void edit(int row, Frame owner) {
-        routes.get(row).edit(owner);
-    }
-
     public void update(int row, Frame owner) {
         routes.get(row).update(owner);
-    }
-
-    public TableCellRenderer getRenderer() {
-        return new RouteCellRenderer();
-    }
-
-    private class RouteCellRenderer extends DefaultTableCellRenderer {
-        private Color greyedOut = Color.decode("#333333");
-
-        @Override public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if(row == 0){
-                cellComponent.setBackground(Color.YELLOW);
-            } else if ( row == 1){
-                cellComponent.setBackground(Color.GRAY);
-            } else {
-                cellComponent.setBackground(Color.CYAN);
-            }
-            return cellComponent;
-        }
     }
 
     public Route getRow(int row) {

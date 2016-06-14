@@ -1,4 +1,4 @@
-package kps.gui.windows.dialogs;
+package kps.gui.windows.form.dialogs;
 
 import kps.xml.objects.CalculatedRoute;
 import org.jdesktop.swingx.JXTable;
@@ -8,18 +8,16 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class RouteConfirmationDialog extends JDialog {
+class RouteConfirmationDialog extends JDialog {
 
     private final List<CalculatedRoute> possibleRoutes;
     private CalculatedRoute selectedRoute = null;
 
-    public RouteConfirmationDialog(@Nullable Frame owner, @NotNull Set<CalculatedRoute> possibleRoutes) {
+    RouteConfirmationDialog(@Nullable Frame owner, @NotNull Set<CalculatedRoute> possibleRoutes) {
         super(owner, "Confirm route", true);
         this.possibleRoutes = new ArrayList<>();
         this.possibleRoutes.addAll(possibleRoutes);

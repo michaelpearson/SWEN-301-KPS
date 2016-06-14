@@ -1,15 +1,14 @@
-package kps.gui.windows.dialogs;
+package kps.gui.windows.form.dialogs;
 
-import kps.gui.FormDialog;
+import kps.gui.windows.form.FormBuilder;
+import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.Route;
-import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.TransportType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
@@ -54,30 +53,27 @@ public class RouteDialog extends FormDialog {
 
 
 
-    @Override
-    protected JComponent[][] getAllFields() {
-        return new JComponent[][]{
-                getField(FieldNames.CompanyName, "Company name", route.getCompany(), String.class),
-                getField(FieldNames.LocationTo, "Location to", route.getTo(), Location.class),
-                getField(FieldNames.LocationFrom, "Location from", route.getFrom(), Location.class),
-                getField(FieldNames.TransportType, "Transportation type", route.getTransportType(), TransportType.class),
-                getField(FieldNames.WeightCost, "Weight cost (cents/grams)", route.getWeightCost(), Integer.class),
-                getField(FieldNames.VolumeCost, "Volume cost (cents/cm^3)", route.getVolumeCost(), Integer.class),
-                getField(FieldNames.MaxWeight, "Max weight (grams)", route.getMaxWeight(), Integer.class),
-                getField(FieldNames.MaxVolume, "Max volume (cm^3)", route.getMaxVolume(), Integer.class),
-                getField(FieldNames.Duration, "Duration (days)", route.getDuration(), Integer.class),
-                getField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class),
-                getField(FieldNames.Frequency, "Frequency of delivery (days)", route.getFrequency(), Integer.class),
-                getField(FieldNames.Discontinued, "Is discontinued", route.isDiscontinued(), Boolean.class)
-        };
+    @Override protected void initializeForm(FormBuilder builder) {
+        builder.addStringField(FieldNames.CompanyName, "Company name", route.getCompany());
+        builder.addLocationField(FieldNames.LocationTo, "Location to", route.getTo());
+        builder.addLocationField(FieldNames.LocationFrom, "Location from", route.getFrom());
+        builder.addEnumField(FieldNames.TransportType, "Transportation type", route.getTransportType(), TransportType.class);
+        builder.addIntegerField(FieldNames.WeightCost, "Weight cost (cents/grams)", route.getWeightCost());
+        builder.addIntegerField(FieldNames.VolumeCost, "Volume cost (cents/cm^3)", route.getVolumeCost());
+        builder.addIntegerField(FieldNames.MaxWeight, "Max weight (grams)", route.getMaxWeight());
+        builder.addIntegerField(FieldNames.MaxVolume, "Max volume (cm^3)", route.getMaxVolume());
+        builder.addIntegerField(FieldNames.Duration, "Duration (days)", route.getDuration());
+        builder.addEnumField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class);
+        builder.addIntegerField(FieldNames.Frequency, "Frequency of delivery (days)", route.getFrequency());
+        builder.addBooleanField(FieldNames.Discontinued, "Is discontinued", route.isDiscontinued());
     }
 
     protected void save() {
         if (!validateFields()) return;
-        Map<Object, Object> entries = getAllValues();
+        Map<Object, Object> entries = getAllFieldValues();
         route.setCompany((String)entries.get(FieldNames.CompanyName));
-        route.setTo((Location)entries.get(FieldNames.LocationTo));
-        route.setFrom((Location)entries.get(FieldNames.LocationFrom));
+        route.setTo((String)entries.get(FieldNames.LocationTo));
+        route.setFrom((String)entries.get(FieldNames.LocationFrom));
         route.setDay((DayOfWeek)entries.get(FieldNames.DayOfWeek));
         route.setDuration((Integer)entries.get(FieldNames.Duration));
         route.setFrequency((Integer)entries.get(FieldNames.Frequency));

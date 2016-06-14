@@ -1,6 +1,6 @@
 package kps.xml.objects;
 
-import kps.gui.windows.dialogs.MailDialog;
+import kps.gui.windows.form.dialogs.MailDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
@@ -21,6 +21,7 @@ import java.awt.*;
         super(s);
     }
 
+    @SuppressWarnings("unused")
     public Mail() {}
 
     @Override public String getEventType() {

@@ -1,9 +1,9 @@
-package kps.gui.windows.dialogs;
+package kps.gui.windows.form.dialogs;
 
-import kps.gui.FormDialog;
+import kps.gui.windows.form.FormBuilder;
+import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.Simulation;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class LocationDialog extends FormDialog {
@@ -15,15 +15,9 @@ public class LocationDialog extends FormDialog {
         setVisible(true);
     }
 
-    public LocationDialog(String title, Simulation simulation) {
-        super(title, simulation);
-    }
-
     @Override
-    protected JComponent[][] getAllFields() {
-        return new JComponent[][] {
-            getField(NAME, "Location Name", "", String.class)
-        };
+    protected void initializeForm(FormBuilder builder) {
+        builder.addStringField(NAME, "Location name", null);
     }
 
     @Override

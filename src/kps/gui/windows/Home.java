@@ -1,8 +1,8 @@
 package kps.gui.windows;
 
 import kps.gui.models.HomepageTableModel;
-import kps.gui.windows.dialogs.MailDialog;
-import kps.gui.windows.dialogs.RouteDialog;
+import kps.gui.windows.form.dialogs.MailDialog;
+import kps.gui.windows.form.dialogs.RouteDialog;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
 import kps.xml.objects.Simulation;
@@ -15,16 +15,16 @@ import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
+@SuppressWarnings("WeakerAccess")
 public class Home extends JFrame {
     private final Simulation simulation;
-    private final Login.UserName user;
 
-    @SuppressWarnings("WeakerAccess")
+
     public static final String APPLICATION_NAME = "Swen 301 - KPS";
 
+    @SuppressWarnings("UnusedParameters") //todo: restrict access based on user.
     public Home(Simulation simulation, Login.UserName user) {
         this.simulation = simulation;
-        this.user = user;
 
         Dimension size = new Dimension(1300, 700);
         setMinimumSize(size);
