@@ -16,7 +16,7 @@ public abstract class FormDialog extends JDialog {
     protected Simulation simulation;
     private Map<Object, Gettable<Object>> valueMap = new HashMap<>();
     private Map<Object, Gettable<JComponent>> componentMap = new HashMap<>();
-    private KeyEventDispatcher keyboardDispather;
+    private KeyEventDispatcher keyboardDispatcher;
 
 
     private interface Gettable<T> {
@@ -32,7 +32,7 @@ public abstract class FormDialog extends JDialog {
         super(owner, title, modal);
         this.simulation = simulation;
         setLocationRelativeTo(null);
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyboardDispather = e -> {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyboardDispatcher = e -> {
             JRootPane component1 = ((JComponent)e.getSource()).getRootPane();
             if(e.getKeyCode() == 27 && (component1.getContentPane() == getContentPane())) {
                 return cancel();
@@ -71,7 +71,7 @@ public abstract class FormDialog extends JDialog {
 
     @Override
     public void dispose() {
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyboardDispather);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyboardDispatcher);
         super.dispose();
     }
 
