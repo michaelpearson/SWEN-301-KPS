@@ -1,6 +1,7 @@
 package kps.gui.windows;
 
-import kps.gui.FormDialog;
+import kps.gui.windows.form.FormBuilder;
+import kps.gui.windows.form.FormDialog;
 import kps.gui.util.KeyListenerSlim;
 import kps.xml.objects.Simulation;
 
@@ -28,22 +29,22 @@ public class Login extends FormDialog {
     }
 
 
+
+    @SuppressWarnings("WeakerAccess") //This class is used with reflection!
     public enum UserName {
         Manager,
         Clerk
     }
 
     @Override
-    protected JComponent[][] getAllFields() {
-        return new JComponent[][] {
-                getField("username", "User", UserName.Manager, UserName.class),
-                getField("password", "Password", "", String.class)
-        };
+    protected void initializeForm(FormBuilder builder) {
+        builder.addEnumField("username", "User", UserName.Manager, UserName.class, null);
+        builder.addStringField("password", "Password", "", null);
     }
 
     @Override
     protected void save() {
-        Map<Object, Object> values = getAllValues();
+        Map<Object, Object> values = getAllFieldValues();
         UserName username = (UserName)values.get("username");
         String password = values.get("password").toString();
         if(username == UserName.Clerk && password.equals("")) {

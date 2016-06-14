@@ -1,8 +1,8 @@
-package kps.gui.windows.dialogs;
+package kps.gui.windows.form.dialogs;
 
-import kps.gui.FormDialog;
+import kps.gui.windows.form.FormBuilder;
+import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.CalculatedRoute;
-import kps.xml.objects.Location;
 import kps.xml.objects.Mail;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.DayOfWeek;
@@ -41,16 +41,13 @@ public class MailDialog extends FormDialog {
         setVisible(true);
     }
 
-    @Override
-    protected JComponent[][] getAllFields() {
-        return new JComponent[][]{
-                getField(FieldNames.DayOfWeek, "Day of the week", mailDeliveryEvent.getDay(), DayOfWeek.class),
-                getField(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom(), Location.class),
-                getField(FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo(), Location.class),
-                getField(FieldNames.Weight, "Weight (grams)", mailDeliveryEvent.getWeight(), Integer.class),
-                getField(FieldNames.Volume, "Volume (cm^3)", mailDeliveryEvent.getVolume(), Integer.class),
-                getField(FieldNames.Priority, "Priority", mailDeliveryEvent.getPriority(), Priority.class)
-        };
+    @Override protected void initializeForm(FormBuilder builder) {
+        builder.addEnumField(FieldNames.DayOfWeek, "Day of the week", mailDeliveryEvent.getDay(), DayOfWeek.class);
+        builder.addLocationField(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom());
+        builder.addLocationField(FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo());
+        builder.addIntegerField(FieldNames.Weight, "Weight (grams)", mailDeliveryEvent.getWeight());
+        builder.addIntegerField(FieldNames.Volume, "Volume (cm^3)", mailDeliveryEvent.getVolume());
+        builder.addEnumField(FieldNames.Priority, "Priority", mailDeliveryEvent.getPriority(), Priority.class);
     }
 
     @Override
@@ -59,14 +56,14 @@ public class MailDialog extends FormDialog {
         if(!valid) {
             return false;
         }
-        Location from = (Location)getComponentValue(FieldNames.LocationFrom);
-        Location to = (Location)getComponentValue(FieldNames.LocationTo);
-        Priority priority = (Priority)getComponentValue(FieldNames.Priority);
+        String from = (String) getValue(FieldNames.LocationFrom);
+        String to = (String) getValue(FieldNames.LocationTo);
+        Priority priority = (Priority) getValue(FieldNames.Priority);
         Set<CalculatedRoute> routes = simulation.buildCalculatedRoute(from, to, priority);
         if(routes == null) {
             JOptionPane.showMessageDialog(
                     this,
-                    String.format("Sorry, no route between %s and %s using %s was found. Please change your origin and destination and try again", from.toString(), to.toString(), priority.toString()),
+                    String.format("Sorry, no route between %s and %s using %s was found. Please change your origin and destination and try again", from, to, priority.toString()),
                     "No viable route", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -78,11 +75,11 @@ public class MailDialog extends FormDialog {
         if (!validateFields()) {
             return;
         }
-        Map<Object, Object> entries = getAllValues();
+        Map<Object, Object> entries = getAllFieldValues();
 
         mailDeliveryEvent.setCalculatedRoute(calculatedRoute);
-        mailDeliveryEvent.setTo((Location)entries.get(FieldNames.LocationTo));
-        mailDeliveryEvent.setFrom((Location)entries.get(FieldNames.LocationFrom));
+        mailDeliveryEvent.setTo((String)entries.get(FieldNames.LocationTo));
+        mailDeliveryEvent.setFrom((String)entries.get(FieldNames.LocationFrom));
         mailDeliveryEvent.setDay((DayOfWeek)entries.get(FieldNames.DayOfWeek));
         mailDeliveryEvent.setPriority((Priority)entries.get(FieldNames.Priority));
         mailDeliveryEvent.setVolume((Integer)entries.get(FieldNames.Volume));

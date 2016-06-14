@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <simulation>
     <route date="12:36:10AM 21/05/2016">
-        <to>4</to>
-        <from>1</from>
         <company>Air NZ</company>
+        <to>Rome</to>
+        <from>Wellington</from>
         <type>Air</type>
         <weightcost>6</weightcost>
         <volumecost>6</volumecost>
@@ -15,9 +15,9 @@
         <discontinued>false</discontinued>
     </route>
     <route date="12:36:10AM 21/05/2016">
-        <to>2</to>
-        <from>1</from>
         <company>Kelburn Airways</company>
+        <to>Sydney</to>
+        <from>Wellington</from>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>0</volumecost>
@@ -26,12 +26,12 @@
         <duration>3</duration>
         <frequency>12</frequency>
         <day>Friday</day>
-        <discontinued>false</discontinued>
+        <discontinued>true</discontinued>
     </route>
     <route date="12:36:10AM 20/05/2016">
-        <to>2</to>
-        <from>1</from>
         <company>Qantas</company>
+        <to>Sydney</to>
+        <from>Wellington</from>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>1</volumecost>
@@ -43,9 +43,9 @@
         <discontinued>false</discontinued>
     </route>
     <route date="12:36:10AM 20/05/2016">
-        <to>1</to>
-        <from>3</from>
         <company>Kelburn Freight</company>
+        <to>Wellington</to>
+        <from>Auckland</from>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -57,9 +57,9 @@
         <discontinued>false</discontinued>
     </route>
     <route date="12:36:10AM 20/05/2016">
-        <to>1</to>
-        <from>7</from>
         <company>Kelburn Freight</company>
+        <to>Wellington</to>
+        <from>Hamilton</from>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -71,9 +71,9 @@
         <discontinued>false</discontinued>
     </route>
     <route date="12:36:10AM 20/05/2016">
-        <to>7</to>
-        <from>3</from>
         <company>Rodney's Longhaul</company>
+        <to>Hamilton</to>
+        <from>Auckland</from>
         <type>Land</type>
         <weightcost>0</weightcost>
         <volumecost>1</volumecost>
@@ -85,9 +85,9 @@
         <discontinued>false</discontinued>
     </route>
     <route date="12:36:10AM 20/05/2016">
-        <to>4</to>
-        <from>2</from>
         <company>Roman Air Freight Ltd</company>
+        <to>Rome</to>
+        <from>Sydney</from>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>3</volumecost>
@@ -99,9 +99,9 @@
         <discontinued>false</discontinued>
     </route>
     <route date="12:36:10AM 20/05/2016">
-        <to>6</to>
-        <from>2</from>
         <company>Pacifica Merchants</company>
+        <to>Suva</to>
+        <from>Sydney</from>
         <type>Sea</type>
         <weightcost>3</weightcost>
         <volumecost>3</volumecost>
@@ -113,9 +113,9 @@
         <discontinued>false</discontinued>
     </route>
     <route date="12:36:10AM 20/05/2016">
-        <to>4</to>
-        <from>3</from>
         <company>Davy Jones Ltd</company>
+        <to>Rome</to>
+        <from>Auckland</from>
         <type>Sea</type>
         <weightcost>5</weightcost>
         <volumecost>4</volumecost>
@@ -127,9 +127,9 @@
         <discontinued>false</discontinued>
     </route>
     <route date="12:36:10AM 20/05/2016">
-        <to>2</to>
-        <from>1</from>
         <company>Qantas</company>
+        <to>Sydney</to>
+        <from>Wellington</from>
         <type>Air</type>
         <weightcost>2</weightcost>
         <volumecost>1</volumecost>
@@ -140,201 +140,125 @@
         <day>Monday</day>
         <discontinued>false</discontinued>
     </route>
-    <route date="11:27:37AM 20/05/2016">
-        <to>4</to>
-        <from>1</from>
-        <company>Air NZ</company>
-        <type>Air</type>
-        <weightcost>9</weightcost>
-        <volumecost>6</volumecost>
-        <maxWeight>0</maxWeight>
-        <maxVolume>0</maxVolume>
-        <duration>16</duration>
-        <frequency>36</frequency>
-        <day>Thursday</day>
-        <discontinued>false</discontinued>
-    </route>
-    <route date="12:01:46PM 29/05/2016">
-        <to>4</to>
-        <from>1</from>
-        <company>Air NZ</company>
-        <type>Air</type>
-        <weightcost>9</weightcost>
-        <volumecost>6</volumecost>
-        <maxWeight>0</maxWeight>
-        <maxVolume>0</maxVolume>
-        <duration>16</duration>
-        <frequency>36</frequency>
-        <day>Thursday</day>
-        <discontinued>false</discontinued>
-    </route>
-    <route date="12:03:48PM 29/05/2016">
-        <to>4</to>
-        <from>1</from>
-        <company>Air NZ</company>
-        <type>Sea</type>
-        <weightcost>9</weightcost>
-        <volumecost>6</volumecost>
-        <maxWeight>0</maxWeight>
-        <maxVolume>0</maxVolume>
-        <duration>16</duration>
-        <frequency>36</frequency>
-        <day>Thursday</day>
-        <discontinued>false</discontinued>
-    </route>
-    <route date="3:12:15PM 29/05/2016">
-        <to>4</to>
-        <from>1</from>
-        <company>Air NZ</company>
-        <type>Sea</type>
-        <weightcost>10</weightcost>
-        <volumecost>6</volumecost>
-        <maxWeight>0</maxWeight>
-        <maxVolume>0</maxVolume>
-        <duration>16</duration>
-        <frequency>36</frequency>
-        <day>Thursday</day>
-        <discontinued>false</discontinued>
-    </route>
-    <route date="6:53:30PM 29/05/2016">
-        <to>4</to>
-        <from>1</from>
-        <company>Air NZ</company>
-        <type>Sea</type>
-        <weightcost>10</weightcost>
-        <volumecost>6</volumecost>
-        <maxWeight>0</maxWeight>
-        <maxVolume>0</maxVolume>
-        <duration>16</duration>
-        <frequency>36</frequency>
-        <day>Thursday</day>
-        <discontinued>true</discontinued>
-    </route>
     <mail date="12:36:10AM 20/05/2016">
-        <to>4</to>
-        <from>1</from>
         <day>Monday</day>
+        <to>Rome</to>
+        <from>Wellington</from>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
     <mail date="12:36:10AM 20/05/2016">
-        <to>2</to>
-        <from>1</from>
         <day>Monday</day>
+        <to>Sydney</to>
+        <from>Wellington</from>
         <weight>1000</weight>
         <volume>120</volume>
         <priority>International Air</priority>
     </mail>
     <mail date="12:36:10AM 20/05/2016">
-        <to>4</to>
-        <from>1</from>
         <day>Tuesday</day>
+        <to>Rome</to>
+        <from>Wellington</from>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
     <mail date="12:36:10AM 20/05/2016">
-        <to>6</to>
-        <from>1</from>
         <day>Thursday</day>
+        <to>Suva</to>
+        <from>Wellington</from>
         <weight>2000</weight>
         <volume>120</volume>
         <priority>International Standard</priority>
     </mail>
     <mail date="12:36:10AM 20/05/2016">
-        <to>1</to>
-        <from>3</from>
         <day>Thursday</day>
+        <to>Wellington</to>
+        <from>Auckland</from>
         <weight>100</weight>
         <volume>3</volume>
-        <priority>Domestic</priority>
+        <priority>Domestic Standard</priority>
     </mail>
     <mail date="12:36:10AM 20/05/2016">
-        <to>4</to>
-        <from>7</from>
         <day>Friday</day>
+        <to>Rome</to>
+        <from>Hamilton</from>
         <weight>400</weight>
         <volume>50</volume>
         <priority>International Air</priority>
     </mail>
     <mail date="12:36:10AM 20/05/2016">
-        <to>4</to>
-        <from>7</from>
         <day>Wednesday</day>
+        <to>Rome</to>
+        <from>Hamilton</from>
         <weight>400</weight>
         <volume>25</volume>
         <priority>International Standard</priority>
     </mail>
     <mail date="12:36:10AM 20/05/2016">
-        <to>2</to>
-        <from>3</from>
         <day>Wednesday</day>
+        <to>Sydney</to>
+        <from>Auckland</from>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Standard</priority>
     </mail>
     <mail date="12:36:10AM 20/05/2016">
-        <to>4</to>
-        <from>1</from>
         <day>Friday</day>
+        <to>Rome</to>
+        <from>Wellington</from>
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
     </mail>
     <price date="12:36:10AM 20/05/2016">
-        <to>4</to>
-        <from>3</from>
+        <to>Rome</to>
+        <from>New Zealand</from>
         <priority>International Air</priority>
         <weightcost>6</weightcost>
         <volumecost>8</volumecost>
     </price>
     <price date="12:36:10AM 20/05/2016">
-        <to>2</to>
-        <from>3</from>
+        <to>Sydney</to>
+        <from>New Zealand</from>
         <priority>International Air</priority>
         <weightcost>3</weightcost>
         <volumecost>2</volumecost>
     </price>
     <price date="12:36:10AM 20/05/2016">
-        <to>6</to>
-        <from>3</from>
+        <to>Suva</to>
+        <from>New Zealand</from>
         <priority>International Air</priority>
         <weightcost>4</weightcost>
         <volumecost>4</volumecost>
     </price>
     <price date="12:36:10AM 20/05/2016">
-        <to>6</to>
-        <from>3</from>
+        <to>Suva</to>
+        <from>New Zealand</from>
         <priority>International Standard</priority>
         <weightcost>3</weightcost>
         <volumecost>2</volumecost>
     </price>
     <price date="12:36:10AM 20/05/2016">
-        <to>3</to>
-        <from>3</from>
-        <priority>Domestic</priority>
+        <to>New Zealand</to>
+        <from>New Zealand</from>
+        <priority>Domestic Standard</priority>
         <weightcost>1</weightcost>
         <volumecost>1</volumecost>
     </price>
     <price date="12:36:10AM 20/05/2016">
-        <to>3</to>
-        <from>3</from>
+        <to>New Zealand</to>
+        <from>New Zealand</from>
+        <priority>Domestic Air</priority>
         <weightcost>1</weightcost>
         <volumecost>2</volumecost>
     </price>
     <price date="12:36:10AM 20/05/2016">
-        <to>2</to>
-        <from>3</from>
+        <to>Sydney</to>
+        <from>New Zealand</from>
         <priority>International Air</priority>
         <weightcost>3</weightcost>
         <volumecost>3</volumecost>
     </price>
-    <location id="1">Wellington</location>
-    <location id="2">Sydney</location>
-    <location id="3">Auckland</location>
-    <location id="4">New Zealand</location>
-    <location id="5">Rome</location>
-    <location id="6">Suva</location>
-    <location id="7">Hamilton</location>
 </simulation>

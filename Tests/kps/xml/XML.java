@@ -11,6 +11,6 @@ public class XML {
 
     @Test public void checkThatTheFirstLocationInTheTestXmlDataIsWellington() throws FileNotFoundException, XMLException {
         Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(new File("test_data/Test.xml")));
-        Assert.assertEquals(s.getLocations().get(0).getName(), "Wellington");
+        Assert.assertTrue(s.getLocations().contains("Wellington"));
     }
 }

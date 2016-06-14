@@ -1,9 +1,8 @@
 package kps.xml.objects.abstracts;
 
 import kps.xml.adapters.DateAdapter;
-import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
@@ -31,7 +30,7 @@ import java.util.Date;
     public abstract String getEventType();
     public abstract void edit(Frame owner);
 
-    @Nullable public abstract Location getFrom();
-    @Nullable public abstract Location getTo();
+    @NotNull public abstract String getFrom();
+    @NotNull public abstract String getTo();
 
 }
