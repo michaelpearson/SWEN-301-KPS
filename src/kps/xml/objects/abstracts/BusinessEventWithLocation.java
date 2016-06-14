@@ -41,4 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @Override public String toString() {
         return "{ to=" + getTo() + ", from=" + getFrom() + '}';
     }
+
+    public boolean isDomestic() {
+        return getTo() != null && getTo().isDomestic() && getFrom() != null && getFrom().isDomestic();
+    }
 }
