@@ -97,14 +97,45 @@ public class Home extends JFrame {
     }
 
     private void save(boolean exit) {
-        try {
-            SimulationXML.writeSimulation(simulation, new PrintStream("log.xml"));
-            if(exit) {
-                System.exit(0);
+        JDialog saveDialog = new JDialog(this, true);
+
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridLayout layout = new GridLayout(2, 1);
+        layout.setVgap(10);
+        panel.setLayout(layout);
+        JProgressBar progress = new JProgressBar(0, 100);
+        progress.setValue(50); //Hack hack hack...
+        JLabel label = new JLabel("Saving data...");
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setVerticalAlignment(JLabel.CENTER);
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    SimulationXML.writeSimulation(simulation, new PrintStream("log.xml"));
+                    if(exit) {
+                        System.exit(0);
+                    }
+                } catch (XMLException | FileNotFoundException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(saveDialog, "Could not open the log file for writing.", "Error saving", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
-        } catch (XMLException | FileNotFoundException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Could not open the log file for writing.", "Error saving", JOptionPane.ERROR_MESSAGE);
-        }
+        }.start();
+
+        saveDialog.setTitle("Progress");
+        saveDialog.setResizable(false);
+        saveDialog.setLocationRelativeTo(null);
+        saveDialog.setSize(400, 100);
+
+        panel.add(label);
+        panel.add(progress);
+
+        saveDialog.add(panel);
+        saveDialog.setVisible(true);
+
     }
 }
