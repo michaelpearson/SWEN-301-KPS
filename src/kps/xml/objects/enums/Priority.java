@@ -5,10 +5,16 @@ import javax.xml.bind.annotation.XmlEnumValue;
 
 @XmlEnum
 public enum Priority {
-    @XmlEnumValue("Domestic Air") DOMESTIC_AIR,
-    @XmlEnumValue("Domestic Standard") DOMESTIC_STANDARD,
-    @XmlEnumValue("International Air") INTERNATIONAL_AIR,
-    @XmlEnumValue("International Standard") INTERNATIONAL_STANDARD;
+    @XmlEnumValue("Domestic Air") DOMESTIC_AIR(true),
+    @XmlEnumValue("Domestic Standard") DOMESTIC_STANDARD(true),
+    @XmlEnumValue("International Air") INTERNATIONAL_AIR(false),
+    @XmlEnumValue("International Standard") INTERNATIONAL_STANDARD(false);
+
+    private boolean domestic;
+
+    Priority(boolean domestic) {
+        this.domestic = domestic;
+    }
 
     @Override
     public String toString() {
@@ -47,4 +53,9 @@ public enum Priority {
         }
         return true;
     }
+
+    public boolean isDomestic() {
+        return domestic;
+    }
+
 }

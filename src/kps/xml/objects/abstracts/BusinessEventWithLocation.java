@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlTransient public abstract class BusinessEventWithLocation extends BusinessEvent {
     @NotNull @XmlElement private String to = "Unknown";
     @NotNull @XmlElement private String from = "Unknown";
+    @XmlTransient private static final String DOMESTIC_REFERENCE = "new zealand";
 
     public BusinessEventWithLocation() {}
 
@@ -40,5 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
     @Override public String toString() {
         return "{ to=" + getTo() + ", from=" + getFrom() + '}';
+    }
+
+    public boolean isDomestic() {
+        return getTo().toLowerCase().equals(DOMESTIC_REFERENCE) && getFrom().toLowerCase().equals(DOMESTIC_REFERENCE);
     }
 }

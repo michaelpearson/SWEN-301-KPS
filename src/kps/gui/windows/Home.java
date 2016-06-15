@@ -3,6 +3,7 @@ package kps.gui.windows;
 import kps.gui.models.HomepageTableModel;
 import kps.gui.windows.form.dialogs.MailDialog;
 import kps.gui.windows.form.dialogs.RouteDialog;
+import kps.gui.windows.form.dialogs.CustomerPriceDialog;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
 import kps.xml.objects.Simulation;
@@ -88,6 +89,10 @@ public class Home extends JFrame {
         JButton viewBusinessFiguresButton = new JButton("View business figures");
         viewBusinessFiguresButton.addActionListener(e -> new BusinessFigures(simulation));
         buttonPanel.add(viewBusinessFiguresButton);
+
+        JButton addCustomerPriceButton = new JButton("Add customer price");
+        addCustomerPriceButton.addActionListener(e -> {new CustomerPriceDialog(Home.this, simulation); tableModel.updateTable();});
+        buttonPanel.add(addCustomerPriceButton);
 
         JButton exitButton = new JButton("Save and exit");
         exitButton.addActionListener(e -> save(true));

@@ -18,24 +18,31 @@ import java.util.stream.Collectors;
     //These fields are saved in the XML log
     @XmlElement(name="route") private List<Route> routes;
     @XmlElement(name="mail") private List<Mail> mail;
+    @XmlElement(name="price") private List<CustomerPrice> customerPrices;
 
     public Simulation() {
         this.routes = new ArrayList<>();
         this.mail = new ArrayList<>();
+        this.customerPrices = new ArrayList<>();
     }
 
-    public List<Route> getRoutes() {
+    @NotNull public List<Route> getRoutes() {
         return routes;
     }
 
-    public List<Mail> getMail() {
+    @NotNull public List<Mail> getMail() {
         return mail;
+    }
+
+    @NotNull public List<CustomerPrice> getCustomerPrices() {
+        return customerPrices;
     }
 
     @NotNull public List<BusinessEvent> getAllBusinessEvents() {
         ArrayList<BusinessEvent> build = new ArrayList<>();
         build.addAll(routes);
         build.addAll(mail);
+        build.addAll(customerPrices);
         build.sort((left, right) -> right.getDate().compareTo(left.getDate()));
         return build;
     }

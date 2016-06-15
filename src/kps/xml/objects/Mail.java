@@ -4,6 +4,7 @@ import kps.gui.windows.form.dialogs.MailDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
+import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -52,7 +53,7 @@ import java.awt.*;
         this.calculatedRoute = calculatedRoute;
     }
 
-    public Priority getPriority() { return priority; }
+    @Nullable public Priority getPriority() { return priority; }
 
     public int getWeight() {
         return weight;
@@ -62,7 +63,7 @@ import java.awt.*;
         return volume;
     }
 
-    public DayOfWeek getDay() {
+    @Nullable public DayOfWeek getDay() {
         return day;
     }
 
@@ -78,7 +79,7 @@ import java.awt.*;
         return 0;
     }
 
-    public CalculatedRoute getCalculatedRoute() {
+    @Nullable public CalculatedRoute getCalculatedRoute() {
         return calculatedRoute;
     }
 }

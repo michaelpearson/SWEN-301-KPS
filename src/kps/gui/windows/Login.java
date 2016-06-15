@@ -28,8 +28,6 @@ public class Login extends FormDialog {
         setVisible(true);
     }
 
-
-
     @SuppressWarnings("WeakerAccess") //This class is used with reflection!
     public enum UserName {
         Manager,
