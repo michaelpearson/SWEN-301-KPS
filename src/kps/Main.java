@@ -24,9 +24,6 @@ public class Main {
         Simulation simulation;
         try {
             simulation = SimulationXML.readSimulationFromFile(new FileInputStream(args[0]));
-            for (Mail m : simulation.getMail()){
-                m.setCalculatedRoute(simulation.buildCalculatedRoute(m.getFrom(), m.getTo(), m.getPriority()));
-            }
         } catch (Exception e) {
             e.printStackTrace();
             simulation = new Simulation();

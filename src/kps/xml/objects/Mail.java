@@ -70,6 +70,7 @@ import java.util.Set;
     }
 
     @Override public double getExpenditure() {
+        checkRouteExists();
         double expenditure = 0;
         for (Route r : calculatedRoute.getRoutes()){
             expenditure += r.getVolumeCost() * volume + r.getWeightCost() * weight;
@@ -89,6 +90,7 @@ import java.util.Set;
     }
 
     public int getDeliveryTime() {
+        checkRouteExists();
         int time = 0;
         DayOfWeek day = getDay();
         for (Route r : calculatedRoute.getRoutes()){
@@ -98,6 +100,10 @@ import java.util.Set;
         return time;
     }
 
+    private void checkRouteExists(){
+        if (calculatedRoute == null)
+            calculatedRoute = simulation.buildCalculatedRoute(getFrom(), getTo(), priority);
+    }
     @Nullable public CalculatedRoute getCalculatedRoute() {
         return calculatedRoute;
     }
