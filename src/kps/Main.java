@@ -3,6 +3,7 @@ package kps;
 import kps.gui.windows.Login;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
+import kps.xml.objects.Mail;
 import kps.xml.objects.Simulation;
 
 import javax.swing.*;
@@ -23,6 +24,9 @@ public class Main {
         Simulation simulation;
         try {
             simulation = SimulationXML.readSimulationFromFile(new FileInputStream(args[0]));
+            for (Mail m : simulation.getMail()){
+                m.setCalculatedRoute(simulation.buildCalculatedRoute(m.getFrom(), m.getTo(), m.getPriority()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             simulation = new Simulation();

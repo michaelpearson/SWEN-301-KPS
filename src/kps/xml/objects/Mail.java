@@ -71,8 +71,6 @@ import java.util.Set;
 
     @Override public double getExpenditure() {
         double expenditure = 0;
-        calculatedRoute = simulation.buildCalculatedRoute(getFrom(),getTo(), priority);
-
         for (Route r : calculatedRoute.getRoutes()){
             expenditure += r.getVolumeCost() * volume + r.getWeightCost() * weight;
         }
@@ -92,7 +90,6 @@ import java.util.Set;
 
     public int getDeliveryTime() {
         int time = 0;
-        calculatedRoute = simulation.buildCalculatedRoute(getFrom(),getTo(), priority);
         DayOfWeek day = getDay();
         for (Route r : calculatedRoute.getRoutes()){
             time += r.getDuration() + (day.ordinal() > r.getDay().ordinal()? 7 - day.ordinal() + r.getDay().ordinal() : r.getDay().ordinal() - day.ordinal());

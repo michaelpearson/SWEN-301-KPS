@@ -33,29 +33,6 @@ public enum Priority {
         }
     }
 
-    public boolean willSettleFor(Priority priority) {
-        /*if(this == DOMESTIC_STANDARD || this == INTERNATIONAL_STANDARD) {
-            return true;
-        }
-        if(this == DOMESTIC_AIR && priority != DOMESTIC_AIR) {
-            return false;
-        }
-        if(this == INTERNATIONAL_AIR && priority != INTERNATIONAL_AIR) {
-            return false;
-        }*/
-        return true;
-    }
-
-    public boolean willSettleFor(TransportType transportType) {
-        /*if(this == DOMESTIC_STANDARD || this == INTERNATIONAL_STANDARD) {
-            return true;
-        }
-        if((this == DOMESTIC_AIR || this == INTERNATIONAL_AIR) && transportType != TransportType.Air) {
-            return false;
-        }*/
-        return true;
-    }
-
     public boolean isDomestic() {
         return domestic;
     }
