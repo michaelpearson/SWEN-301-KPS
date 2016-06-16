@@ -59,7 +59,6 @@ public abstract class FormDialog extends JDialog {
         add(formPanel, BorderLayout.CENTER);
         setResizable(false);
         pack();
-
     }
 
     @Override
@@ -80,7 +79,7 @@ public abstract class FormDialog extends JDialog {
     }
 
 
-    protected Object getValue(Object tag) {
+    public Object getValue(Object tag) {
         Field field = fields.get(tag);
         if(field == null) {
             throw new RuntimeException("Could not find component");
@@ -88,7 +87,7 @@ public abstract class FormDialog extends JDialog {
         return field.getter.getValue();
     }
 
-    protected JComponent getField(Object tag) {
+    public JComponent getField(Object tag) {
         return fields.get(tag).field;
     }
 
@@ -109,6 +108,7 @@ public abstract class FormDialog extends JDialog {
         }
         return true;
     }
+
 
     protected abstract void initializeForm(FormBuilder builder);
     protected abstract void save();
