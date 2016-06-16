@@ -3,6 +3,7 @@ package kps.xml.objects;
 import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.Priority;
+import kps.xml.objects.enums.TransportType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -80,7 +81,7 @@ import java.util.stream.Collectors;
         return uniqueRoutes;
     }
 
-    @Nullable public Set<CalculatedRoute> buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
+    @Nullable public CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
         return new RouteCalculator().buildCalculatedRoute(from, to, priority);
     }
 
@@ -89,27 +90,56 @@ import java.util.stream.Collectors;
     }
 
     private class RouteCalculator {
-        private List<String> visitedNodes = new ArrayList<>();
-        private List<Route> uniqueRoutes = getUniqueRoutes();
-
-        @NotNull Set<CalculatedRoute> buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
-            return calculateRoute(from, to, priority, new CalculatedRoute());
-        }
-
-        @NotNull Set<CalculatedRoute> calculateRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority, @NotNull CalculatedRoute calculatedRoute) {
-            visitedNodes.add(from);
-            Set<Route> routesWithMatchingFrom = uniqueRoutes.stream().filter(n -> from.equals(n.getFrom())).filter(r -> priority.willSettleFor(r.getTransportType())).collect(Collectors.toSet());
-            Set<CalculatedRoute> newRoutes = new HashSet<>();
-            for(Route r : routesWithMatchingFrom) {
-                if(r.getTo().equals(to)) {
-                    newRoutes.add(new CalculatedRoute(calculatedRoute, r));
-                } else {
-                    if(!visitedNodes.contains(r.getTo())) {
-                        newRoutes.addAll(calculateRoute(r.getTo(), to, priority, new CalculatedRoute(calculatedRoute, r)));
-                    }
+        @NotNull CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
+            List<CalculatedRoute> PossiblePaths = new ArrayList<>();
+            for (Route r : routes){
+                if (r.getFrom().equals(from)){
+                    List<String> visitedNodes = new ArrayList<>();
+                    visitedNodes.add(r.getFrom());
+                    calculateCalculatedRoute(from, to, priority, new CalculatedRoute(), PossiblePaths, visitedNodes);
                 }
             }
-            return newRoutes;
+
+            CalculatedRoute bestRoute = new CalculatedRoute();
+            int bestFit = Integer.MAX_VALUE;
+            for (CalculatedRoute r : PossiblePaths){
+                int fit = getFit(r, priority);
+                if (fit < bestFit){
+                    bestFit = fit;
+                    bestRoute = r;
+                }
+            }
+
+            return bestRoute;
+        }
+
+        @NotNull void calculateCalculatedRoute(@NotNull String from, @NotNull String goal, @NotNull Priority priority,
+                                               CalculatedRoute currentRoute, List<CalculatedRoute> PossiblePaths, List<String> visitedNodes) {
+            for (Route r : routes){
+                if (r.getFrom().equals(from)){
+                    if (visitedNodes.contains(r.getTo())) continue;
+                    CalculatedRoute temp = new CalculatedRoute(currentRoute, r);
+
+                    if (r.getTo().equals(goal)) {
+                        PossiblePaths.add(temp);
+                        return;
+                    }
+
+                    List<String> visited = new ArrayList<>(visitedNodes);
+                    visited.add(r.getFrom());
+                    calculateCalculatedRoute(r.getTo(), goal, priority, temp, PossiblePaths, visited);
+                }
+            }
+        }
+
+        private int getFit(CalculatedRoute c, Priority p){
+            int fitness = 0;
+            for (Route r : c.getRoutes()){
+                fitness += 1;
+                if (r.getTransportType() != TransportType.Air && p.isAir())
+                    fitness += 1;
+            }
+            return fitness;
         }
     }
 

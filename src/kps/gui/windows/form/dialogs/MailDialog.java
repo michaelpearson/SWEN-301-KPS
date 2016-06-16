@@ -59,15 +59,14 @@ public class MailDialog extends FormDialog {
         String from = (String) getValue(FieldNames.LocationFrom);
         String to = (String) getValue(FieldNames.LocationTo);
         Priority priority = (Priority) getValue(FieldNames.Priority);
-        Set<CalculatedRoute> routes = simulation.buildCalculatedRoute(from, to, priority);
-        if(routes == null) {
+        calculatedRoute = simulation.buildCalculatedRoute(from, to, priority);
+        if(calculatedRoute == null) {
             JOptionPane.showMessageDialog(
                     this,
                     String.format("Sorry, no route between %s and %s using %s was found. Please change your origin and destination and try again", from, to, priority.toString()),
                     "No viable route", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        calculatedRoute = new RouteConfirmationDialog(null, routes).getConfirmedRoute();
         return calculatedRoute != null;
     }
 

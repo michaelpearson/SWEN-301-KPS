@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
+import java.util.Iterator;
+import java.util.Set;
 
 @XmlAccessorType(XmlAccessType.FIELD) public class Mail extends BusinessEventWithLocation {
     @XmlElement(name="day") private DayOfWeek day;
@@ -68,15 +70,35 @@ import java.awt.*;
     }
 
     @Override public double getExpenditure() {
-        return 0;
+        double expenditure = 0;
+        calculatedRoute = simulation.buildCalculatedRoute(getFrom(),getTo(), priority);
+
+        for (Route r : calculatedRoute.getRoutes()){
+            expenditure += r.getVolumeCost() * volume + r.getWeightCost() * weight;
+        }
+        return expenditure;
     }
 
     @Override public double getRevenue() {
-        return 0;
+        double revenue = 0;
+        for (CustomerPrice cp : simulation.getCustomerPrices()){
+            if (priority == cp.getPriority()) {
+                if (!priority.isDomestic() && !getTo().equals(cp.getTo())) continue;
+                revenue += cp.getVolumeCost() * volume + cp.getWeightCost() * weight;
+            }
+        }
+        return revenue;
     }
 
     public int getDeliveryTime() {
-        return 0;
+        int time = 0;
+        calculatedRoute = simulation.buildCalculatedRoute(getFrom(),getTo(), priority);
+        DayOfWeek day = getDay();
+        for (Route r : calculatedRoute.getRoutes()){
+            time += r.getDuration() + (day.ordinal() > r.getDay().ordinal()? 7 - day.ordinal() + r.getDay().ordinal() : r.getDay().ordinal() - day.ordinal());
+            day = r.getDay();
+        }
+        return time;
     }
 
     @Nullable public CalculatedRoute getCalculatedRoute() {

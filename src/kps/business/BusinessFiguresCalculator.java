@@ -78,7 +78,7 @@ public class BusinessFiguresCalculator {
             totalRevenue += businessEvent.getRevenue();
             totalExpenditure += businessEvent.getExpenditure();
         }
-        //TODO: Calculate critical routes
+
         fireCallback();
     }
 
