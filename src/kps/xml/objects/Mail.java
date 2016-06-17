@@ -92,6 +92,9 @@ import java.awt.*;
         int time = 0;
         DayOfWeek day = getDay();
         for (Route r : calculatedRoute.getRoutes()){
+            if(day == null) {
+                throw new RuntimeException("Cannot calculate delivery time without day");
+            }
             time += r.getDuration() + (day.ordinal() > r.getDay().ordinal()? 7 - day.ordinal() + r.getDay().ordinal() : r.getDay().ordinal() - day.ordinal());
             day = r.getDay();
         }

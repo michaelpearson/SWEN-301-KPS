@@ -111,7 +111,7 @@ import java.util.*;
             return bestRoute;
         }
 
-        @NotNull void calculateCalculatedRoute(@NotNull String from, @NotNull String goal, @NotNull Priority priority,
+        void calculateCalculatedRoute(@NotNull String from, @NotNull String goal, @NotNull Priority priority,
                                                CalculatedRoute currentRoute, List<CalculatedRoute> PossiblePaths, List<String> visitedNodes) {
             for (Route r : routes){
                 if (r.getFrom().equals(from)){
