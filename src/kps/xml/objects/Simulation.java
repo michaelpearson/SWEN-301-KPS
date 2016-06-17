@@ -5,6 +5,7 @@ import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.Priority;
 import kps.xml.objects.enums.TransportType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.*;
 import java.util.*;
@@ -79,7 +80,7 @@ import java.util.*;
         return uniqueRoutes;
     }
 
-    @NotNull public CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
+    @Nullable public CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
         return new RouteCalculator().buildCalculatedRoute(from, to, priority);
     }
 
@@ -88,7 +89,7 @@ import java.util.*;
     }
 
     private class RouteCalculator {
-        @NotNull CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
+        @Nullable CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
             List<CalculatedRoute> PossiblePaths = new ArrayList<>();
             for (Route r : routes){
                 if (r.getFrom().equals(from)){
@@ -108,11 +109,11 @@ import java.util.*;
                 }
             }
 
-            return bestRoute;
+            return bestRoute.getRoutes().size() == 0? null : bestRoute;
         }
 
         void calculateCalculatedRoute(@NotNull String from, @NotNull String goal, @NotNull Priority priority,
-                                               CalculatedRoute currentRoute, List<CalculatedRoute> PossiblePaths, List<String> visitedNodes) {
+                                      @NotNull CalculatedRoute currentRoute, @NotNull List<CalculatedRoute> PossiblePaths, @NotNull List<String> visitedNodes) {
             for (Route r : routes){
                 if (r.getFrom().equals(from)){
                     if (visitedNodes.contains(r.getTo())) continue;

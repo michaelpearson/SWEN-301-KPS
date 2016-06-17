@@ -50,7 +50,7 @@ import java.awt.*;
         this.day = day;
     }
 
-    public void setCalculatedRoute(@NotNull CalculatedRoute calculatedRoute) {
+    public void setCalculatedRoute(@Nullable CalculatedRoute calculatedRoute) {
         this.calculatedRoute = calculatedRoute;
     }
 
@@ -106,7 +106,7 @@ import java.awt.*;
         return time;
     }
 
-    @NotNull public CalculatedRoute getCalculatedRoute() {
+    @Nullable public CalculatedRoute getCalculatedRoute() {
         return calculatedRoute;
     }
 }
