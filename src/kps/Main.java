@@ -3,7 +3,6 @@ package kps;
 import kps.gui.windows.Login;
 import kps.xml.SimulationXML;
 import kps.xml.exceptions.XMLException;
-import kps.xml.objects.Mail;
 import kps.xml.objects.Simulation;
 
 import javax.swing.*;

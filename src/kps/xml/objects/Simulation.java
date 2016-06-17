@@ -5,11 +5,9 @@ import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.Priority;
 import kps.xml.objects.enums.TransportType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @XmlRootElement(name="simulation") @XmlAccessorType(XmlAccessType.NONE) public class Simulation {
     //These locations are locations that are not currently in the object graph but are about to be used,
@@ -81,7 +79,7 @@ import java.util.stream.Collectors;
         return uniqueRoutes;
     }
 
-    @Nullable public CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
+    @NotNull public CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
         return new RouteCalculator().buildCalculatedRoute(from, to, priority);
     }
 

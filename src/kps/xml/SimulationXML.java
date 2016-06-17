@@ -1,9 +1,8 @@
 package kps.xml;
 
 import kps.xml.exceptions.XMLException;
-import kps.xml.objects.Mail;
-import kps.xml.objects.abstracts.ModelObject;
 import kps.xml.objects.Simulation;
+import kps.xml.objects.abstracts.ModelObject;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

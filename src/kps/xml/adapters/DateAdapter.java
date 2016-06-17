@@ -1,9 +1,8 @@
 package kps.xml.adapters;
 
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class DateAdapter extends XmlAdapter<String, Date> {
     public static final String DATE_FORMAT = "h:mm:ssa dd/MM/yyyy";

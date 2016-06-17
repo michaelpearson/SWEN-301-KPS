@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 
 public class CustomerPriceDialog extends FormDialog {
     private @NotNull CustomerPrice customerPrice;
