@@ -102,8 +102,10 @@ import java.awt.*;
     }
 
     private void checkRouteExists(){
-        if (calculatedRoute == null)
-            calculatedRoute = simulation.buildCalculatedRoute(getFrom(), getTo(), priority);
+       if (calculatedRoute == null) {
+           calculatedRoute = simulation.buildCalculatedRoute(getFrom(), getTo(), priority);
+           System.out.println("calculatedRoute is null");
+       }
     }
     @Nullable public CalculatedRoute getCalculatedRoute() {
         return calculatedRoute;
