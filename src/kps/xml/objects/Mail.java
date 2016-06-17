@@ -4,6 +4,7 @@ import kps.gui.windows.form.dialogs.MailDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,11 +30,11 @@ import java.awt.*;
         return "Mail delivery";
     }
 
-    @Override public void edit(Frame owner) {
+    @Override public void edit(@NotNull Frame owner) {
         new MailDialog(owner, getSimulation(), this);
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(@NotNull Priority priority) {
         this.priority = priority;
     }
 
@@ -45,15 +46,15 @@ import java.awt.*;
         this.volume = volume;
     }
 
-    public void setDay(DayOfWeek day) {
+    public void setDay(@NotNull DayOfWeek day) {
         this.day = day;
     }
 
-    public void setCalculatedRoute(CalculatedRoute calculatedRoute) {
+    public void setCalculatedRoute(@NotNull CalculatedRoute calculatedRoute) {
         this.calculatedRoute = calculatedRoute;
     }
 
-    @Nullable public Priority getPriority() { return priority; }
+    @NotNull public Priority getPriority() { return priority; }
 
     public int getWeight() {
         return weight;
@@ -63,12 +64,14 @@ import java.awt.*;
         return volume;
     }
 
-    @Nullable public DayOfWeek getDay() {
+    @NotNull public DayOfWeek getDay() {
         return day;
     }
 
     @Override public double getExpenditure() {
-        checkRouteExists();
+        if(calculatedRoute == null) {
+            throw new RuntimeException("Cannot calculate expenditure without a calculated route");
+        }
         double expenditure = 0;
         for (Route r : calculatedRoute.getRoutes()){
             expenditure += r.getVolumeCost() * volume + r.getWeightCost() * weight;
@@ -88,7 +91,9 @@ import java.awt.*;
     }
 
     public int getDeliveryTime() {
-        checkRouteExists();
+        if(calculatedRoute == null) {
+            throw new RuntimeException("Cannot calculate delivery time without a calculated route");
+        }
         int time = 0;
         DayOfWeek day = getDay();
         for (Route r : calculatedRoute.getRoutes()){
@@ -101,13 +106,7 @@ import java.awt.*;
         return time;
     }
 
-    private void checkRouteExists(){
-       if (calculatedRoute == null) {
-           calculatedRoute = simulation.buildCalculatedRoute(getFrom(), getTo(), priority);
-           System.out.println("calculatedRoute is null");
-       }
-    }
-    @Nullable public CalculatedRoute getCalculatedRoute() {
+    @NotNull public CalculatedRoute getCalculatedRoute() {
         return calculatedRoute;
     }
 }
