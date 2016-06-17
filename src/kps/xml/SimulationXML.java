@@ -1,6 +1,9 @@
 package kps.xml;
 
 import kps.xml.exceptions.XMLException;
+import kps.xml.objects.CalculatedRoute;
+import kps.xml.objects.Mail;
+import kps.xml.objects.Route;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.abstracts.ModelObject;
 
@@ -8,20 +11,18 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class SimulationXML extends StreamReaderDelegate {
-    private static Simulation simulation;
 
     public static kps.xml.objects.Simulation readSimulationFromFile(InputStream xml) throws FileNotFoundException, XMLException {
         try {
@@ -34,12 +35,12 @@ public class SimulationXML extends StreamReaderDelegate {
             unmarshaller.setListener(new Unmarshaller.Listener() {
                 @Override
                 public void afterUnmarshal(Object target, Object parent) {
-                    if(!(target instanceof Simulation)) {
+                    if(!(target instanceof Simulation) && ModelObject.class.isAssignableFrom(target.getClass())) {
                         modelObjects.add((ModelObject)target);
                     }
                 }
             });
-            simulation = (Simulation) unmarshaller.unmarshal(xsr);
+            Simulation simulation = (Simulation) unmarshaller.unmarshal(xsr);
             xml.close();
             for(ModelObject mo : modelObjects) {
                 mo.setSimulation(simulation);

@@ -11,12 +11,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
-@XmlAccessorType(XmlAccessType.FIELD) public class Mail extends BusinessEventWithLocation {
+@XmlAccessorType(XmlAccessType.NONE) public class Mail extends BusinessEventWithLocation {
     @XmlElement(name="day") private DayOfWeek day;
     @XmlElement(name="weight") private int weight;
     @XmlElement(name="volume") private int volume;
     @XmlElement(name="priority") private Priority priority;
-    @XmlElement(name="calculatedRoute") private CalculatedRoute calculatedRoute;
+    @XmlElement(name="calculatedroute") private CalculatedRoute calculatedRoute;
 
     public Mail(Simulation s) {
         super(s);
