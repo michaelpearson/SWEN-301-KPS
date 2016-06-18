@@ -2,13 +2,10 @@ package kps.xml.objects;
 
 import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
-import kps.xml.objects.enums.Priority;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @XmlRootElement(name="simulation") @XmlAccessorType(XmlAccessType.NONE) public class Simulation {
     //These locations are locations that are not currently in the object graph but are about to be used,
@@ -69,8 +66,12 @@ import java.util.stream.Collectors;
                 if(r1 == r2 || !r1.getCompany().equals(r2.getCompany()) || r1.getTransportType() != r2.getTransportType()) {
                     continue;
                 }
+                if(!(r1.getFrom().equals(r2.getFrom()) && r1.getTo().equals(r2.getTo()))) {
+                    continue;
+                }
                 if(!r1.getDate().after(r2.getDate())) {
                     allBefore = false;
+                    break;
                 }
             }
             if(allBefore) {
@@ -80,37 +81,8 @@ import java.util.stream.Collectors;
         return uniqueRoutes;
     }
 
-    @Nullable public Set<CalculatedRoute> buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
-        return new RouteCalculator().buildCalculatedRoute(from, to, priority);
-    }
-
     public boolean isLocationValid(@NotNull String to) {
         return getLocations().contains(to);
-    }
-
-    private class RouteCalculator {
-        private List<String> visitedNodes = new ArrayList<>();
-        private List<Route> uniqueRoutes = getUniqueRoutes();
-
-        @NotNull Set<CalculatedRoute> buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
-            return calculateRoute(from, to, priority, new CalculatedRoute());
-        }
-
-        @NotNull Set<CalculatedRoute> calculateRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority, @NotNull CalculatedRoute calculatedRoute) {
-            visitedNodes.add(from);
-            Set<Route> routesWithMatchingFrom = uniqueRoutes.stream().filter(n -> from.equals(n.getFrom())).filter(r -> priority.willSettleFor(r.getTransportType())).collect(Collectors.toSet());
-            Set<CalculatedRoute> newRoutes = new HashSet<>();
-            for(Route r : routesWithMatchingFrom) {
-                if(r.getTo().equals(to)) {
-                    newRoutes.add(new CalculatedRoute(calculatedRoute, r));
-                } else {
-                    if(!visitedNodes.contains(r.getTo())) {
-                        newRoutes.addAll(calculateRoute(r.getTo(), to, priority, new CalculatedRoute(calculatedRoute, r)));
-                    }
-                }
-            }
-            return newRoutes;
-        }
     }
 
     public static void addTempLocation(String location) {

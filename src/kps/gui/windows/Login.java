@@ -1,8 +1,8 @@
 package kps.gui.windows;
 
+import kps.gui.util.KeyListenerSlim;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
-import kps.gui.util.KeyListenerSlim;
 import kps.xml.objects.Simulation;
 
 import javax.swing.*;

@@ -1,5 +1,6 @@
 package kps.gui.windows.form.dialogs;
 
+import kps.business.RouteCalculator;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.CalculatedRoute;
@@ -13,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
-import java.util.Set;
 
 public class MailDialog extends FormDialog {
     private @NotNull Mail mailDeliveryEvent;
@@ -59,16 +59,15 @@ public class MailDialog extends FormDialog {
         String from = (String) getValue(FieldNames.LocationFrom);
         String to = (String) getValue(FieldNames.LocationTo);
         Priority priority = (Priority) getValue(FieldNames.Priority);
-        Set<CalculatedRoute> routes = simulation.buildCalculatedRoute(from, to, priority);
-        if(routes == null) {
+        calculatedRoute = new RouteCalculator(simulation).buildCalculatedRoute(from, to, priority);
+        if(calculatedRoute == null) {
             JOptionPane.showMessageDialog(
                     this,
                     String.format("Sorry, no route between %s and %s using %s was found. Please change your origin and destination and try again", from, to, priority.toString()),
                     "No viable route", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        calculatedRoute = new RouteConfirmationDialog(null, routes).getConfirmedRoute();
-        return calculatedRoute != null;
+        return true;
     }
 
     protected void save() {

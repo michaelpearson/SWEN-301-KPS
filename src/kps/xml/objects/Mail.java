@@ -4,6 +4,7 @@ import kps.gui.windows.form.dialogs.MailDialog;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.DayOfWeek;
 import kps.xml.objects.enums.Priority;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,12 +12,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
-@XmlAccessorType(XmlAccessType.FIELD) public class Mail extends BusinessEventWithLocation {
+@XmlAccessorType(XmlAccessType.NONE) public class Mail extends BusinessEventWithLocation {
     @XmlElement(name="day") private DayOfWeek day;
     @XmlElement(name="weight") private int weight;
     @XmlElement(name="volume") private int volume;
     @XmlElement(name="priority") private Priority priority;
-    @XmlElement(name="calculatedRoute") private CalculatedRoute calculatedRoute;
+    @XmlElement(name="calculatedroute") private CalculatedRoute calculatedRoute;
 
     public Mail(Simulation s) {
         super(s);
@@ -29,11 +30,11 @@ import java.awt.*;
         return "Mail delivery";
     }
 
-    @Override public void edit(Frame owner) {
+    @Override public void edit(@NotNull Frame owner) {
         new MailDialog(owner, getSimulation(), this);
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(@NotNull Priority priority) {
         this.priority = priority;
     }
 
@@ -45,15 +46,17 @@ import java.awt.*;
         this.volume = volume;
     }
 
-    public void setDay(DayOfWeek day) {
+    public void setDay(@NotNull DayOfWeek day) {
         this.day = day;
     }
 
-    public void setCalculatedRoute(CalculatedRoute calculatedRoute) {
+    public void setCalculatedRoute(@NotNull CalculatedRoute calculatedRoute) {
         this.calculatedRoute = calculatedRoute;
     }
 
-    @Nullable public Priority getPriority() { return priority; }
+    @Nullable public Priority getPriority() {
+        return priority;
+    }
 
     public int getWeight() {
         return weight;
@@ -68,15 +71,41 @@ import java.awt.*;
     }
 
     @Override public double getExpenditure() {
-        return 0;
+        if(calculatedRoute == null) {
+            throw new RuntimeException("Cannot calculate expenditure without a calculated route");
+        }
+        double expenditure = 0;
+        for (Route r : calculatedRoute.getRoute()){
+            expenditure += r.getVolumeCost() * volume + r.getWeightCost() * weight;
+        }
+        return expenditure;
     }
 
     @Override public double getRevenue() {
-        return 0;
+        double revenue = 0;
+        for (CustomerPrice cp : simulation.getCustomerPrices()){
+            if (priority == cp.getPriority()) {
+                if (!priority.isDomestic() && !getTo().equals(cp.getTo())) continue;
+                revenue += cp.getVolumeCost() * volume + cp.getWeightCost() * weight;
+            }
+        }
+        return revenue;
     }
 
     public int getDeliveryTime() {
-        return 0;
+        if(calculatedRoute == null) {
+            throw new RuntimeException("Cannot calculate delivery time without a calculated route");
+        }
+        int time = 0;
+        DayOfWeek day = getDay();
+        for (Route r : calculatedRoute.getRoute()){
+            if(day == null) {
+                throw new RuntimeException("Cannot calculate delivery time without day");
+            }
+            time += r.getDuration() + (day.ordinal() > r.getDay().ordinal()? 7 - day.ordinal() + r.getDay().ordinal() : r.getDay().ordinal() - day.ordinal());
+            day = r.getDay();
+        }
+        return time;
     }
 
     @Nullable public CalculatedRoute getCalculatedRoute() {
