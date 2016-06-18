@@ -1,12 +1,8 @@
 package kps.xml.objects;
 
-import kps.business.RouteCalculator;
 import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
-import kps.xml.objects.enums.Priority;
-import kps.xml.objects.enums.TransportType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.*;
 import java.util.*;
@@ -68,6 +64,9 @@ import java.util.*;
             boolean allBefore = true;
             for(Route r2 : routes) {
                 if(r1 == r2 || !r1.getCompany().equals(r2.getCompany()) || r1.getTransportType() != r2.getTransportType()) {
+                    continue;
+                }
+                if(!(r1.getFrom().equals(r2.getFrom()) && r1.getTo().equals(r2.getTo()))) {
                     continue;
                 }
                 if(!r1.getDate().after(r2.getDate())) {
