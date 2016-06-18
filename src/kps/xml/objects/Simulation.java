@@ -71,6 +71,7 @@ import java.util.*;
                 }
                 if(!r1.getDate().after(r2.getDate())) {
                     allBefore = false;
+                    break;
                 }
             }
             if(allBefore) {
