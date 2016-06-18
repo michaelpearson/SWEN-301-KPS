@@ -75,7 +75,7 @@ import java.awt.*;
             throw new RuntimeException("Cannot calculate expenditure without a calculated route");
         }
         double expenditure = 0;
-        for (Route r : calculatedRoute.getRoutes()){
+        for (Route r : calculatedRoute.getRoute()){
             expenditure += r.getVolumeCost() * volume + r.getWeightCost() * weight;
         }
         return expenditure;
@@ -98,7 +98,7 @@ import java.awt.*;
         }
         int time = 0;
         DayOfWeek day = getDay();
-        for (Route r : calculatedRoute.getRoutes()){
+        for (Route r : calculatedRoute.getRoute()){
             if(day == null) {
                 throw new RuntimeException("Cannot calculate delivery time without day");
             }

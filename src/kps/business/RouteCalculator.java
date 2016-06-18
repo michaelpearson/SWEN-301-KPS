@@ -56,7 +56,7 @@ public class RouteCalculator {
 
     private int getFit(CalculatedRoute c, Priority p){
         int fitness = 0;
-        for (Route r : c.getRoutes()){
+        for (Route r : c.getRoute()){
             fitness += 1;
             if (r.getTransportType() != TransportType.Air && p.isAir())
                 fitness += 1;
