@@ -10,12 +10,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RouteCalculator {
     private List<Route> routes;
 
     public RouteCalculator(Simulation simulation) {
-        this.routes = simulation.getRoutes();
+        this.routes = simulation.getUniqueRoutes().stream().filter(r -> !r.isDiscontinued()).collect(Collectors.toList());
     }
 
     @Nullable public CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
