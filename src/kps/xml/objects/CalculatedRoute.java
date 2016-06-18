@@ -11,25 +11,13 @@ import java.util.List;
 
     public CalculatedRoute() {}
 
-    private CalculatedRoute(List<Route> routes) {
-        this.routes = routes;
-    }
-
     public CalculatedRoute(CalculatedRoute current, Route append) {
         routes.addAll(current.routes);
         routes.add(append);
     }
 
-    public void appendRoute(Route r) {
-        routes.add(r);
-    }
-
     public List<Route> getRoutes() {
         return routes;
-    }
-
-    public CalculatedRoute copy() {
-        return new CalculatedRoute(new ArrayList<>(routes));
     }
 
     @Override

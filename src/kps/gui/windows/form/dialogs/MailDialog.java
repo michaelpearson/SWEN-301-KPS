@@ -1,5 +1,6 @@
 package kps.gui.windows.form.dialogs;
 
+import kps.business.RouteCalculator;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.CalculatedRoute;
@@ -58,7 +59,7 @@ public class MailDialog extends FormDialog {
         String from = (String) getValue(FieldNames.LocationFrom);
         String to = (String) getValue(FieldNames.LocationTo);
         Priority priority = (Priority) getValue(FieldNames.Priority);
-        calculatedRoute = simulation.buildCalculatedRoute(from, to, priority);
+        calculatedRoute = new RouteCalculator(simulation).buildCalculatedRoute(from, to, priority);
         if(calculatedRoute == null) {
             JOptionPane.showMessageDialog(
                     this,
@@ -66,7 +67,7 @@ public class MailDialog extends FormDialog {
                     "No viable route", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        return calculatedRoute != null;
+        return true;
     }
 
     protected void save() {

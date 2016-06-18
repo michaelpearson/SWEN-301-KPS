@@ -50,11 +50,13 @@ import java.awt.*;
         this.day = day;
     }
 
-    public void setCalculatedRoute(@Nullable CalculatedRoute calculatedRoute) {
+    public void setCalculatedRoute(@NotNull CalculatedRoute calculatedRoute) {
         this.calculatedRoute = calculatedRoute;
     }
 
-    @NotNull public Priority getPriority() { return priority; }
+    @Nullable public Priority getPriority() {
+        return priority;
+    }
 
     public int getWeight() {
         return weight;
@@ -64,7 +66,7 @@ import java.awt.*;
         return volume;
     }
 
-    @NotNull public DayOfWeek getDay() {
+    @Nullable public DayOfWeek getDay() {
         return day;
     }
 

@@ -1,5 +1,6 @@
 package kps.xml.objects;
 
+import kps.business.RouteCalculator;
 import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.Priority;
@@ -80,66 +81,8 @@ import java.util.*;
         return uniqueRoutes;
     }
 
-    @Nullable public CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
-        return new RouteCalculator().buildCalculatedRoute(from, to, priority);
-    }
-
     public boolean isLocationValid(@NotNull String to) {
         return getLocations().contains(to);
-    }
-
-    private class RouteCalculator {
-        @Nullable CalculatedRoute buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
-            List<CalculatedRoute> PossiblePaths = new ArrayList<>();
-            for (Route r : routes){
-                if (r.getFrom().equals(from)){
-                    List<String> visitedNodes = new ArrayList<>();
-                    visitedNodes.add(r.getFrom());
-                    calculateCalculatedRoute(from, to, priority, new CalculatedRoute(), PossiblePaths, visitedNodes);
-                }
-            }
-
-            CalculatedRoute bestRoute = new CalculatedRoute();
-            int bestFit = Integer.MAX_VALUE;
-            for (CalculatedRoute r : PossiblePaths){
-                int fit = getFit(r, priority);
-                if (fit < bestFit){
-                    bestFit = fit;
-                    bestRoute = r;
-                }
-            }
-
-            return bestRoute.getRoutes().size() == 0? null : bestRoute;
-        }
-
-        void calculateCalculatedRoute(@NotNull String from, @NotNull String goal, @NotNull Priority priority,
-                                      @NotNull CalculatedRoute currentRoute, @NotNull List<CalculatedRoute> PossiblePaths, @NotNull List<String> visitedNodes) {
-            for (Route r : routes){
-                if (r.getFrom().equals(from)){
-                    if (visitedNodes.contains(r.getTo())) continue;
-                    CalculatedRoute temp = new CalculatedRoute(currentRoute, r);
-
-                    if (r.getTo().equals(goal)) {
-                        PossiblePaths.add(temp);
-                        return;
-                    }
-
-                    List<String> visited = new ArrayList<>(visitedNodes);
-                    visited.add(r.getFrom());
-                    calculateCalculatedRoute(r.getTo(), goal, priority, temp, PossiblePaths, visited);
-                }
-            }
-        }
-
-        private int getFit(CalculatedRoute c, Priority p){
-            int fitness = 0;
-            for (Route r : c.getRoutes()){
-                fitness += 1;
-                if (r.getTransportType() != TransportType.Air && p.isAir())
-                    fitness += 1;
-            }
-            return fitness;
-        }
     }
 
     public static void addTempLocation(String location) {
