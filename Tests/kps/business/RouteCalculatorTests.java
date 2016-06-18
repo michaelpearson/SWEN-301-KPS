@@ -28,6 +28,16 @@ public class RouteCalculatorTests {
         Assert.assertNull(calculatedRoute);
     }
 
+    @Test public void ensureThatSystemWillPickLongRouteIfShortRouteIsDiscontinued() throws FileNotFoundException, XMLException, InterruptedException {
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
+        Route cr = s.getUniqueRoutes().stream().filter(r -> r.getFrom().equals("Auckland") && r.getTo().equals("Wellington")).findFirst().get();
+        cr.setDiscontinued(true);
+        RouteCalculator rc = new RouteCalculator(s);
+        CalculatedRoute calculatedRoute = rc.buildCalculatedRoute("Auckland", "Wellington", Priority.INTERNATIONAL_STANDARD);
+        Assert.assertNotNull(calculatedRoute);
+        Assert.assertTrue(calculatedRoute.getRoute().size() == 2);
+    }
+
     @Test public void ensureThatSystemWillNotPickInferiorRoute() throws FileNotFoundException, XMLException, InterruptedException {
         Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
         Route cr = s.getUniqueRoutes().stream().filter(r -> r.getFrom().equals("Wellington") && r.getTo().equals("Sydney") && r.isDiscontinued()).findFirst().get();
