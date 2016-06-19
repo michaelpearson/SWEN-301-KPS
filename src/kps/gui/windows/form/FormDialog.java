@@ -132,6 +132,12 @@ public abstract class FormDialog extends JDialog {
         return true;
     }
 
+    /**
+     * This is the signature to construct the form. It passes in a FormBuilder object which takes care of
+     * creating the components which will then be added to this form. This method must be implemented to create
+     * the desired form.
+     * @param builder the form builder object for this form.
+     */
     protected abstract void initializeForm(FormBuilder builder);
     protected abstract void save();
     protected abstract boolean cancel();

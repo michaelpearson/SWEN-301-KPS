@@ -25,6 +25,10 @@ public class LocationDialog extends FormDialog {
         setVisible(true);
     }
 
+    /**
+     * This builds a simple form with a single string field
+     * @param builder the form builder object for this form.
+     */
     @Override protected void initializeForm(FormBuilder builder) {
         builder.addStringField(NAME, "Location name", null);
     }
