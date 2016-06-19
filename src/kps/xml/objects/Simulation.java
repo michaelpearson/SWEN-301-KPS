@@ -68,7 +68,6 @@ import java.util.stream.Collectors;
      */
     @NotNull public List<String> getValidDestinations(@NotNull String from){
         Set<String> locations = getLocations();
-        Set<CalculatedRoute> routes = new HashSet<>();
         List<String> destinations = new ArrayList<>();
         for(String loc : locations){
             if(!loc.equals(from) && !buildCalculatedRoute(from, loc, Priority.DOMESTIC_STANDARD).isEmpty()) {
@@ -85,7 +84,6 @@ import java.util.stream.Collectors;
      */
     @NotNull public List<String> getValidOrigins(String destination){
         Set<String> locations = getLocations();
-        Set<CalculatedRoute> routes = new HashSet<>();
         List<String> origins = new ArrayList<>();
         for(String loc : locations){
             if(!loc.equals(destination) && !buildCalculatedRoute(loc, destination, Priority.DOMESTIC_STANDARD).isEmpty()) {
