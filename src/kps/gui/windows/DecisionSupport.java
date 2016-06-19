@@ -7,9 +7,11 @@ import kps.xml.objects.Simulation;
 import org.jdesktop.swingx.JXButton;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXTable;
+import org.jdesktop.swingx.JXTable;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.Date;
 
@@ -133,6 +135,19 @@ class DecisionSupport extends JFrame {
         panel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
         panel.add(figuresPanelOuter, BorderLayout.EAST);
         add(panel);
+        JPanel figuresPanelOuter = new JPanel(new BorderLayout());
+        figuresPanelOuter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        figuresPanelOuter.add(figuresPanel, BorderLayout.NORTH);
+
+        outerPanel.add(figuresPanelOuter, BorderLayout.EAST);
+
+
+        JXTable businessEventsTable = new JXTable(new BusinessEventsTableModel(simulation));
+
+        outerPanel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
+
+
+        add(outerPanel);
     }
 
     private void dataReady(BusinessFiguresCalculator data) {
