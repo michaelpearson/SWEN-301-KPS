@@ -1,6 +1,8 @@
 package kps.gui.windows.form;
 
+import kps.gui.models.DestinationModel;
 import kps.gui.models.LocationsModel;
+import kps.gui.models.OriginModel;
 import kps.gui.windows.form.dialogs.LocationDialog;
 import kps.xml.objects.Simulation;
 import org.jetbrains.annotations.NotNull;
@@ -116,6 +118,78 @@ public class FormBuilder {
         };
         field.field.setPreferredSize(new Dimension(200, 30));
         fields.put(fieldTag, field);
+    }
+
+    /**
+     * Creates a pair of location fields that are linked to only show valid paths from destination to origin
+     * @param destTag destinagtion field tag
+     * @param destLabel destinagtion field label
+     * @param destination selected item in destination field
+     * @param originTag origin field tag
+     * @param originLabel origin field field
+     * @param origin selected item in origin field
+     */
+    public void addOriginDestFields(@NotNull Object originTag, @NotNull String originLabel, @Nullable String origin, @NotNull Object destTag, @NotNull String destLabel, @Nullable String destination){
+        OriginModel originModel = addOriginField(originTag, originLabel, origin, null);
+        addDestinationField(destTag, destLabel, destination, originModel);
+    }
+
+    public OriginModel addOriginField(@NotNull Object fieldTag, @NotNull String label, @Nullable String location, @Nullable DestinationModel destModel){
+        FormDialog.Field<Object> field = new FormDialog.Field<>();
+        field.label = getLabel(label, null);
+        JComboBox<String> comboBox = new JComboBox<>();
+        field.field = comboBox;
+
+        OriginModel model = new OriginModel(simulation);
+        comboBox.setModel(model);
+        if(destModel!=null){
+            model.setDestination(destModel);
+            destModel.setOrigin(model);
+        }
+        comboBox.setSelectedItem(location);
+        comboBox.addItemListener((e) -> {
+            if(e.getStateChange() != ItemEvent.SELECTED) {
+                return;
+            }
+        });
+        field.getter = () -> {
+            if(comboBox.getSelectedItem() == model.getDummyLocation()) {
+                return null;
+            }
+            return comboBox.getSelectedItem();
+        };
+        field.field.setPreferredSize(new Dimension(200, 30));
+        fields.put(fieldTag, field);
+        return model;
+    }
+
+    public DestinationModel addDestinationField(@NotNull Object fieldTag, @NotNull String label, @Nullable String location, @Nullable OriginModel originModel){
+        FormDialog.Field<Object> field = new FormDialog.Field<>();
+        field.label = getLabel(label, null);
+        JComboBox<String> comboBox = new JComboBox<>();
+        field.field = comboBox;
+
+        DestinationModel model = new DestinationModel(simulation);
+        if(originModel!=null) {
+            model.setOrigin(originModel);
+            originModel.setDestination(model);
+        }
+        comboBox.setModel(model);
+        comboBox.setSelectedItem(location);
+        comboBox.addItemListener((e) -> {
+            if(e.getStateChange() != ItemEvent.SELECTED) {
+                return;
+            }
+        });
+        field.getter = () -> {
+            if(comboBox.getSelectedItem() == model.getDummyLocation()) {
+                return null;
+            }
+            return comboBox.getSelectedItem();
+        };
+        field.field.setPreferredSize(new Dimension(200, 30));
+        fields.put(fieldTag, field);
+        return model;
     }
 
     public void addBooleanField(@NotNull Object fieldTag, @NotNull String label, boolean value) {

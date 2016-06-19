@@ -61,6 +61,40 @@ import java.util.stream.Collectors;
         return allLocations;
     }
 
+    /**
+     * Gets the valid destinations for this origin
+     * @param from the origin location
+     * @return returns valid destinations
+     */
+    @NotNull public List<String> getValidDestinations(@NotNull String from){
+        Set<String> locations = getLocations();
+        Set<CalculatedRoute> routes = new HashSet<>();
+        List<String> destinations = new ArrayList<>();
+        for(String loc : locations){
+            if(!loc.equals(from) && !buildCalculatedRoute(from, loc, Priority.DOMESTIC_STANDARD).isEmpty()) {
+                destinations.add(loc);
+            }
+        }
+        return destinations;
+    }
+
+    /**
+     * Gets the valid destinations for this origin
+     * @param destination the origin location
+     * @return returns valid destinations
+     */
+    @NotNull public List<String> getValidOrigins(String destination){
+        Set<String> locations = getLocations();
+        Set<CalculatedRoute> routes = new HashSet<>();
+        List<String> origins = new ArrayList<>();
+        for(String loc : locations){
+            if(!loc.equals(destination) && !buildCalculatedRoute(loc, destination, Priority.DOMESTIC_STANDARD).isEmpty()) {
+                origins.add(loc);
+            }
+        }
+        return origins;
+    }
+
     @NotNull public List<Route> getUniqueRoutes() {
         List<Route> uniqueRoutes = new ArrayList<>();
         for(Route r1 : routes) {
@@ -80,7 +114,7 @@ import java.util.stream.Collectors;
         return uniqueRoutes;
     }
 
-    @Nullable public Set<CalculatedRoute> buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
+    @NotNull public Set<CalculatedRoute> buildCalculatedRoute(@NotNull String from, @NotNull String to, @NotNull Priority priority) {
         return new RouteCalculator().buildCalculatedRoute(from, to, priority);
     }
 

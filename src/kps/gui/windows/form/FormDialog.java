@@ -50,6 +50,8 @@ public abstract class FormDialog extends JDialog {
         formPanel.setLayout(layout);
 
         for(Map.Entry<Object, Field> e : fields.entrySet()) {
+            System.out.println(e.getKey());
+            System.out.flush();
             formPanel.add(e.getValue().label);
             formPanel.add(e.getValue().field);
         }

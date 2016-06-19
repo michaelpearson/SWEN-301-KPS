@@ -1,5 +1,6 @@
 package kps.gui.windows.form.dialogs;
 
+import kps.gui.models.OriginModel;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.CalculatedRoute;
@@ -43,8 +44,11 @@ public class MailDialog extends FormDialog {
 
     @Override protected void initializeForm(FormBuilder builder) {
         builder.addEnumField(FieldNames.DayOfWeek, "Day of the week", mailDeliveryEvent.getDay(), DayOfWeek.class);
-        builder.addLocationField(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom());
-        builder.addLocationField(FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo());
+        OriginModel originModel = builder.addOriginField(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom(), null);
+        builder.addDestinationField(FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo(), originModel);
+//        builder.addOriginDestFields(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom(), FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo());
+        //builder.addLocationField(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom());
+        //builder.addLocationField(FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo());
         builder.addIntegerField(FieldNames.Weight, "Weight (grams)", mailDeliveryEvent.getWeight());
         builder.addIntegerField(FieldNames.Volume, "Volume (cm^3)", mailDeliveryEvent.getVolume());
         builder.addEnumField(FieldNames.Priority, "Priority", mailDeliveryEvent.getPriority(), Priority.class);
@@ -60,7 +64,7 @@ public class MailDialog extends FormDialog {
         String to = (String) getValue(FieldNames.LocationTo);
         Priority priority = (Priority) getValue(FieldNames.Priority);
         Set<CalculatedRoute> routes = simulation.buildCalculatedRoute(from, to, priority);
-        if(routes == null) {
+        if(routes.isEmpty()) {
             JOptionPane.showMessageDialog(
                     this,
                     String.format("Sorry, no route between %s and %s using %s was found. Please change your origin and destination and try again", from, to, priority.toString()),

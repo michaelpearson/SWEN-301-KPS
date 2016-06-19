@@ -8,11 +8,11 @@ import java.util.List;
 
 
 public class LocationsModel extends AbstractListModel<String> implements ComboBoxModel<String> {
-    private final Simulation simulation;
+    protected final Simulation simulation;
     private Object selectedObject = null;
     private final String dummyLocation = "Add new location...";
     private int size;
-    private List<String> allLocations;
+    protected List<String> validLocations;
 
     public LocationsModel(Simulation simulation) {
         this.simulation = simulation;
@@ -34,21 +34,22 @@ public class LocationsModel extends AbstractListModel<String> implements ComboBo
     }
 
     public void updateModel() {
-        allLocations = new ArrayList<>(simulation.getLocations());
+        validLocations = new ArrayList<>(simulation.getLocations());
     }
 
     @Override public int getSize() {
-        if(size != simulation.getLocations().size() + 1) {
+        //Why was this check performed?
+        if(validLocations == null || size != validLocations.size()) {
             fireContentsChanged(this, -1, -1);
         }
-        return simulation.getLocations().size() + 1;
+        return validLocations.size() + 1;
     }
 
     @Override public String getElementAt(int index) {
-        if(index >= allLocations.size()) {
+        if(index >= validLocations.size()) {
             return dummyLocation;
         }
-        return allLocations.get(index);
+        return validLocations.get(index);
     }
 
     public String getDummyLocation() {
