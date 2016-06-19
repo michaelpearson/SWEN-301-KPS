@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * This class is the model for the home screens table. It adapts to the simulation object that is passed in.
  */
-public class HomepageTableModel extends AbstractTableModel {
-
+public class BusinessEventsTableModel extends AbstractTableModel {
     private static final String DATE = "Date";
     private static final String EVENT_TYPE = "Event type";
     private static final String FROM = "From";
@@ -42,7 +41,7 @@ public class HomepageTableModel extends AbstractTableModel {
      * Main constructor which sets up the columns
      * @param simulation the simulation object which the table will display.
      */
-    public HomepageTableModel(Simulation simulation) {
+    public BusinessEventsTableModel(Simulation simulation) {
         this.simulation = simulation;
         this.businessEvents = simulation.getAllBusinessEvents();
         tableColumns.put(EVENT_TYPE, row -> businessEvents.get(row).getEventType());

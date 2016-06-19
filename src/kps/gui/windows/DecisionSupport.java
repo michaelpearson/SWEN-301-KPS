@@ -1,14 +1,17 @@
 package kps.gui.windows;
 
 import kps.business.BusinessFiguresCalculator;
+import kps.gui.models.BusinessEventsTableModel;
 import kps.xml.objects.Simulation;
 import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXTable;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.Date;
 
-public class BusinessFigures extends JFrame {
+class DecisionSupport extends JFrame {
     private final Simulation simulation;
 
 
@@ -19,10 +22,13 @@ public class BusinessFigures extends JFrame {
     private JLabel averageDeliveryTime;
     private JLabel criticalRoutes;
 
-    public BusinessFigures(Simulation simulation) {
+    DecisionSupport(Simulation simulation) {
         this.simulation = simulation;
         buildGui();
-        pack();
+        setTitle("Decision Support");
+        setResizable(true);
+        setSize(1300, 500);
+
         setLocationRelativeTo(null);
         buildBusinessFigures(new Date());
         setVisible(true);
@@ -74,7 +80,6 @@ public class BusinessFigures extends JFrame {
         layout.setVgap(10);
         layout.setHgap(10);
         figuresPanel.setLayout(layout);
-        setResizable(false);
 
         figuresPanel.add(new JLabel("Total revenue:"));
         figuresPanel.add(totalRevenue = new JLabel());
@@ -89,20 +94,22 @@ public class BusinessFigures extends JFrame {
         figuresPanel.add(new JLabel("Critical routes:"));
         figuresPanel.add(criticalRoutes = new JLabel());
 
-        outerPanel.add(figuresPanel, BorderLayout.CENTER);
-
-        JPanel datePanel = new JPanel();
-        GridLayout dateLayout = new GridLayout(2, 1);
-        dateLayout.setVgap(10);
-        datePanel.setLayout(dateLayout);
+        figuresPanel.setPreferredSize(new Dimension(300, 200));
 
 
-        JXDatePicker datePicker = new JXDatePicker(new Date());
-        datePicker.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        datePicker.addActionListener(e -> buildBusinessFigures(datePicker.getDate()));
-        datePanel.add(new JLabel("Select the date to calculate the business figures up to:"));
-        datePanel.add(datePicker);
-        outerPanel.add(datePanel, BorderLayout.SOUTH);
+
+        JPanel figuresPanelOuter = new JPanel(new BorderLayout());
+        figuresPanelOuter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        figuresPanelOuter.add(figuresPanel, BorderLayout.NORTH);
+
+        outerPanel.add(figuresPanelOuter, BorderLayout.EAST);
+
+
+        JXTable businessEventsTable = new JXTable(new BusinessEventsTableModel(simulation));
+
+        outerPanel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
+
+
         add(outerPanel);
     }
 
