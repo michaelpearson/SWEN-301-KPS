@@ -18,14 +18,14 @@ import javax.xml.bind.annotation.XmlTransient;
     }
 
     public void setTo(@NotNull String to) {
-        if (!getSimulation().isLocationValid(to)) {
+        if (getSimulation() != null && !getSimulation().isLocationValid(to)) {
             throw new RuntimeException("Invalid location"); //Todo: this should be handled nicely.
         }
         this.to = to;
     }
 
     public void setFrom(@NotNull String from) {
-        if(!getSimulation().isLocationValid(from)) {
+        if(getSimulation() != null && !getSimulation().isLocationValid(from)) {
             throw new RuntimeException("Invalid location"); //Todo: this should be handled nicely.
         }
         this.from = from;

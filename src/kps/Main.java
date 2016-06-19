@@ -21,12 +21,13 @@ public class Main {
             System.exit(1);
         }
         Simulation simulation;
+        String fileName = args[0];
         try {
-            simulation = SimulationXML.readSimulationFromFile(new FileInputStream(args[0]));
+            simulation = SimulationXML.readSimulationFromFile(new FileInputStream(fileName));
         } catch (Exception e) {
             e.printStackTrace();
             simulation = new Simulation();
         }
-        new Login(simulation);
+        new Login(simulation, fileName);
     }
 }

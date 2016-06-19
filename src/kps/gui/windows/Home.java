@@ -19,13 +19,15 @@ import java.io.PrintStream;
 @SuppressWarnings("WeakerAccess")
 public class Home extends JFrame {
     private final Simulation simulation;
+    private String fileName;
 
 
     public static final String APPLICATION_NAME = "Swen 301 - KPS";
 
     @SuppressWarnings("UnusedParameters") //todo: restrict access based on user.
-    public Home(Simulation simulation, Login.UserName user) {
+    public Home(Simulation simulation, String fileName, Login.UserName user) {
         this.simulation = simulation;
+        this.fileName = fileName;
 
         Dimension size = new Dimension(1300, 700);
         setMinimumSize(size);
@@ -119,7 +121,7 @@ public class Home extends JFrame {
             @Override
             public void run() {
                 try {
-                    SimulationXML.writeSimulation(simulation, new PrintStream("log.xml"));
+                    SimulationXML.writeSimulation(simulation, new PrintStream(fileName));
                     if(exit) {
                         System.exit(0);
                     }

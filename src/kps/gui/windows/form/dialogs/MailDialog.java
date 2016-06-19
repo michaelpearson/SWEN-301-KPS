@@ -1,6 +1,7 @@
 package kps.gui.windows.form.dialogs;
 
 import kps.business.RouteCalculator;
+import kps.business.interfaces.IRouteCalculator;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.CalculatedRoute;
@@ -59,7 +60,16 @@ public class MailDialog extends FormDialog {
         String from = (String) getValue(FieldNames.LocationFrom);
         String to = (String) getValue(FieldNames.LocationTo);
         Priority priority = (Priority) getValue(FieldNames.Priority);
-        calculatedRoute = new RouteCalculator(simulation).buildCalculatedRoute(from, to, priority);
+
+        Mail mail = new Mail();
+        mail.setTo(to);
+        mail.setFrom(from);
+        mail.setPriority(priority);
+        mail.setWeight((int)getValue(FieldNames.Weight));
+        mail.setVolume((int)getValue(FieldNames.Volume));
+
+        calculatedRoute = new RouteCalculator(simulation, mail).buildCalculatedRoute();
+
         if(calculatedRoute == null) {
             JOptionPane.showMessageDialog(
                     this,
@@ -74,8 +84,9 @@ public class MailDialog extends FormDialog {
         if (!validateFields()) {
             return;
         }
-        Map<Object, Object> entries = getAllFieldValues();
+        assert(calculatedRoute != null); //Validate fields grantees that calculatedRoute != null
 
+        Map<Object, Object> entries = getAllFieldValues();
         mailDeliveryEvent.setCalculatedRoute(calculatedRoute);
         mailDeliveryEvent.setTo((String)entries.get(FieldNames.LocationTo));
         mailDeliveryEvent.setFrom((String)entries.get(FieldNames.LocationFrom));

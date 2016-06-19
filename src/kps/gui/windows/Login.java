@@ -4,6 +4,7 @@ import kps.gui.util.KeyListenerSlim;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.Simulation;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -11,7 +12,9 @@ import java.util.Map;
 
 public class Login extends FormDialog {
 
-    public Login(Simulation s) {
+    private @NotNull String simulationFileName;
+
+    public Login(Simulation s, String fileName) {
         super("Login", s);
         buildDialog();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -25,6 +28,7 @@ public class Login extends FormDialog {
                 }
             }
         });
+        this.simulationFileName = fileName;
         setVisible(true);
     }
 
@@ -56,7 +60,7 @@ public class Login extends FormDialog {
 
     private void doLogin(UserName user) {
         dispose();
-        new Home(simulation, user);
+        new Home(simulation, simulationFileName, user);
     }
 
     @Override
