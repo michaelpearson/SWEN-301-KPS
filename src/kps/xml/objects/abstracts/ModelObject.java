@@ -6,6 +6,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * The base class for semi-smart model objects.
+ */
 @XmlTransient public abstract class ModelObject {
     @Nullable @XmlTransient protected Simulation simulation;
 

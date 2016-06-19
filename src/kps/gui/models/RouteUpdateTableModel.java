@@ -11,6 +11,10 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class is the table model for the update transport route page. It displays a list of unique transport routes
+ * It also greys out discontinued routes.
+ */
 public class RouteUpdateTableModel extends AbstractTableModel {
     private static final String DATE = "Date";
     private static final String COMPANY = "Company name";
@@ -23,12 +27,17 @@ public class RouteUpdateTableModel extends AbstractTableModel {
     private LinkedHashMap<String, FieldGetter> tableColumns = new LinkedHashMap<>();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DateAdapter.DATE_FORMAT);
 
-
-
+    /**
+     * This is a getter columns at a given row.
+     */
     private interface FieldGetter {
         String getField(int row);
     }
 
+    /**
+     * This is the main constructor which sets up the table.
+     * @param simulation the simulation to populate the table from
+     */
     public RouteUpdateTableModel(Simulation simulation) {
         this.simulation = simulation;
 
@@ -42,28 +51,27 @@ public class RouteUpdateTableModel extends AbstractTableModel {
         tableColumns.put(TO, row -> routes.get(row).getTo());
     }
 
+    /**
+     * This fires the update method and redraws the table.
+     */
     public void updateTable() {
         this.routes = simulation.getUniqueRoutes();
         this.routes.sort((l, r) -> r.getDate().compareTo(l.getDate()));
     }
 
-    @Override
-    public int getRowCount() {
+    @Override public int getRowCount() {
         return routes.size();
     }
 
-    @Override
-    public int getColumnCount() {
+    @Override public int getColumnCount() {
         return tableColumns.size();
     }
 
-    @Override
-    public String getColumnName(int columnIndex) {
+    @Override public String getColumnName(int columnIndex) {
         return new LinkedList<>(tableColumns.entrySet()).get(columnIndex).getKey();
     }
 
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
+    @Override public Object getValueAt(int rowIndex, int columnIndex) {
         return tableColumns.get(getColumnName(columnIndex)).getField(rowIndex);
     }
 

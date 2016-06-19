@@ -16,11 +16,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
+/**
+ * The mail item dialog. To create new mail delivery events or update existing ones.
+ */
 public class MailDialog extends FormDialog {
+
     private @NotNull Mail mailDeliveryEvent;
     private boolean isInDocument;
     private @Nullable CalculatedRoute calculatedRoute = null;
 
+    /**
+     * Field names so we can retrieve the values later.
+     */
     private enum FieldNames {
         DayOfWeek,
         LocationTo,
@@ -30,10 +37,21 @@ public class MailDialog extends FormDialog {
         Priority
     }
 
+    /**
+     * Constructor if you don't have an old mail delivery for your dialog.
+     * @param owner the frames owner
+     * @param simulation the simulation to work from
+     */
     public MailDialog(Frame owner, Simulation simulation) {
         this(owner, simulation, null);
     }
 
+    /**
+     * Constructor for your dialog if you have a previous mail event
+     * @param owner the frames owner
+     * @param simulation the simulation to work from
+     * @param previousMailEvent the mail event to update (or null to create a new one)
+     */
     public MailDialog(Frame owner, Simulation simulation, @Nullable Mail previousMailEvent) {
         super(owner, previousMailEvent == null ? "New mail Delivery" : "Edit mail delivery", true, simulation);
         this.isInDocument = previousMailEvent != null;

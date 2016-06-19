@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * The main entry-point for the application.
+ */
 public class Main {
     static {
         try {

@@ -11,10 +11,16 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The customer price dialog
+ */
 public class CustomerPriceDialog extends FormDialog {
     private @NotNull CustomerPrice customerPrice;
     private boolean isInDocument;
 
+    /**
+     * The tags for each field so the values can be retrieved.
+     */
     private enum FieldNames {
         LocationTo,
         LocationFrom,
@@ -23,13 +29,32 @@ public class CustomerPriceDialog extends FormDialog {
         VolumeCost,
     }
 
+    /**
+     * Constructor for when it is a new customer price object
+     * @param owner the frame owner
+     * @param simulation the simulation to add the customer price to
+     */
     public CustomerPriceDialog(Frame owner, Simulation simulation) {
         this(owner, simulation, null);
     }
 
+    /**
+     * Constructor for when you have a customer price update (not a new customer price)
+     * @param owner the frame owner
+     * @param simulation the simulation to update the customer price
+     * @param previousCustomerPrice the customer price to update
+     */
     public CustomerPriceDialog(Frame owner, Simulation simulation, @Nullable CustomerPrice previousCustomerPrice) {
         this(owner, simulation, false, previousCustomerPrice);
     }
+
+    /**
+     * The main constructor with all sorts of options. (see the other constructors)
+     * @param owner
+     * @param simulation
+     * @param isUpdate
+     * @param previousCustomerPrice
+     */
     public CustomerPriceDialog(@Nullable Frame owner, @NotNull Simulation simulation, boolean isUpdate, @Nullable CustomerPrice previousCustomerPrice) {
         super(owner, previousCustomerPrice == null ? "Add Customer Price" : "Edit Customer Price", true, simulation);
         if(isUpdate) {

@@ -6,7 +6,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This is the model for the location drop-downs used in dialogs
+ */
 public class LocationsModel extends AbstractListModel<String> implements ComboBoxModel<String> {
     private final Simulation simulation;
     private Object selectedObject = null;
@@ -14,6 +16,10 @@ public class LocationsModel extends AbstractListModel<String> implements ComboBo
     private int size;
     private List<String> allLocations;
 
+    /**
+     * Main constructor which creates a LocationsModel
+     * @param simulation the simulation to work from
+     */
     public LocationsModel(Simulation simulation) {
         this.simulation = simulation;
         size = getSize();
@@ -51,6 +57,10 @@ public class LocationsModel extends AbstractListModel<String> implements ComboBo
         return allLocations.get(index);
     }
 
+    /**
+     * Dummy location is the "Add new location..." option
+     * @return the object which represents the "Add new location..." option
+     */
     public String getDummyLocation() {
         return dummyLocation;
     }

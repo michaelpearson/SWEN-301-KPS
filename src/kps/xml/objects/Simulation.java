@@ -7,6 +7,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.xml.bind.annotation.*;
 import java.util.*;
 
+/**
+ * This is the simulation object which holds the state of the system including all routes, mail delivery events and
+ * prices.
+ */
 @XmlRootElement(name="simulation") @XmlAccessorType(XmlAccessType.NONE) public class Simulation {
     //These locations are locations that are not currently in the object graph but are about to be used,
     //for example they may just have been added by clicking "add new location"
@@ -17,24 +21,43 @@ import java.util.*;
     @XmlElement(name="mail") private List<Mail> mail;
     @XmlElement(name="price") private List<CustomerPrice> customerPrices;
 
+    /**
+     * Used to create a new blank simulation
+     */
     public Simulation() {
         this.routes = new ArrayList<>();
         this.mail = new ArrayList<>();
         this.customerPrices = new ArrayList<>();
     }
 
+    /**
+     * Get all of the routes in the simulation
+     * @return a list of {@link Route}'s
+     */
     @NotNull public List<Route> getRoutes() {
         return routes;
     }
 
+    /**
+     * Get all of the mail delivery events in the simulation
+     * @return a list of all the {@link Mail} delivery events
+     */
     @NotNull public List<Mail> getMail() {
         return mail;
     }
 
+    /**
+     * Get all of the {@link CustomerPrice} objects.
+     * @return a list of all the {@link CustomerPrice} objects.
+     */
     @NotNull public List<CustomerPrice> getCustomerPrices() {
         return customerPrices;
     }
 
+    /**
+     * Get a list of all of the {@link Route}'s, {@link Mail} deliveries and {@link CustomerPrice}'s
+     * @return all of the {@link BusinessEvent}'s in the simulation
+     */
     @NotNull public List<BusinessEvent> getAllBusinessEvents() {
         ArrayList<BusinessEvent> build = new ArrayList<>();
         build.addAll(routes);
@@ -44,6 +67,10 @@ import java.util.*;
         return build;
     }
 
+    /**
+     * Gets all of the known locations in the system plus the temp locations created by the "Add new location..." option
+     * @return a list of all of the locations the simulation knows about.
+     */
     @NotNull public Set<String> getLocations() {
         Set<String> allLocations = new HashSet<>();
         List<BusinessEventWithLocation> businessEvents = new LinkedList<>();
@@ -58,6 +85,11 @@ import java.util.*;
         return allLocations;
     }
 
+    /**
+     * Gets all unique routes in the system. Because an update is defined as creating a new route, this function only
+     * returns the newest route, rather then the route and all of its updates.
+     * @return only the current version of each route.
+     */
     @NotNull public List<Route> getUniqueRoutes() {
         List<Route> uniqueRoutes = new ArrayList<>();
         for(Route r1 : routes) {
@@ -81,10 +113,19 @@ import java.util.*;
         return uniqueRoutes;
     }
 
+    /**
+     * Check that the passed route is valid.
+     * @param to the route to check
+     * @return whether the route exists in the system
+     */
     public boolean isLocationValid(@NotNull String to) {
         return getLocations().contains(to);
     }
 
+    /**
+     * Add a new location (which is valid) without having to add it to a business event.
+     * @param location the lcoation to add.
+     */
     public static void addTempLocation(String location) {
         tempLocations.add(location);
     }

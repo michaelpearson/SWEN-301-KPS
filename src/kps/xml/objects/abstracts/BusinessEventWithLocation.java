@@ -6,9 +6,14 @@ import org.jetbrains.annotations.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * Defines a business event which has a location.
+ */
 @XmlTransient public abstract class BusinessEventWithLocation extends BusinessEvent {
     @NotNull @XmlElement private String to = "Unknown";
     @NotNull @XmlElement private String from = "Unknown";
+
+    //Todo: Remove this because its bad :(
     @XmlTransient private static final String DOMESTIC_REFERENCE = "new zealand";
 
     public BusinessEventWithLocation() {}

@@ -8,6 +8,10 @@ import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Object which represents a route which has been calculated by the {@link kps.business.RouteCalculator}
+ * A calculated route is made up of any number of routes which link together to get from a -> b
+ */
 @XmlAccessorType(XmlAccessType.NONE) public class CalculatedRoute {
     @XmlElement(name="route") private List<Route> routes;
 
@@ -22,6 +26,10 @@ import java.util.List;
         routes.add(append);
     }
 
+    /**
+     * Gets the list of routes which make up this calculated route
+     * @return the list of routes that make up this calculated route
+     */
     @NotNull public List<Route> getRoute() {
         if(routes == null) {
             routes = new ArrayList<>();
