@@ -16,8 +16,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class CalculatorTests {
+
+    private static final String TEST_XML_FILE = "test_data/Test.xml";
+
     @Test public void ensureThatSystemCanCalculateARouteFromTestData() throws FileNotFoundException, XMLException {
-        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
 
         Mail m = new Mail();
         m.setFrom("Auckland");
@@ -30,7 +33,7 @@ public class CalculatorTests {
     }
 
     @Test public void ensureThatSystemWillNotPickDiscontinuedRoute() throws FileNotFoundException, XMLException, InterruptedException {
-        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
 
         Mail m = new Mail();
         m.setFrom("Auckland");
@@ -43,7 +46,7 @@ public class CalculatorTests {
     }
 
     @Test public void ensureThatSystemWillPickLongRouteIfShortRouteIsDiscontinued() throws FileNotFoundException, XMLException, InterruptedException {
-        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
         Route cr = s.getUniqueRoutes().stream().filter(r -> r.getFrom().equals("Auckland") && r.getTo().equals("Wellington")).findFirst().get();
         cr.setDiscontinued(true);
 
@@ -59,7 +62,7 @@ public class CalculatorTests {
     }
 
     @Test public void ensureThatSystemWillNotPickInferiorRoute() throws FileNotFoundException, XMLException, InterruptedException {
-        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
         Route cr = s.getUniqueRoutes().stream().filter(r -> r.getFrom().equals("Wellington") && r.getTo().equals("Sydney") && r.isDiscontinued()).findFirst().get();
         cr.setDiscontinued(false);
 
@@ -76,7 +79,7 @@ public class CalculatorTests {
     }
 
     @Test public void ensureThatRouteWillNotBePickedIfMailDeliveriesWeightIsTooLarge() throws FileNotFoundException, XMLException {
-        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream("test_data/Test.xml"));
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
 
         Mail m = new Mail();
         m.setFrom("Wellington");
