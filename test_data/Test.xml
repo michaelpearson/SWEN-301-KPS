@@ -7,8 +7,8 @@
         <type>Air</type>
         <weightcost>6</weightcost>
         <volumecost>6</volumecost>
-        <maxWeight>0</maxWeight>
-        <maxVolume>0</maxVolume>
+        <maxWeight>500</maxWeight>
+        <maxVolume>500</maxVolume>
         <duration>16</duration>
         <frequency>36</frequency>
         <day>Thursday</day>
