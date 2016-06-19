@@ -1,6 +1,7 @@
 package kps.gui.windows.form;
 
 import kps.xml.objects.Simulation;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -138,7 +139,7 @@ public abstract class FormDialog extends JDialog {
      * the desired form.
      * @param builder the form builder object for this form.
      */
-    protected abstract void initializeForm(FormBuilder builder);
+    protected abstract void initializeForm(@NotNull FormBuilder builder);
     protected abstract void save();
     protected abstract boolean cancel();
 

@@ -69,7 +69,7 @@ public class CustomerPriceDialog extends FormDialog {
     }
 
     @Override
-    protected void initializeForm(FormBuilder builder) {
+    protected void initializeForm(@NotNull FormBuilder builder) {
         builder.addLocationField(FieldNames.LocationFrom, "Location from", customerPrice.getFrom());
         builder.addLocationField(FieldNames.LocationTo, "Location to", customerPrice.getTo());
         builder.addEnumField(FieldNames.Priority, "Priority", customerPrice.getPriority(), Priority.class);

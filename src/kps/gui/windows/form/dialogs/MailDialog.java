@@ -42,7 +42,7 @@ public class MailDialog extends FormDialog {
      * @param owner the frames owner
      * @param simulation the simulation to work from
      */
-    public MailDialog(Frame owner, Simulation simulation) {
+    public MailDialog(@Nullable Frame owner, @NotNull Simulation simulation) {
         this(owner, simulation, null);
     }
 
@@ -52,7 +52,7 @@ public class MailDialog extends FormDialog {
      * @param simulation the simulation to work from
      * @param previousMailEvent the mail event to update (or null to create a new one)
      */
-    public MailDialog(Frame owner, Simulation simulation, @Nullable Mail previousMailEvent) {
+    public MailDialog(@Nullable Frame owner, @NotNull Simulation simulation, @Nullable Mail previousMailEvent) {
         super(owner, previousMailEvent == null ? "New mail Delivery" : "Edit mail delivery", true, simulation);
         this.isInDocument = previousMailEvent != null;
         this.mailDeliveryEvent = previousMailEvent == null ? new Mail(simulation) : previousMailEvent;
@@ -60,7 +60,7 @@ public class MailDialog extends FormDialog {
         setVisible(true);
     }
 
-    @Override protected void initializeForm(FormBuilder builder) {
+    @Override protected void initializeForm(@NotNull FormBuilder builder) {
         builder.addEnumField(FieldNames.DayOfWeek, "Day of the week", mailDeliveryEvent.getDay(), DayOfWeek.class);
         builder.addLocationField(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom());
         builder.addLocationField(FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo());

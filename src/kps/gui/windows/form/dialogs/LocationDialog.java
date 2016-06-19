@@ -3,6 +3,7 @@ package kps.gui.windows.form.dialogs;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.Simulation;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -29,7 +30,7 @@ public class LocationDialog extends FormDialog {
      * This builds a simple form with a single string field
      * @param builder the form builder object for this form.
      */
-    @Override protected void initializeForm(FormBuilder builder) {
+    @Override protected void initializeForm(@NotNull FormBuilder builder) {
         builder.addStringField(NAME, "Location name", null);
     }
 

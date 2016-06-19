@@ -76,7 +76,7 @@ public class RouteDialog extends FormDialog {
         setVisible(true);
     }
 
-    @Override protected void initializeForm(FormBuilder builder) {
+    @Override protected void initializeForm(@NotNull FormBuilder builder) {
         builder.addStringField(FieldNames.CompanyName, "Company name", route.getCompany());
         builder.addLocationField(FieldNames.LocationTo, "Location to", route.getTo());
         builder.addLocationField(FieldNames.LocationFrom, "Location from", route.getFrom());
