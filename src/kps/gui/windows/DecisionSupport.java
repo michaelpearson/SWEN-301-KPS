@@ -26,14 +26,15 @@ class DecisionSupport extends JFrame {
     private JLabel totalAmountOfMail;
     private JLabel averageDeliveryTime;
     private JButton criticalRoutes;
+    private JTable table;
 
     DecisionSupport(Simulation simulation) {
         this.simulation = simulation;
         buildGui();
         setTitle("Decision Support");
         setResizable(true);
-        setSize(1300, 500);
-
+        setSize(1200, 500);
+        pack();
         setLocationRelativeTo(null);
         buildBusinessFigures(null, new Date());
         setVisible(true);
@@ -53,6 +54,9 @@ class DecisionSupport extends JFrame {
                     progress.setValue((int)(p * 100));
                     if(p == 1) {
                         this.dispose();
+                        if(table != null) {
+                            table.requestFocus();
+                        }
                     }
                 });
 
@@ -100,8 +104,10 @@ class DecisionSupport extends JFrame {
         figuresPanel.add(new JLabel("Critical routes:"));
         figuresPanel.add(criticalRoutes);
 
-        figuresPanel.setPreferredSize(new Dimension(300, 200));
+        figuresPanel.setPreferredSize(new Dimension(380, 200));
 
+        JButton closeButton = new JButton("Close");
+        closeButton.addActionListener(e -> dispose());
 
 
         JPanel figuresPanelOuter = new JPanel(new BorderLayout());
@@ -113,6 +119,7 @@ class DecisionSupport extends JFrame {
 
         BusinessEventsTableModel tableModel;
         JXTable businessEventsTable = new JXTable(tableModel = new MailEventsTableModel(simulation));
+        table = businessEventsTable;
 
         businessEventsTable.getSelectionModel().addListSelectionListener(e -> {
             if(e.getValueIsAdjusting()) {
@@ -130,11 +137,13 @@ class DecisionSupport extends JFrame {
             }
         });
 
-        businessEventsTable.setSize(500, 500);
+        businessEventsTable.packAll();
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
         panel.add(figuresPanelOuter, BorderLayout.EAST);
+        panel.add(closeButton, BorderLayout.SOUTH);
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(panel);
         JPanel figuresPanelOuter = new JPanel(new BorderLayout());
         figuresPanelOuter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

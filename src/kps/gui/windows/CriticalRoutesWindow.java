@@ -14,8 +14,7 @@ class CriticalRoutesWindow extends JFrame {
     CriticalRoutesWindow(@NotNull Simulation simulation) {
         this.simulation = simulation;
         buildGui();
-        setSize(700, 400);
-        setResizable(false);
+        setSize(700, 200);
         setTitle("Critical Routes");
         setLocationRelativeTo(null);
         setVisible(true);
@@ -33,6 +32,7 @@ class CriticalRoutesWindow extends JFrame {
         CriticalRoutesTableModel tableModel = new CriticalRoutesTableModel(simulation);
         JXTable table = new JXTable(tableModel);
         table.setFillsViewportHeight(true);
+        table.packAll();
         table.setBorder(BorderFactory.createEmptyBorder());
         tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
         outerPanel.add(tablePanel, BorderLayout.CENTER);

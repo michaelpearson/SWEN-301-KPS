@@ -52,7 +52,7 @@ public class CriticalRoutesTableModel extends AbstractTableModel {
 
         tableColumns.put(FROM, row -> mailRouteGroup.get(row).from);
         tableColumns.put(TO, row -> mailRouteGroup.get(row).to);
-        tableColumns.put(PRIORITY, row -> mailRouteGroup.get(row).priority.name());
+        tableColumns.put(PRIORITY, row -> mailRouteGroup.get(row).priority.toString());
         tableColumns.put(AVERAGE_EXPENDITURE, row -> String.format("%.2f", calculateAverageExpenditure(mailRouteGroup.get(row))));
         tableColumns.put(AVERAGE_REVENUE, row -> String.format("%.2f", calculateAverageRevenue(mailRouteGroup.get(row))));
     }
