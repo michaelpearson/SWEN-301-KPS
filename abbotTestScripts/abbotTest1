@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AWTTestScript>
+  <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance" index="1" parent="JRootPane Instance" window="Swen 301 - KPS" />
+  <component class="javax.swing.JPanel" id="JPanel Instance" index="1" parent="JPanel Instance 2" window="Swen 301 - KPS" />
+  <component class="javax.swing.JPanel" hOrder="0" id="JPanel Instance 2" index="0" parent="JLayeredPane Instance" window="Swen 301 - KPS" />
+  <component class="javax.swing.JRootPane" id="JRootPane Instance" index="0" parent="Swen 301 - KPS" />
+  <component class="kps.gui.windows.Login" id="Login" parent="shared frame" title="Login" />
+  <component class="kps.gui.windows.Home" id="Swen 301 - KPS" root="true" title="Swen 301 - KPS" />
+  <component class="javax.swing.JButton" id="Update transport cost" index="2" parent="JPanel Instance" text="Update transport cost" window="Swen 301 - KPS" />
+  <component class="javax.swing.JLabel" id="User" index="0" parent="JPanel Instance" text="User" window="Login" />
+  <component class="javax.swing.SwingUtilities$SharedOwnerFrame" id="shared frame" root="true" title="" />
+  <launch args="[test_data/Test.xml]" class="kps.Main" classpath="out/artifacts/SWEN_301_KPS_jar/SWEN-301-KPS.jar" method="main" />
+  <assert component="User" method="getText" value="User" />
+  <terminate />
+</AWTTestScript>
+

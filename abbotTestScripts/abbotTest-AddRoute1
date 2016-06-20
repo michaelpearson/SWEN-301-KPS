@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AWTTestScript>
+  <component class="javax.swing.JButton" id="Add route" index="0" parent="JPanel Instance 3" text="Add route" window="Swen 301 - KPS" />
+  <component class="kps.gui.windows.form.dialogs.RouteDialog" id="Add route 2" parent="Swen 301 - KPS" title="Add route" />
+  <component class="javax.swing.JComboBox" id="JComboBox Instance" index="3" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JComboBox" id="JComboBox Instance 2" index="5" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JComboBox" id="JComboBox Instance 3" index="7" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JComboBox" id="JComboBox Instance 4" index="19" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance" index="1" parent="JRootPane Instance" window="Login" />
+  <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance 2" index="1" parent="JRootPane Instance 2" window="Add route 2" />
+  <component class="javax.swing.JPanel" id="JPanel Instance" index="0" parent="JPanel Instance 2" window="Login" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 10" index="2" parent="JSpinner Instance 5" window="Add route 2" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 11" index="2" parent="JSpinner Instance 6" window="Add route 2" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 2" index="0" parent="JLayeredPane Instance" window="Login" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 3" index="1" parent="JPanel Instance 2" window="Swen 301 - KPS" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 4" index="0" parent="JPanel Instance 5" window="Add route 2" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 5" index="0" parent="JLayeredPane Instance 2" window="Add route 2" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 6" index="2" parent="JSpinner Instance" window="Add route 2" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 7" index="2" parent="JSpinner Instance 2" window="Add route 2" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 8" index="2" parent="JSpinner Instance 3" window="Add route 2" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 9" index="2" parent="JSpinner Instance 4" window="Add route 2" />
+  <component class="javax.swing.JRootPane" id="JRootPane Instance" index="0" parent="Login" />
+  <component class="javax.swing.JRootPane" id="JRootPane Instance 2" index="0" parent="Add route 2" />
+  <component class="javax.swing.JSpinner" id="JSpinner Instance" index="9" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JSpinner" id="JSpinner Instance 2" index="11" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JSpinner" id="JSpinner Instance 3" index="13" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JSpinner" id="JSpinner Instance 4" index="15" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JSpinner" id="JSpinner Instance 5" index="17" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JSpinner" id="JSpinner Instance 6" index="21" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="javax.swing.JTextField" id="JTextField Instance" index="1" parent="JPanel Instance 4" window="Add route 2" />
+  <component class="kps.gui.windows.Login" id="Login" parent="shared frame" title="Login" />
+  <component class="javax.swing.JButton" id="Login 2" index="5" parent="JPanel Instance" text="Login" window="Login" />
+  <component class="javax.swing.JButton" id="Save" index="25" parent="JPanel Instance 4" text="Save" window="Add route 2" />
+  <component class="javax.swing.JButton" id="Save and exit" index="5" parent="JPanel Instance 3" text="Save and exit" window="Swen 301 - KPS" />
+  <component class="abbot.editor.ScriptEditorFrame" id="ScriptEditor" name="ScriptEditor" root="true" title="Test Script Editor " />
+  <component class="javax.swing.JFormattedTextField" id="Spinner.formattedTextField" index="0" name="Spinner.formattedTextField" parent="JPanel Instance 6" window="Add route 2" />
+  <component class="javax.swing.JFormattedTextField" id="Spinner.formattedTextField 2" index="0" name="Spinner.formattedTextField" parent="JPanel Instance 7" window="Add route 2" />
+  <component class="javax.swing.JFormattedTextField" id="Spinner.formattedTextField 3" index="0" name="Spinner.formattedTextField" parent="JPanel Instance 8" window="Add route 2" />
+  <component class="javax.swing.JFormattedTextField" id="Spinner.formattedTextField 4" index="0" name="Spinner.formattedTextField" parent="JPanel Instance 9" window="Add route 2" />
+  <component class="javax.swing.JFormattedTextField" id="Spinner.formattedTextField 5" index="0" name="Spinner.formattedTextField" parent="JPanel Instance 10" window="Add route 2" />
+  <component class="javax.swing.JFormattedTextField" id="Spinner.formattedTextField 6" index="0" name="Spinner.formattedTextField" parent="JPanel Instance 11" window="Add route 2" />
+  <component class="kps.gui.windows.Home" id="Swen 301 - KPS" root="true" title="Swen 301 - KPS" />
+  <component class="javax.swing.SwingUtilities$SharedOwnerFrame" id="shared frame" root="true" title="" />
+  <launch args="[test_data/Test.xml]" class="kps.Main" classpath="out/artifacts/SWEN_301_KPS_jar/SWEN-301-KPS.jar" method="main" threaded="true" />
+  <sequence>
+    <action args="Login 2" class="javax.swing.AbstractButton" method="actionClick" />
+    <action args="10" method="actionDelay" />
+    <wait args="Swen 301 - KPS" class="abbot.tester.ComponentTester" method="assertComponentShowing" />
+    <action args="10" method="actionDelay" />
+    <action args="Add route" class="javax.swing.AbstractButton" method="actionClick" />
+    <wait args="Add route 2" class="abbot.tester.ComponentTester" method="assertComponentShowing" />
+    <action args="JTextField Instance,Michaels Mad Movers" method="actionKeyString" />
+    <action args="JComboBox Instance,Rome" class="javax.swing.JComboBox" method="actionSelectItem" />
+    <action args="JComboBox Instance 2,Wellington" class="javax.swing.JComboBox" method="actionSelectItem" />
+    <action args="JComboBox Instance 3,Air" class="javax.swing.JComboBox" method="actionSelectItem" />
+    <action args="Spinner.formattedTextField,0" class="javax.swing.text.JTextComponent" method="actionClick" />
+    <action args="Spinner.formattedTextField,2" method="actionKeyString" />
+    <action args="Spinner.formattedTextField,VK_TAB" method="actionKeyStroke" />
+    <action args="Spinner.formattedTextField 2,2" method="actionKeyString" />
+    <action args="Spinner.formattedTextField 2,VK_TAB" method="actionKeyStroke" />
+    <action args="Spinner.formattedTextField 3,2" method="actionKeyString" />
+    <action args="Spinner.formattedTextField 3,VK_TAB" method="actionKeyStroke" />
+    <action args="Spinner.formattedTextField 4,2" method="actionKeyString" />
+    <action args="Spinner.formattedTextField 4,VK_TAB" method="actionKeyStroke" />
+    <action args="Spinner.formattedTextField 5,2" method="actionKeyString" />
+    <action args="Spinner.formattedTextField 5,VK_TAB" method="actionKeyStroke" />
+    <action args="JComboBox Instance 4,Tuesday" class="javax.swing.JComboBox" method="actionSelectItem" />
+    <action args="Spinner.formattedTextField 6,0" class="javax.swing.text.JTextComponent" method="actionClick" />
+    <action args="Spinner.formattedTextField 6,caret-forward" class="javax.swing.JComponent" method="actionActionMap" />
+    <action args="Spinner.formattedTextField 6,delete-previous" class="javax.swing.JComponent" method="actionActionMap" />
+    <action args="Spinner.formattedTextField 6,3" method="actionKeyString" />
+    <action args="Save" class="javax.swing.AbstractButton" method="actionClick" />
+    <wait args="Add route 2" class="abbot.tester.ComponentTester" invert="true" method="assertComponentShowing" />
+    <action args="Save and exit" class="javax.swing.AbstractButton" method="actionClick" />
+  </sequence>
+  <terminate />
+</AWTTestScript>
+
