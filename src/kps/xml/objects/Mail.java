@@ -57,7 +57,7 @@ import java.awt.*;
         this.calculatedRoute = calculatedRoute;
     }
 
-    @Nullable public Priority getPriority() {
+    @NotNull public Priority getPriority() {
         return priority;
     }
 

@@ -20,15 +20,16 @@ class DecisionSupport extends JFrame {
     private JLabel totalNumberOfEvents;
     private JLabel totalAmountOfMail;
     private JLabel averageDeliveryTime;
-    private JLabel criticalRoutes;
+    private JButton criticalRoutes;
+    private JTable table;
 
     DecisionSupport(Simulation simulation) {
         this.simulation = simulation;
         buildGui();
         setTitle("Decision Support");
         setResizable(true);
-        setSize(1300, 500);
-
+        setSize(1200, 500);
+        pack();
         setLocationRelativeTo(null);
         buildBusinessFigures(null, new Date());
         setVisible(true);
@@ -48,6 +49,9 @@ class DecisionSupport extends JFrame {
                     progress.setValue((int)(p * 100));
                     if(p == 1) {
                         this.dispose();
+                        if(table != null) {
+                            table.requestFocus();
+                        }
                     }
                 });
 
@@ -79,6 +83,9 @@ class DecisionSupport extends JFrame {
         layout.setHgap(10);
         figuresPanel.setLayout(layout);
 
+        criticalRoutes = new JButton("View Critical Routes");
+        criticalRoutes.addActionListener(e -> new CriticalRoutesWindow(simulation) );
+
         figuresPanel.add(new JLabel("Total revenue:"));
         figuresPanel.add(totalRevenue = new JLabel());
         figuresPanel.add(new JLabel("Total expenditure:"));
@@ -90,10 +97,12 @@ class DecisionSupport extends JFrame {
         figuresPanel.add(new JLabel("average delivery time:"));
         figuresPanel.add(averageDeliveryTime = new JLabel());
         figuresPanel.add(new JLabel("Critical routes:"));
-        figuresPanel.add(criticalRoutes = new JLabel());
+        figuresPanel.add(criticalRoutes);
 
-        figuresPanel.setPreferredSize(new Dimension(300, 200));
+        figuresPanel.setPreferredSize(new Dimension(380, 200));
 
+        JButton closeButton = new JButton("Close");
+        closeButton.addActionListener(e -> dispose());
 
 
         JPanel figuresPanelOuter = new JPanel(new BorderLayout());
@@ -105,6 +114,7 @@ class DecisionSupport extends JFrame {
 
         BusinessEventsTableModel tableModel;
         JXTable businessEventsTable = new JXTable(tableModel = new MailEventsTableModel(simulation));
+        table = businessEventsTable;
 
         businessEventsTable.getSelectionModel().addListSelectionListener(e -> {
             if(e.getValueIsAdjusting()) {
@@ -122,7 +132,8 @@ class DecisionSupport extends JFrame {
             }
         });
 
-        businessEventsTable.setSize(500, 500);
+        businessEventsTable.packAll();
+
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
