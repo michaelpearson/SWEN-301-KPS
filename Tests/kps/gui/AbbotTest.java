@@ -34,12 +34,12 @@ public class AbbotTest extends ScriptFixture {
 
     public static Test suite() {
 
-        return new ScriptTestSuite(AbbotTest.class, "abbotTestScripts") {
+        return new ScriptTestSuite(AbbotTest.class, "abbotTestScripts/homeScreenTests") {
 
             // Determine whether the given script will be included //
             public boolean accept(File file) {
                 String name = file.getName();
-                return name.startsWith("abbotTest") && !name.endsWith(".old");
+                return name.startsWith("abbotTest") && name.endsWith("Edit.xml");
             }
         };
     }

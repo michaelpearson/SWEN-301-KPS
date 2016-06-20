@@ -140,6 +140,20 @@
         <day>Monday</day>
         <discontinued>false</discontinued>
     </route>
+    <route date="3:29:18AM 21/06/2016">
+        <to>Rome</to>
+        <from>Wellington</from>
+        <company>Michaels Mad Movers</company>
+        <type>Air</type>
+        <weightcost>20</weightcost>
+        <volumecost>20</volumecost>
+        <maxweight>20</maxweight>
+        <maxvolume>20</maxvolume>
+        <duration>20</duration>
+        <frequency>3</frequency>
+        <day>Tuesday</day>
+        <discontinued>false</discontinued>
+    </route>
     <mail date="12:08:10AM 20/05/2016">
         <to>Rome</to>
         <from>Wellington</from>
