@@ -4,15 +4,10 @@ import kps.business.BusinessFiguresCalculator;
 import kps.gui.models.BusinessEventsTableModel;
 import kps.gui.models.MailEventsTableModel;
 import kps.xml.objects.Simulation;
-import org.jdesktop.swingx.JXButton;
-import org.jdesktop.swingx.JXDatePicker;
-import org.jdesktop.swingx.JXTable;
-import org.jetbrains.annotations.Nullable;
 import org.jdesktop.swingx.JXTable;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.Date;
 

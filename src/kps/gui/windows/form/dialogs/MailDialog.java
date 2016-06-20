@@ -1,7 +1,6 @@
 package kps.gui.windows.form.dialogs;
 
 import kps.business.RouteCalculator;
-import kps.business.interfaces.IRouteCalculator;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.CalculatedRoute;

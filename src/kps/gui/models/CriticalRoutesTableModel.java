@@ -1,12 +1,12 @@
 package kps.gui.models;
 
-import kps.xml.objects.*;
+import kps.xml.objects.Mail;
+import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.Priority;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class CriticalRoutesTableModel extends AbstractTableModel {
@@ -57,7 +57,7 @@ public class CriticalRoutesTableModel extends AbstractTableModel {
         tableColumns.put(AVERAGE_REVENUE, row -> String.format("%.2f", calculateAverageRevenue(mailRouteGroup.get(row))));
     }
 
-    private double calculateAverageExpenditure(@NotNull RouteGroup rg){
+    private double calculateAverageExpenditure(@NotNull RouteGroup rg) {
         double expenditure = 0;
         int total = 0;
 
@@ -68,7 +68,7 @@ public class CriticalRoutesTableModel extends AbstractTableModel {
         return expenditure / Math.max(1, total);
     }
 
-    private double calculateAverageRevenue(@NotNull RouteGroup rg){
+    private double calculateAverageRevenue(@NotNull RouteGroup rg) {
         double revenue = 0;
         int total = 0;
 
@@ -79,7 +79,7 @@ public class CriticalRoutesTableModel extends AbstractTableModel {
         return revenue / Math.max(1, total);
     }
 
-    private int criticalFitness(@NotNull RouteGroup l, @NotNull RouteGroup r){
+    private int compareAverageLoss(@NotNull RouteGroup l, @NotNull RouteGroup r) {
         double lAvg = calculateAverageRevenue(l) - calculateAverageExpenditure(l);
         double rAvg = calculateAverageRevenue(r) - calculateAverageExpenditure(r);
         return (int)((lAvg - rAvg) * 100);
@@ -95,7 +95,7 @@ public class CriticalRoutesTableModel extends AbstractTableModel {
             }
         });
         mailRouteGroup = mailRouteGroup.stream().filter(m -> calculateAverageExpenditure(m) > calculateAverageRevenue(m)).collect(Collectors.toList());
-        mailRouteGroup.sort(this::criticalFitness);
+        mailRouteGroup.sort(this::compareAverageLoss);
     }
 
     @Override
