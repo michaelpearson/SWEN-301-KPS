@@ -6,6 +6,7 @@ import kps.xml.objects.Mail;
 import kps.xml.objects.Route;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.abstracts.BusinessEvent;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
@@ -17,8 +18,7 @@ import java.util.List;
 /**
  * This class is the model for the home screens table. It adapts to the simulation object that is passed in.
  */
-public class HomepageTableModel extends AbstractTableModel {
-
+public class BusinessEventsTableModel extends AbstractTableModel {
     private static final String DATE = "Date";
     private static final String EVENT_TYPE = "Event type";
     private static final String FROM = "From";
@@ -42,9 +42,9 @@ public class HomepageTableModel extends AbstractTableModel {
      * Main constructor which sets up the columns
      * @param simulation the simulation object which the table will display.
      */
-    public HomepageTableModel(Simulation simulation) {
+    public BusinessEventsTableModel(Simulation simulation) {
         this.simulation = simulation;
-        this.businessEvents = simulation.getAllBusinessEvents();
+        this.businessEvents = getBusinessEvents();
         tableColumns.put(EVENT_TYPE, row -> businessEvents.get(row).getEventType());
         tableColumns.put(DATE, row -> dateFormat.format(businessEvents.get(row).getDate()));
         tableColumns.put(FROM, row -> businessEvents.get(row).getFrom());
@@ -65,6 +65,10 @@ public class HomepageTableModel extends AbstractTableModel {
                 return "N/A";
             }
         });
+    }
+
+    protected List<BusinessEvent> getBusinessEvents() {
+        return simulation.getAllBusinessEvents();
     }
 
     @Override
@@ -90,6 +94,14 @@ public class HomepageTableModel extends AbstractTableModel {
     public void edit(int row, Frame owner) {
         businessEvents.get(row).edit(owner);
         updateTable();
+    }
+
+    @Nullable public BusinessEvent getBusinessEvent(int row) {
+        try {
+            return businessEvents.get(row);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public void updateTable(){

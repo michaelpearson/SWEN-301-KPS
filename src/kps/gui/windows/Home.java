@@ -1,6 +1,6 @@
 package kps.gui.windows;
 
-import kps.gui.models.HomepageTableModel;
+import kps.gui.models.BusinessEventsTableModel;
 import kps.gui.windows.form.dialogs.CustomerPriceDialog;
 import kps.gui.windows.form.dialogs.MailDialog;
 import kps.gui.windows.form.dialogs.RouteDialog;
@@ -20,6 +20,7 @@ import java.io.PrintStream;
 public class Home extends JFrame {
     private final Simulation simulation;
     private String fileName;
+    private Login.UserName user;
 
 
     public static final String APPLICATION_NAME = "Swen 301 - KPS";
@@ -28,6 +29,7 @@ public class Home extends JFrame {
     public Home(Simulation simulation, String fileName, Login.UserName user) {
         this.simulation = simulation;
         this.fileName = fileName;
+        this.user = user;
 
         Dimension size = new Dimension(1300, 700);
         setMinimumSize(size);
@@ -50,7 +52,7 @@ public class Home extends JFrame {
         tablePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
         tablePanel.setLayout(new BorderLayout());
 
-        HomepageTableModel tableModel = new HomepageTableModel(simulation);
+        BusinessEventsTableModel tableModel = new BusinessEventsTableModel(simulation);
         JXTable table = new JXTable(tableModel);
         table.setFillsViewportHeight(true);
         table.packColumn(0, 6);
@@ -88,9 +90,13 @@ public class Home extends JFrame {
         updateTransportCostButton.addActionListener(e -> {new TransportRouteUpdateTable(Home.this, simulation); tableModel.updateTable();});
         buttonPanel.add(updateTransportCostButton);
 
-        JButton viewBusinessFiguresButton = new JButton("View business figures");
-        viewBusinessFiguresButton.addActionListener(e -> new BusinessFigures(simulation));
-        buttonPanel.add(viewBusinessFiguresButton);
+
+        if(user == Login.UserName.Manager) {
+            JButton viewDecisionSupportButton = new JButton("Open decision support");
+            viewDecisionSupportButton.addActionListener(e -> new DecisionSupport(simulation));
+            buttonPanel.add(viewDecisionSupportButton);
+        }
+
 
         JButton addCustomerPriceButton = new JButton("Add customer price");
         addCustomerPriceButton.addActionListener(e -> {new CustomerPriceDialog(Home.this, simulation); tableModel.updateTable();});

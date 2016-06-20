@@ -1,14 +1,17 @@
 package kps.gui.windows;
 
 import kps.business.BusinessFiguresCalculator;
+import kps.gui.models.BusinessEventsTableModel;
+import kps.gui.models.MailEventsTableModel;
 import kps.xml.objects.Simulation;
-import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXTable;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Date;
 
-public class BusinessFigures extends JFrame {
+class DecisionSupport extends JFrame {
     private final Simulation simulation;
 
 
@@ -19,16 +22,19 @@ public class BusinessFigures extends JFrame {
     private JLabel averageDeliveryTime;
     private JLabel criticalRoutes;
 
-    public BusinessFigures(Simulation simulation) {
+    DecisionSupport(Simulation simulation) {
         this.simulation = simulation;
         buildGui();
-        pack();
+        setTitle("Decision Support");
+        setResizable(true);
+        setSize(1300, 500);
+
         setLocationRelativeTo(null);
-        buildBusinessFigures(new Date());
+        buildBusinessFigures(null, new Date());
         setVisible(true);
     }
 
-    private void buildBusinessFigures(Date date) {
+    private void buildBusinessFigures(@Nullable Date dateFrom, @Nullable Date dateTo) {
         new JDialog(this, true) {
             {
                 JPanel panel = new JPanel();
@@ -38,7 +44,7 @@ public class BusinessFigures extends JFrame {
                 panel.setLayout(layout);
 
                 JProgressBar progress = new JProgressBar(0, 100);
-                new BusinessFiguresCalculator(simulation, date, (s) -> dataReady(s), p -> {
+                new BusinessFiguresCalculator(simulation, dateFrom, dateTo, data -> dataReady(data), p -> {
                     progress.setValue((int)(p * 100));
                     if(p == 1) {
                         this.dispose();
@@ -53,7 +59,7 @@ public class BusinessFigures extends JFrame {
                 setTitle("Progress");
                 setResizable(false);
                 setLocationRelativeTo(null);
-                setSize(400, 50);
+                setSize(500, 50);
 
                 panel.add(label);
                 panel.add(progress);
@@ -65,16 +71,13 @@ public class BusinessFigures extends JFrame {
     }
 
     private void buildGui() {
-        JPanel outerPanel = new JPanel();
-        outerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        outerPanel.setLayout(new BorderLayout());
+
 
         JPanel figuresPanel = new JPanel();
         GridLayout layout = new GridLayout(0, 2);
         layout.setVgap(10);
         layout.setHgap(10);
         figuresPanel.setLayout(layout);
-        setResizable(false);
 
         figuresPanel.add(new JLabel("Total revenue:"));
         figuresPanel.add(totalRevenue = new JLabel());
@@ -89,21 +92,42 @@ public class BusinessFigures extends JFrame {
         figuresPanel.add(new JLabel("Critical routes:"));
         figuresPanel.add(criticalRoutes = new JLabel());
 
-        outerPanel.add(figuresPanel, BorderLayout.CENTER);
-
-        JPanel datePanel = new JPanel();
-        GridLayout dateLayout = new GridLayout(2, 1);
-        dateLayout.setVgap(10);
-        datePanel.setLayout(dateLayout);
+        figuresPanel.setPreferredSize(new Dimension(300, 200));
 
 
-        JXDatePicker datePicker = new JXDatePicker(new Date());
-        datePicker.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        datePicker.addActionListener(e -> buildBusinessFigures(datePicker.getDate()));
-        datePanel.add(new JLabel("Select the date to calculate the business figures up to:"));
-        datePanel.add(datePicker);
-        outerPanel.add(datePanel, BorderLayout.SOUTH);
-        add(outerPanel);
+
+        JPanel figuresPanelOuter = new JPanel(new BorderLayout());
+        figuresPanelOuter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        figuresPanelOuter.add(figuresPanel, BorderLayout.NORTH);
+
+
+
+
+        BusinessEventsTableModel tableModel;
+        JXTable businessEventsTable = new JXTable(tableModel = new MailEventsTableModel(simulation));
+
+        businessEventsTable.getSelectionModel().addListSelectionListener(e -> {
+            if(e.getValueIsAdjusting()) {
+                return;
+            }
+            int rows[] = businessEventsTable.getSelectedRows();
+            if(rows.length == 1) {
+                buildBusinessFigures(null, tableModel.getBusinessEvent(rows[0]).getDate());
+            } else if( rows.length > 1) {
+                Date to = tableModel.getBusinessEvent(rows[0]).getDate();
+                Date from = tableModel.getBusinessEvent(rows[rows.length - 1]).getDate();
+                buildBusinessFigures(from, to);
+            } else {
+                buildBusinessFigures(null, null);
+            }
+        });
+
+        businessEventsTable.setSize(500, 500);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
+        panel.add(figuresPanelOuter, BorderLayout.EAST);
+        add(panel);
     }
 
     private void dataReady(BusinessFiguresCalculator data) {
