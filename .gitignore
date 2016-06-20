@@ -6,3 +6,4 @@ out/
 *.class
 *.iml
 log.xml
+.DS_Store
