@@ -10,6 +10,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.awt.*;
 import java.util.Date;
 
+/**
+ * The base class for a business event.
+ * A business event is an entry in the simulation which has a to and from and is also {@link Priceable}.
+ */
 @XmlTransient public abstract class BusinessEvent extends ModelObject implements Priceable {
 
     @XmlJavaTypeAdapter(DateAdapter.class) @XmlAttribute private Date date;

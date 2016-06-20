@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This class will calculate business figures as per the project spec.
+ */
 public class BusinessFiguresCalculator {
     @NotNull private final Simulation simulation;
     @NotNull private final Thread calculator;
@@ -24,13 +27,27 @@ public class BusinessFiguresCalculator {
     private int sumDeliveryTime = 0;
     @NotNull private List<Route> criticalRoutes = new ArrayList<>();
 
+    /**
+     * Interface for the completion callback
+     */
     public interface DataReady {
         void ready(BusinessFiguresCalculator source);
     }
+
+    /**
+     * Interface for letting the caller know that progress is happening
+     */
     public interface ProgressCallback {
         void progress(double percent);
     }
 
+    /**
+     * Main constructor that creates a single use route calculator
+     * @param simulation the main simulation object to base the route calculation on
+     * @param dateTo the date that the calculator should treat as "now", all newer events will be filtered from the working set
+     * @param callback the callback which will be called when the data is ready
+     * @param progressCallback callback for when progress has been made in the calculation.
+     */
     public BusinessFiguresCalculator(@NotNull Simulation simulation, @Nullable Date dateTo, @Nullable DataReady callback, @Nullable ProgressCallback progressCallback) {
         this.simulation = simulation;
         this.callback = callback;
@@ -46,11 +63,19 @@ public class BusinessFiguresCalculator {
         calculator.start();
     }
 
-    public BusinessFiguresCalculator waitForResult() throws InterruptedException {
+    /**
+     * Wait on the calculation thread until the calculation completes.
+     * @return the result of the calculation or null if it was interrupted
+     * @throws InterruptedException
+     */
+    @Nullable public BusinessFiguresCalculator waitForResult() throws InterruptedException {
         calculator.wait();
         return this;
     }
 
+    /**
+     * Private method that does the calculation
+     */
     private void calculateTotals() {
         List<BusinessEvent> businessEvents = simulation.getAllBusinessEvents();
         businessEvents.sort((l, r) -> l.getDate().compareTo(r.getDate()));
@@ -82,6 +107,9 @@ public class BusinessFiguresCalculator {
         fireCallback();
     }
 
+    /**
+     * Fires the callback in "callback"
+     */
     private void fireCallback() {
         if(callback != null) {
             callback.ready(this);

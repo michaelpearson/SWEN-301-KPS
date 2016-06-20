@@ -12,18 +12,33 @@ import java.awt.event.ItemEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Helper class to {@link FormDialog}. Used for building the form and taking care of field logic.
+ */
 @SuppressWarnings("WeakerAccess")
 public class FormBuilder {
     private final Simulation simulation;
     private final JDialog owner;
     private Map<Object, FormDialog.Field> fields = new HashMap<>();
 
+    /**
+     * Only to be used from {@link FormDialog} to create a form builder for a FormDialog
+     * @param s the simulation object used to get locations for the location object type
+     * @param owner the frame owner for use with popup windows
+     * @param fields the fields object of the FormDialog
+     */
     FormBuilder(Simulation s, JDialog owner, Map<Object, FormDialog.Field> fields) {
         this.simulation = s;
         this.owner = owner;
         this.fields = fields;
     }
 
+    /**
+     * Builds a label for a {@link FormDialog} label
+     * @param label the text
+     * @param tooltip the tooltip
+     * @return the label component
+     */
     private JComponent getLabel(@NotNull String label, @Nullable String tooltip) {
         JLabel jlabel = new JLabel(label);
         if(tooltip != null) {
@@ -32,10 +47,23 @@ public class FormBuilder {
         return jlabel;
     }
 
+    /**
+     * Builds a field which will only accept integers
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param value the initial value of the field
+     */
     public void addIntegerField(@NotNull Object fieldTag, @NotNull String label, int value) {
         addIntegerField(fieldTag, label, value, null);
     }
 
+    /**
+     * Builds a field which will only accept integers {@link FormBuilder#addIntegerField(Object, String, int)}
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param value the initial value of the field
+     * @param tooltip the tooltip for this field
+     */
     public void addIntegerField(@NotNull Object fieldTag, @NotNull String label, int value, @Nullable String tooltip) {
         FormDialog.Field field = new FormDialog.Field();
         field.label = getLabel(label, tooltip);
@@ -45,10 +73,23 @@ public class FormBuilder {
         fields.put(fieldTag, field);
     }
 
+    /**
+     * Builds a field which will only accept a string
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param value the initial value of the field
+     */
     public void addStringField(@NotNull Object fieldTag, @NotNull String label, @Nullable String value) {
         addStringField(fieldTag, label, value, null);
     }
 
+    /**
+     * Builds a field which will only accept a string
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param value the initial value of the field
+     * @param tooltip the tooltip for this field
+     */
     public void addStringField(@NotNull Object fieldTag, @NotNull String label, @Nullable String value, @Nullable String tooltip) {
         FormDialog.Field field = new FormDialog.Field();
         field.label = getLabel(label, tooltip);
@@ -58,10 +99,25 @@ public class FormBuilder {
         fields.put(fieldTag, field);
     }
 
+    /**
+     * Builds a dropdown for the specified enum
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param value the enum which starts selected
+     * @param enumClass the class of the enum which should be used to build the dropdown
+     */
     public void addEnumField(@NotNull Object fieldTag, @NotNull String label, @Nullable Enum value, @NotNull Class<? extends Enum> enumClass) {
         addEnumField(fieldTag, label, value, enumClass, null);
     }
 
+    /**
+     * Builds a dropdown for the specified enum
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param value the enum which starts selected
+     * @param enumClass the class of the enum which should be used to build the dropdown
+     * @param tooltip the tooltip for this field
+     */
     public void addEnumField(@NotNull Object fieldTag, @NotNull String label, @Nullable Enum value, @NotNull Class<? extends Enum> enumClass, @Nullable String tooltip) {
         FormDialog.Field field = new FormDialog.Field();
         field.label = getLabel(label, tooltip);
@@ -79,10 +135,23 @@ public class FormBuilder {
         fields.put(fieldTag, field);
     }
 
+    /**
+     * Builds a dropdown which displays locations which come from the simulation object.
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param location the initial location to have selected
+     */
     public void addLocationField(@NotNull Object fieldTag, @NotNull String label, @Nullable String location) {
         addLocationField(fieldTag, label, location, null);
     }
 
+    /**
+     *
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param location the initial location to have selected
+     * @param tooltip the tooltip for this field
+     */
     public void addLocationField(@NotNull Object fieldTag, @NotNull String label, @Nullable String location, @Nullable String tooltip) {
         FormDialog.Field<Object> field = new FormDialog.Field<>();
         field.label = getLabel(label, tooltip);
@@ -118,10 +187,23 @@ public class FormBuilder {
         fields.put(fieldTag, field);
     }
 
+    /**
+     * Builds a boolean checkbox
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param value the enum which starts selected
+     */
     public void addBooleanField(@NotNull Object fieldTag, @NotNull String label, boolean value) {
         addBooleanField(fieldTag, label, value, null);
     }
 
+    /**
+     * Builds a boolean checkbox
+     * @param fieldTag the tag to attach to the component which can be used to find the component later.
+     * @param label the label to attach to the field
+     * @param value the enum which starts selected
+     * @param tooltip the tooltip for this field
+     */
     public void addBooleanField(@NotNull Object fieldTag, @NotNull String label, boolean value, @Nullable String tooltip) {
         FormDialog.Field<Object> field = new FormDialog.Field<>();
         field.label = getLabel(label, tooltip);

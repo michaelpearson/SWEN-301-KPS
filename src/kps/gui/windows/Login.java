@@ -39,7 +39,7 @@ public class Login extends FormDialog {
     }
 
     @Override
-    protected void initializeForm(FormBuilder builder) {
+    protected void initializeForm(@NotNull FormBuilder builder) {
         builder.addEnumField("username", "User", UserName.Manager, UserName.class, null);
         builder.addStringField("password", "Password", "", null);
     }

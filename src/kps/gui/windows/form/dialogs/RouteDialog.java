@@ -12,10 +12,16 @@ import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.util.Map;
 
+/**
+ * The route update dialog
+ */
 public class RouteDialog extends FormDialog {
     private @NotNull Route route;
     private boolean isInDocument;
 
+    /**
+     * Field names so we can get the fields back later!
+     */
     private enum FieldNames {
         CompanyName,
         LocationTo,
@@ -31,13 +37,32 @@ public class RouteDialog extends FormDialog {
         Discontinued
     }
 
+    /**
+     * Constructor to create a new route
+     * @param owner the frames owner
+     * @param simulation the simulation to work from
+     */
     public RouteDialog(Frame owner, Simulation simulation) {
         this(owner, simulation, null);
     }
 
+    /**
+     * Constructor to edit an existing route
+     * @param owner the frames owner
+     * @param simulation the simulation to work from
+     * @param previousRoute the route to edit
+     */
     public RouteDialog(Frame owner, Simulation simulation, @Nullable Route previousRoute) {
         this(owner, simulation, false, previousRoute);
     }
+
+    /**
+     * Constructor with all the parameters (see other constructors). Should be used to update a route
+     * @param owner the frame to work from
+     * @param simulation the simulation to work from
+     * @param isUpdate whether to create a new route (update) or edit an existing route (edit)
+     * @param previousRoute the route to update/edit
+     */
     public RouteDialog(@Nullable Frame owner, @NotNull Simulation simulation, boolean isUpdate, @Nullable Route previousRoute) {
         super(owner, previousRoute == null ? "Add route" : "Edit route", true, simulation);
         if(isUpdate) {
@@ -51,9 +76,7 @@ public class RouteDialog extends FormDialog {
         setVisible(true);
     }
 
-
-
-    @Override protected void initializeForm(FormBuilder builder) {
+    @Override protected void initializeForm(@NotNull FormBuilder builder) {
         builder.addStringField(FieldNames.CompanyName, "Company name", route.getCompany());
         builder.addLocationField(FieldNames.LocationTo, "Location to", route.getTo());
         builder.addLocationField(FieldNames.LocationFrom, "Location from", route.getFrom());

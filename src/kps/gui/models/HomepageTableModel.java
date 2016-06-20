@@ -14,7 +14,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class is the model for the home screens table. It adapts to the simulation object that is passed in.
+ */
 public class HomepageTableModel extends AbstractTableModel {
+
     private static final String DATE = "Date";
     private static final String EVENT_TYPE = "Event type";
     private static final String FROM = "From";
@@ -27,11 +31,17 @@ public class HomepageTableModel extends AbstractTableModel {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DateAdapter.DATE_FORMAT);
 
 
-
+    /**
+     * Interface which is used to get a specific field at a given row
+     */
     private interface FieldGetter {
         String getField(int row);
     }
 
+    /**
+     * Main constructor which sets up the columns
+     * @param simulation the simulation object which the table will display.
+     */
     public HomepageTableModel(Simulation simulation) {
         this.simulation = simulation;
         this.businessEvents = simulation.getAllBusinessEvents();

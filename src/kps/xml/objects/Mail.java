@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
+/**
+ * The object which represents a mail event.
+ */
 @XmlAccessorType(XmlAccessType.NONE) public class Mail extends BusinessEventWithLocation {
     @XmlElement(name="day") private DayOfWeek day;
     @XmlElement(name="weight") private int weight;

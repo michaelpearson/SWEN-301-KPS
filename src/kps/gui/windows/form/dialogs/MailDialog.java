@@ -16,11 +16,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
+/**
+ * The mail item dialog. To create new mail delivery events or update existing ones.
+ */
 public class MailDialog extends FormDialog {
+
     private @NotNull Mail mailDeliveryEvent;
     private boolean isInDocument;
     private @Nullable CalculatedRoute calculatedRoute = null;
 
+    /**
+     * Field names so we can retrieve the values later.
+     */
     private enum FieldNames {
         DayOfWeek,
         LocationTo,
@@ -30,11 +37,22 @@ public class MailDialog extends FormDialog {
         Priority
     }
 
-    public MailDialog(Frame owner, Simulation simulation) {
+    /**
+     * Constructor if you don't have an old mail delivery for your dialog.
+     * @param owner the frames owner
+     * @param simulation the simulation to work from
+     */
+    public MailDialog(@Nullable Frame owner, @NotNull Simulation simulation) {
         this(owner, simulation, null);
     }
 
-    public MailDialog(Frame owner, Simulation simulation, @Nullable Mail previousMailEvent) {
+    /**
+     * Constructor for your dialog if you have a previous mail event
+     * @param owner the frames owner
+     * @param simulation the simulation to work from
+     * @param previousMailEvent the mail event to update (or null to create a new one)
+     */
+    public MailDialog(@Nullable Frame owner, @NotNull Simulation simulation, @Nullable Mail previousMailEvent) {
         super(owner, previousMailEvent == null ? "New mail Delivery" : "Edit mail delivery", true, simulation);
         this.isInDocument = previousMailEvent != null;
         this.mailDeliveryEvent = previousMailEvent == null ? new Mail(simulation) : previousMailEvent;
@@ -42,7 +60,7 @@ public class MailDialog extends FormDialog {
         setVisible(true);
     }
 
-    @Override protected void initializeForm(FormBuilder builder) {
+    @Override protected void initializeForm(@NotNull FormBuilder builder) {
         builder.addEnumField(FieldNames.DayOfWeek, "Day of the week", mailDeliveryEvent.getDay(), DayOfWeek.class);
         builder.addLocationField(FieldNames.LocationFrom, "Location from", mailDeliveryEvent.getFrom());
         builder.addLocationField(FieldNames.LocationTo, "Location to", mailDeliveryEvent.getTo());

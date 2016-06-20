@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of the route calculator
+ */
 public class RouteCalculator implements IRouteCalculator {
     private final List<Route> routes;
     private final List<CalculatedRoute> possiblePaths = new ArrayList<>();

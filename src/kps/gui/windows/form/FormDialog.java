@@ -1,6 +1,7 @@
 package kps.gui.windows.form;
 
 import kps.xml.objects.Simulation;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,22 +9,44 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * This is a class which builds a generic form to collect input data from the user
+ */
 public abstract class FormDialog extends JDialog {
     protected Simulation simulation;
     //Linked hash map because it retains order.
     private Map<Object, Field> fields = new LinkedHashMap<>();
     private KeyEventDispatcher keyboardDispatcher;
 
+    /**
+     * An interface used to get the return value from a field in a standardised manner
+     * @param <T>
+     */
     interface Gettable<T> {
         T getValue();
     }
 
+    /**
+     * A simple representation for a "field". Contains all of the components related to the field and a method to get
+     * the return value.
+     * @param <T>
+     */
     static class Field<T> {
         JComponent field;
         JComponent label;
+        /**
+         * a method to get the return value of the field.
+         */
         Gettable<T> getter;
     }
 
+    /**
+     * Create a form.
+     * @param owner the frames parent
+     * @param title the title of the frame
+     * @param modal whether the frame should block input to other windows
+     * @param simulation the simulation to work from
+     */
     public FormDialog(Frame owner, String title, boolean modal, Simulation simulation) {
         super(owner, title, modal);
         this.simulation = simulation;
@@ -110,7 +133,13 @@ public abstract class FormDialog extends JDialog {
         return true;
     }
 
-    protected abstract void initializeForm(FormBuilder builder);
+    /**
+     * This is the signature to construct the form. It passes in a FormBuilder object which takes care of
+     * creating the components which will then be added to this form. This method must be implemented to create
+     * the desired form.
+     * @param builder the form builder object for this form.
+     */
+    protected abstract void initializeForm(@NotNull FormBuilder builder);
     protected abstract void save();
     protected abstract boolean cancel();
 

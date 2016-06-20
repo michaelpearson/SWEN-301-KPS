@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
 /**
- * The route object represents a route on a given transport provider.
+ * The route object represents the price a customer must pay to travel this particular route with a given priority.
  */
 @XmlAccessorType(XmlAccessType.NONE) public class CustomerPrice extends BusinessEventWithLocation {
     @XmlElement(name="priority") private Priority priority;
