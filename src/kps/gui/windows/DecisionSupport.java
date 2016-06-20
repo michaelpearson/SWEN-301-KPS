@@ -8,6 +8,12 @@ import org.jdesktop.swingx.JXTable;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.Date;
 
@@ -104,8 +110,18 @@ class DecisionSupport extends JFrame {
 
         outerPanel.add(figuresPanelOuter, BorderLayout.EAST);
 
-
         JXTable businessEventsTable = new JXTable(new BusinessEventsTableModel(simulation));
+
+        businessEventsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(e.getValueIsAdjusting()) {
+                    return;
+                }
+                System.out.println(e);
+            }
+        });
+
 
         outerPanel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
 
