@@ -29,11 +29,20 @@ public class CalculatorTests {
 
         IRouteCalculator rc = new RouteCalculator(s, m);
         CalculatedRoute calculatedRoute = rc.buildCalculatedRoute();
-        Assert.assertNull(calculatedRoute);
+        Assert.assertNotNull(calculatedRoute);
     }
 
     @Test public void ensureThatSystemWillNotPickDiscontinuedRoute() throws FileNotFoundException, XMLException, InterruptedException {
         Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
+        {
+            Route cr = s.getUniqueRoutes().stream().filter(r -> r.getFrom().equals("Auckland") && r.getTo().equals("Wellington")).findFirst().get();
+            cr.setDiscontinued(true);
+        }
+        {
+            Route cr = s.getUniqueRoutes().stream().filter(r -> r.getFrom().equals("Auckland") && r.getTo().equals("Hamilton")).findFirst().get();
+            cr.setDiscontinued(true);
+        }
+
 
         Mail m = new Mail();
         m.setFrom("Auckland");
@@ -89,6 +98,11 @@ public class CalculatorTests {
 
         IRouteCalculator rc = new RouteCalculator(s, m);
         CalculatedRoute calculatedRoute = rc.buildCalculatedRoute();
+        calculatedRoute.getRoute().get(0).setMaxWeight(100);
+
+        rc = new RouteCalculator(s, m);
+        calculatedRoute = rc.buildCalculatedRoute();
+
         Assert.assertNull(calculatedRoute);
     }
 
