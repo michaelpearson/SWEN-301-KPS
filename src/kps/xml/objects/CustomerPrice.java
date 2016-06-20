@@ -45,6 +45,10 @@ import java.awt.*;
         this.volumeCost = volumeCost;
     }
 
+    @Override
+    public @NotNull String getFrom() {
+        return Route.DOMESTIC_REFERENCE;
+    }
 
     public int getWeightCost() {
         return weightCost;
@@ -78,7 +82,6 @@ import java.awt.*;
         object.setPriority(getPriority());
         object.setWeightCost(getWeightCost());
         object.setVolumeCost(getVolumeCost());
-        object.setFrom(getFrom());
         object.setTo(getTo());
         return object;
     }

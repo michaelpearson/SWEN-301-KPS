@@ -59,7 +59,7 @@ public class CustomerPriceDialog extends FormDialog {
         super(owner, previousCustomerPrice == null ? "Add Customer Price" : "Edit Customer Price", true, simulation);
         if(isUpdate) {
             isInDocument = false;
-            setTitle("Update route");
+            setTitle("Update customer price");
         } else {
             this.isInDocument = previousCustomerPrice != null;
         }
@@ -70,7 +70,6 @@ public class CustomerPriceDialog extends FormDialog {
 
     @Override
     protected void initializeForm(@NotNull FormBuilder builder) {
-        builder.addLocationField(FieldNames.LocationFrom, "Location from", customerPrice.getFrom());
         builder.addLocationField(FieldNames.LocationTo, "Location to", customerPrice.getTo());
         builder.addEnumField(FieldNames.Priority, "Priority", customerPrice.getPriority(), Priority.class);
         builder.addIntegerField(FieldNames.WeightCost, "Weight cost (cents/grams)", customerPrice.getWeightCost());
@@ -80,7 +79,6 @@ public class CustomerPriceDialog extends FormDialog {
     protected void save() {
         if (!validateFields()) return;
         customerPrice.setTo((String)getValue(FieldNames.LocationTo));
-        customerPrice.setFrom((String)getValue(FieldNames.LocationFrom));
         customerPrice.setPriority((Priority)getValue(FieldNames.Priority));
         customerPrice.setVolumeCost((Integer)getValue(FieldNames.VolumeCost));
         customerPrice.setWeightCost((Integer)getValue(FieldNames.WeightCost));

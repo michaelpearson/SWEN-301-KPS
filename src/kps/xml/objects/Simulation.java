@@ -77,6 +77,7 @@ import java.util.*;
         businessEvents.addAll(routes);
         businessEvents.addAll(mail);
         allLocations.addAll(tempLocations);
+        allLocations.add(Route.DOMESTIC_REFERENCE);
 
         for(BusinessEventWithLocation e : businessEvents) {
             allLocations.add(e.getFrom());
@@ -111,6 +112,31 @@ import java.util.*;
             }
         }
         return uniqueRoutes;
+    }
+
+    /**
+     * Gets all unique prices in the system. Because an update is defined as creating a new customer price, this function only
+     * returns the newest price, rather then the price and all of its updates.
+     * @return only the current version of each price.
+     */
+    @NotNull public List<CustomerPrice> getUniqueCustomerPrices() {
+        List<CustomerPrice> uniquePrices = new ArrayList<>();
+        for(CustomerPrice p1 : getCustomerPrices()) {
+            boolean allBefore = true;
+            for(CustomerPrice p2 : getCustomerPrices()) {
+                if(p1 == p2 || !p1.getTo().equals(p2.getTo()) || p1.getPriority() != p2.getPriority()) {
+                    continue;
+                }
+                if(!p1.getDate().after(p2.getDate())) {
+                    allBefore = false;
+                    break;
+                }
+            }
+            if(allBefore) {
+                uniquePrices.add(p1);
+            }
+        }
+        return uniquePrices;
     }
 
     /**
