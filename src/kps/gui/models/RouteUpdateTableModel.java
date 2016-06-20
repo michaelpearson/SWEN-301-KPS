@@ -20,6 +20,8 @@ public class RouteUpdateTableModel extends AbstractTableModel {
     private static final String COMPANY = "Company name";
     private static final String FROM = "From";
     private static final String TO = "To";
+    private static final String WEIGHT_COST = "Weight cost";
+    private static final String VOLUME_COST = "Volume cost";
     private static final String TYPE = "Transport type";
     private static final String STATUS = "Route status";
     private final Simulation simulation;
@@ -49,6 +51,9 @@ public class RouteUpdateTableModel extends AbstractTableModel {
         tableColumns.put(TYPE, row -> routes.get(row).getTransportType().toString());
         tableColumns.put(FROM, row -> routes.get(row).getFrom());
         tableColumns.put(TO, row -> routes.get(row).getTo());
+        tableColumns.put(WEIGHT_COST, row -> String.valueOf(routes.get(row).getWeightCost()));
+        tableColumns.put(VOLUME_COST, row -> String.valueOf(routes.get(row).getVolumeCost()));
+
     }
 
     /**
