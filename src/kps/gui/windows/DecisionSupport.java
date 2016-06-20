@@ -139,20 +139,6 @@ class DecisionSupport extends JFrame {
 
         businessEventsTable.packAll();
 
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
-        panel.add(figuresPanelOuter, BorderLayout.EAST);
-        panel.add(closeButton, BorderLayout.SOUTH);
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(panel);
-        JPanel figuresPanelOuter = new JPanel(new BorderLayout());
-        figuresPanelOuter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        figuresPanelOuter.add(figuresPanel, BorderLayout.NORTH);
-
-        outerPanel.add(figuresPanelOuter, BorderLayout.EAST);
-
-
-        JXTable businessEventsTable = new JXTable(new BusinessEventsTableModel(simulation));
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
