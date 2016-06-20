@@ -24,6 +24,7 @@
   <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance 16" index="1" parent="JRootPane Instance 16" window="Progress" />
   <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance 17" index="1" parent="JRootPane Instance 17" window="Add route 2" />
   <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance 18" index="1" parent="JRootPane Instance 18" window="Progress" />
+  <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance 19" index="1" parent="JRootPane Instance 19" window="Progress" />
   <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance 2" index="1" parent="JRootPane Instance 2" window="Add route 2" />
   <component class="javax.swing.JLayeredPane" id="JLayeredPane Instance 3" index="1" parent="JRootPane Instance 3" window="Error saving" />
   <component class="javax.swing.JLayeredPane" hOrder="2" id="JLayeredPane Instance 4" index="1" parent="JRootPane Instance 4" window="Add a new location" />
@@ -70,6 +71,8 @@
   <component class="javax.swing.JPanel" id="JPanel Instance 40" index="0" parent="JLayeredPane Instance 17" window="Add route 2" />
   <component class="javax.swing.JPanel" id="JPanel Instance 41" index="0" parent="JPanel Instance 42" window="Progress" />
   <component class="javax.swing.JPanel" id="JPanel Instance 42" index="0" parent="JLayeredPane Instance 18" window="Progress" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 43" index="0" parent="JPanel Instance 44" window="Progress" />
+  <component class="javax.swing.JPanel" id="JPanel Instance 44" index="0" parent="JLayeredPane Instance 19" window="Progress" />
   <component class="javax.swing.JPanel" id="JPanel Instance 5" index="0" parent="JLayeredPane Instance 2" window="Add route 2" />
   <component class="javax.swing.JPanel" id="JPanel Instance 6" index="2" parent="JSpinner Instance" window="Add route 2" />
   <component class="javax.swing.JPanel" id="JPanel Instance 7" index="2" parent="JSpinner Instance 2" window="Add route 2" />
@@ -85,6 +88,7 @@
   <component class="javax.swing.JRootPane" id="JRootPane Instance 16" index="0" parent="Progress" />
   <component class="javax.swing.JRootPane" id="JRootPane Instance 17" index="0" parent="Add route 2" />
   <component class="javax.swing.JRootPane" id="JRootPane Instance 18" index="0" parent="Progress" />
+  <component class="javax.swing.JRootPane" id="JRootPane Instance 19" index="0" parent="Progress" />
   <component class="javax.swing.JRootPane" id="JRootPane Instance 2" index="0" parent="Add route 2" />
   <component class="javax.swing.JRootPane" id="JRootPane Instance 3" index="0" parent="Error saving" />
   <component class="javax.swing.JRootPane" hOrder="2" id="JRootPane Instance 4" index="0" parent="Add a new location" />
@@ -97,6 +101,7 @@
   <component class="javax.swing.JScrollPane" id="JScrollPane Instance 10" index="0" parent="JPanel Instance 33" window="Progress" />
   <component class="javax.swing.JScrollPane" id="JScrollPane Instance 11" index="0" parent="JPanel Instance 37" window="Progress" />
   <component class="javax.swing.JScrollPane" id="JScrollPane Instance 12" index="0" parent="JPanel Instance 41" window="Progress" />
+  <component class="javax.swing.JScrollPane" id="JScrollPane Instance 13" index="0" parent="JPanel Instance 43" window="Progress" />
   <component class="javax.swing.JScrollPane" id="JScrollPane Instance 2" index="0" parent="JPanel Instance 15" window="Progress" />
   <component class="javax.swing.JScrollPane" id="JScrollPane Instance 3" index="0" parent="JPanel Instance 17" window="Progress" />
   <component class="javax.swing.JScrollPane" id="JScrollPane Instance 4" index="0" parent="JPanel Instance 19" window="Progress" />
@@ -118,6 +123,7 @@
   <component class="javax.swing.JViewport" id="JViewport Instance 11" index="0" parent="JScrollPane Instance 10" window="Progress" />
   <component class="javax.swing.JViewport" id="JViewport Instance 12" index="0" parent="JScrollPane Instance 11" window="Progress" />
   <component class="javax.swing.JViewport" id="JViewport Instance 13" index="0" parent="JScrollPane Instance 12" window="Progress" />
+  <component class="javax.swing.JViewport" id="JViewport Instance 14" index="0" parent="JScrollPane Instance 13" window="Progress" />
   <component class="javax.swing.JViewport" id="JViewport Instance 2" index="0" parent="JScrollPane Instance" window="Progress" />
   <component class="javax.swing.JViewport" id="JViewport Instance 3" index="0" parent="JScrollPane Instance 2" window="Progress" />
   <component class="javax.swing.JViewport" id="JViewport Instance 4" index="0" parent="JScrollPane Instance 3" window="Progress" />
@@ -130,6 +136,7 @@
   <component class="org.jdesktop.swingx.JXTable" id="JXTable Instance 10" index="0" parent="JViewport Instance 11" window="Progress" />
   <component class="org.jdesktop.swingx.JXTable" id="JXTable Instance 11" index="0" parent="JViewport Instance 12" window="Progress" />
   <component class="org.jdesktop.swingx.JXTable" id="JXTable Instance 12" index="0" parent="JViewport Instance 13" window="Progress" />
+  <component class="org.jdesktop.swingx.JXTable" id="JXTable Instance 13" index="0" parent="JViewport Instance 14" window="Progress" />
   <component class="org.jdesktop.swingx.JXTable" id="JXTable Instance 2" index="0" parent="JViewport Instance 3" window="Progress" />
   <component class="org.jdesktop.swingx.JXTable" id="JXTable Instance 3" index="0" parent="JViewport Instance 4" window="Progress" />
   <component class="org.jdesktop.swingx.JXTable" id="JXTable Instance 4" index="0" parent="JViewport Instance 5" window="Progress" />
@@ -157,7 +164,21 @@
   <component class="javax.swing.JButton" id="Update transport cost" index="2" parent="JPanel Instance 3" text="Update transport cost" window="Swen 301 - KPS" />
   <component class="javax.swing.SwingUtilities$SharedOwnerFrame" id="shared frame" root="true" title="" />
   <launch args="[/home/cullum/IdeaProjects/SWEN-301-KPS/test_data/Test.xml]" class="kps.Main" classpath="/home/cullum/IdeaProjects/SWEN-301-KPS/out/artifacts/SWEN_301_KPS_jar/SWEN-301-KPS.jar" method="main" threaded="true" />
-  <assert component="JCheckBox Instance" method="isSelected" />
+  <sequence>
+    <action args="Login 2" class="javax.swing.AbstractButton" method="actionClick" />
+    <wait args="Login" class="abbot.tester.ComponentTester" invert="true" method="assertComponentShowing" />
+    <wait args="Swen 301 - KPS" class="abbot.tester.ComponentTester" method="assertComponentShowing" />
+    <action args="Update transport cost" class="javax.swing.AbstractButton" method="actionClick" />
+    <wait args="Progress" class="abbot.tester.ComponentTester" method="assertComponentShowing" />
+    <action args="JXTable Instance 13,&quot;Discontinued&quot;,BUTTON1_MASK,2" class="javax.swing.JTable" method="actionClick" />
+    <action args="Add route 2,497,167" class="java.awt.Window" method="actionMove" />
+    <action args="JCheckBox Instance" class="javax.swing.AbstractButton" method="actionClick" />
+    <action args="Save" class="javax.swing.AbstractButton" method="actionClick" />
+    <wait args="Add route 2" class="abbot.tester.ComponentTester" invert="true" method="assertComponentShowing" />
+    <action args="JXTable Instance 13,&quot;Kelburn Airways&quot;,BUTTON1_MASK,2" class="javax.swing.JTable" method="actionClick" />
+    <action args="JXTable Instance 13,&quot;Kelburn Airways&quot;,BUTTON1_MASK,2" class="javax.swing.JTable" method="actionClick" />
+    <assert component="JCheckBox Instance" invert="true" method="isSelected" />
+  </sequence>
   <terminate />
 </AWTTestScript>
 
