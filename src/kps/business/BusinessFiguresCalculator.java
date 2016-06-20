@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class will calculate business figures as per the project spec.
@@ -17,6 +18,7 @@ import java.util.List;
 public class BusinessFiguresCalculator {
     @NotNull private final Simulation simulation;
     @NotNull private final Thread calculator;
+    private Date dateFrom;
     @Nullable private final DataReady callback;
     @Nullable private final ProgressCallback progressCallback;
     @Nullable private final Date dateTo;
@@ -45,11 +47,13 @@ public class BusinessFiguresCalculator {
      * Main constructor that creates a single use route calculator
      * @param simulation the main simulation object to base the route calculation on
      * @param dateTo the date that the calculator should treat as "now", all newer events will be filtered from the working set
+     * @param dateFrom the start date of the calculations
      * @param callback the callback which will be called when the data is ready
      * @param progressCallback callback for when progress has been made in the calculation.
      */
-    public BusinessFiguresCalculator(@NotNull Simulation simulation, @Nullable Date dateTo, @Nullable DataReady callback, @Nullable ProgressCallback progressCallback) {
+    public BusinessFiguresCalculator(@NotNull Simulation simulation, @Nullable Date dateFrom , @Nullable Date dateTo, @Nullable DataReady callback, @Nullable ProgressCallback progressCallback) {
         this.simulation = simulation;
+        this.dateFrom = dateFrom;
         this.callback = callback;
         this.dateTo = dateTo;
         this.progressCallback = progressCallback;
@@ -58,6 +62,9 @@ public class BusinessFiguresCalculator {
             @Override
             public void run() {
                 calculateTotals();
+                if(progressCallback != null) {
+                    progressCallback.progress(1);
+                }
             }
         };
         calculator.start();
@@ -78,6 +85,13 @@ public class BusinessFiguresCalculator {
      */
     private void calculateTotals() {
         List<BusinessEvent> businessEvents = simulation.getAllBusinessEvents();
+        if(dateFrom != null) {
+            businessEvents = businessEvents.stream().filter(be -> be.getDate().compareTo(dateFrom) >= 0).collect(Collectors.toList());
+        }
+        if(dateTo != null) {
+            businessEvents = businessEvents.stream().filter(be -> be.getDate().compareTo(dateTo) <= 0).collect(Collectors.toList());
+        }
+
         businessEvents.sort((l, r) -> l.getDate().compareTo(r.getDate()));
         int a = 0;
         for(BusinessEvent businessEvent : businessEvents) {
@@ -85,9 +99,6 @@ public class BusinessFiguresCalculator {
                 return;
             }
             if(dateTo != null && businessEvent.getDate().after(dateTo)) {
-                if(progressCallback != null) {
-                    progressCallback.progress(1);
-                }
                 fireCallback();
                 return;
             }
@@ -103,7 +114,6 @@ public class BusinessFiguresCalculator {
             totalRevenue += businessEvent.getRevenue();
             totalExpenditure += businessEvent.getExpenditure();
         }
-        //TODO: Calculate critical routes
         fireCallback();
     }
 

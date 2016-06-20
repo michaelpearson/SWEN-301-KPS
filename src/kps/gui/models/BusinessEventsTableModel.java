@@ -6,6 +6,7 @@ import kps.xml.objects.Mail;
 import kps.xml.objects.Route;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.abstracts.BusinessEvent;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
@@ -43,7 +44,7 @@ public class BusinessEventsTableModel extends AbstractTableModel {
      */
     public BusinessEventsTableModel(Simulation simulation) {
         this.simulation = simulation;
-        this.businessEvents = simulation.getAllBusinessEvents();
+        this.businessEvents = getBusinessEvents();
         tableColumns.put(EVENT_TYPE, row -> businessEvents.get(row).getEventType());
         tableColumns.put(DATE, row -> dateFormat.format(businessEvents.get(row).getDate()));
         tableColumns.put(FROM, row -> businessEvents.get(row).getFrom());
@@ -64,6 +65,10 @@ public class BusinessEventsTableModel extends AbstractTableModel {
                 return "N/A";
             }
         });
+    }
+
+    protected List<BusinessEvent> getBusinessEvents() {
+        return simulation.getAllBusinessEvents();
     }
 
     @Override
@@ -89,6 +94,14 @@ public class BusinessEventsTableModel extends AbstractTableModel {
     public void edit(int row, Frame owner) {
         businessEvents.get(row).edit(owner);
         updateTable();
+    }
+
+    @Nullable public BusinessEvent getBusinessEvent(int row) {
+        try {
+            return businessEvents.get(row);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public void updateTable(){

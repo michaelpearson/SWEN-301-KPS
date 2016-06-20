@@ -2,18 +2,12 @@ package kps.gui.windows;
 
 import kps.business.BusinessFiguresCalculator;
 import kps.gui.models.BusinessEventsTableModel;
+import kps.gui.models.MailEventsTableModel;
 import kps.xml.objects.Simulation;
-import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXTable;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.Date;
 
@@ -36,11 +30,11 @@ class DecisionSupport extends JFrame {
         setSize(1300, 500);
 
         setLocationRelativeTo(null);
-        buildBusinessFigures(new Date());
+        buildBusinessFigures(null, new Date());
         setVisible(true);
     }
 
-    private void buildBusinessFigures(Date date) {
+    private void buildBusinessFigures(@Nullable Date dateFrom, @Nullable Date dateTo) {
         new JDialog(this, true) {
             {
                 JPanel panel = new JPanel();
@@ -50,7 +44,7 @@ class DecisionSupport extends JFrame {
                 panel.setLayout(layout);
 
                 JProgressBar progress = new JProgressBar(0, 100);
-                new BusinessFiguresCalculator(simulation, date, (s) -> dataReady(s), p -> {
+                new BusinessFiguresCalculator(simulation, dateFrom, dateTo, data -> dataReady(data), p -> {
                     progress.setValue((int)(p * 100));
                     if(p == 1) {
                         this.dispose();
@@ -65,7 +59,7 @@ class DecisionSupport extends JFrame {
                 setTitle("Progress");
                 setResizable(false);
                 setLocationRelativeTo(null);
-                setSize(400, 50);
+                setSize(500, 50);
 
                 panel.add(label);
                 panel.add(progress);
@@ -77,9 +71,7 @@ class DecisionSupport extends JFrame {
     }
 
     private void buildGui() {
-        JPanel outerPanel = new JPanel();
-        outerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        outerPanel.setLayout(new BorderLayout());
+
 
         JPanel figuresPanel = new JPanel();
         GridLayout layout = new GridLayout(0, 2);
@@ -108,25 +100,34 @@ class DecisionSupport extends JFrame {
         figuresPanelOuter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         figuresPanelOuter.add(figuresPanel, BorderLayout.NORTH);
 
-        outerPanel.add(figuresPanelOuter, BorderLayout.EAST);
 
-        JXTable businessEventsTable = new JXTable(new BusinessEventsTableModel(simulation));
 
-        businessEventsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if(e.getValueIsAdjusting()) {
-                    return;
-                }
-                System.out.println(e);
+
+        BusinessEventsTableModel tableModel;
+        JXTable businessEventsTable = new JXTable(tableModel = new MailEventsTableModel(simulation));
+
+        businessEventsTable.getSelectionModel().addListSelectionListener(e -> {
+            if(e.getValueIsAdjusting()) {
+                return;
+            }
+            int rows[] = businessEventsTable.getSelectedRows();
+            if(rows.length == 1) {
+                buildBusinessFigures(null, tableModel.getBusinessEvent(rows[0]).getDate());
+            } else if( rows.length > 1) {
+                Date to = tableModel.getBusinessEvent(rows[0]).getDate();
+                Date from = tableModel.getBusinessEvent(rows[rows.length - 1]).getDate();
+                buildBusinessFigures(from, to);
+            } else {
+                buildBusinessFigures(null, null);
             }
         });
 
+        businessEventsTable.setSize(500, 500);
 
-        outerPanel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
-
-
-        add(outerPanel);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
+        panel.add(figuresPanelOuter, BorderLayout.EAST);
+        add(panel);
     }
 
     private void dataReady(BusinessFiguresCalculator data) {
