@@ -4,6 +4,8 @@ import kps.business.BusinessFiguresCalculator;
 import kps.gui.models.BusinessEventsTableModel;
 import kps.gui.models.MailEventsTableModel;
 import kps.xml.objects.Simulation;
+import org.jdesktop.swingx.JXButton;
+import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXTable;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +22,7 @@ class DecisionSupport extends JFrame {
     private JLabel totalNumberOfEvents;
     private JLabel totalAmountOfMail;
     private JLabel averageDeliveryTime;
-    private JLabel criticalRoutes;
+    private JButton criticalRoutes;
 
     DecisionSupport(Simulation simulation) {
         this.simulation = simulation;
@@ -79,6 +81,9 @@ class DecisionSupport extends JFrame {
         layout.setHgap(10);
         figuresPanel.setLayout(layout);
 
+        criticalRoutes = new JButton("View Critical Routes");
+        criticalRoutes.addActionListener(e -> new CriticalRoutesWindow(simulation) );
+
         figuresPanel.add(new JLabel("Total revenue:"));
         figuresPanel.add(totalRevenue = new JLabel());
         figuresPanel.add(new JLabel("Total expenditure:"));
@@ -90,7 +95,7 @@ class DecisionSupport extends JFrame {
         figuresPanel.add(new JLabel("average delivery time:"));
         figuresPanel.add(averageDeliveryTime = new JLabel());
         figuresPanel.add(new JLabel("Critical routes:"));
-        figuresPanel.add(criticalRoutes = new JLabel());
+        figuresPanel.add(criticalRoutes);
 
         figuresPanel.setPreferredSize(new Dimension(300, 200));
 
