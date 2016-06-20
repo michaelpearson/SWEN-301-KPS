@@ -31,13 +31,15 @@ public abstract class FormDialog extends JDialog {
      * the return value.
      * @param <T>
      */
-    static class Field<T> {
-        JComponent field;
-        JComponent label;
+    public static class Field<T> {
+        public JComponent field;
+        public JComponent label;
+        public boolean required = true;
         /**
          * a method to get the return value of the field.
          */
         Gettable<T> getter;
+
     }
 
     /**
@@ -111,8 +113,8 @@ public abstract class FormDialog extends JDialog {
         return field.getter.getValue();
     }
 
-    protected JComponent getField(Object tag) {
-        return fields.get(tag).field;
+    protected Field getField(Object tag) {
+        return fields.get(tag);
     }
 
     protected Map<Object, Object> getAllFieldValues() {
@@ -125,6 +127,9 @@ public abstract class FormDialog extends JDialog {
 
     protected boolean validateFields(){
         for(Map.Entry<Object, Field> c : fields.entrySet()) {
+            if(!c.getValue().required) {
+                continue;
+            }
             if (c.getValue().getter.getValue() == null || c.getValue().getter.getValue().toString().length() == 0) {
                 JOptionPane.showMessageDialog(this, "Sorry one or more fields was invalid. Please fill in all of the fields and try again.", "Invalid input", JOptionPane.WARNING_MESSAGE);
                 return false;

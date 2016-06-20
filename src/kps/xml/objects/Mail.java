@@ -95,15 +95,15 @@ import java.awt.*;
     }
 
     public int calculatePrice() {
-        double revenue = 0;
         assert simulation != null;
         CustomerPrice customerPrice = null;
+        String destination = isDomestic() ? Route.DOMESTIC_REFERENCE : getTo();
         for (CustomerPrice cp : simulation.getUniqueCustomerPrices()){
-            if(cp.getPriority() == getPriority() && cp.getTo().equals(getTo())) {
+            if(cp.getPriority() == getPriority() && cp.getDestination().equals(destination)) {
                 customerPrice = cp;
                 break;
             }
-            if(cp.getTo().equals(getTo())) {
+            if(cp.getDestination().equals(destination)) {
                 customerPrice = cp;
             }
         }
@@ -129,6 +129,10 @@ import java.awt.*;
             day = r.getDay();
         }
         return time;
+    }
+
+    @Override public boolean isDomestic() {
+        return getPriority().isDomestic();
     }
 
     @Nullable public CalculatedRoute getCalculatedRoute() {

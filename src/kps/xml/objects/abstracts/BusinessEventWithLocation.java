@@ -36,11 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
         this.from = from;
     }
 
-    @NotNull @Override public String getTo() {
+    @NotNull public String getTo() {
         return to;
     }
 
-    @NotNull @Override public String getFrom() {
+    @NotNull public String getFrom() {
         return from;
     }
 

@@ -124,7 +124,7 @@ import java.util.*;
         for(CustomerPrice p1 : getCustomerPrices()) {
             boolean allBefore = true;
             for(CustomerPrice p2 : getCustomerPrices()) {
-                if(p1 == p2 || !p1.getTo().equals(p2.getTo()) || p1.getPriority() != p2.getPriority()) {
+                if(p1 == p2 || !p1.getDestination().equals(p2.getDestination()) || p1.getPriority() != p2.getPriority()) {
                     continue;
                 }
                 if(!p1.getDate().after(p2.getDate())) {

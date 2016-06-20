@@ -45,7 +45,7 @@ public class CustomerPriceUpdateTableModel extends AbstractTableModel {
         updateTable();
 
         tableColumns.put(DATE, row -> dateFormat.format(prices.get(row).getDate()));
-        tableColumns.put(TO, row -> prices.get(row).getTo());
+        tableColumns.put(TO, row -> prices.get(row).getDestination());
         tableColumns.put(PRIORITY, row -> prices.get(row).getPriority().toString());
         tableColumns.put(WEIGHT_COST, row -> String.valueOf(prices.get(row).getWeightCost()));
         tableColumns.put(VOLUME_COST, row -> String.valueOf(prices.get(row).getVolumeCost()));

@@ -19,7 +19,7 @@ public class Login extends FormDialog {
         buildDialog();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pack();
-        JTextField passwordField = (JTextField)getField("password");
+        JTextField passwordField = (JTextField)(getField("password").field);
         passwordField.requestFocus();
         passwordField.addKeyListener(new KeyListenerSlim() {
             @Override public void keyPressed(KeyEvent e) {
