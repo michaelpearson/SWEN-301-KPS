@@ -58,6 +58,9 @@ import java.awt.*;
     }
 
     @NotNull public Priority getPriority() {
+        if(priority == null) {
+            priority = Priority.values()[0];
+        }
         return priority;
     }
 
@@ -85,15 +88,32 @@ import java.awt.*;
     }
 
     @Override public double getRevenue() {
+        if(getCalculatedRoute() == null) {
+            throw new RuntimeException("Cannot get revenue of not calculated route");
+        }
+        return getCalculatedRoute().getCalculatedPrice();
+    }
+
+    public int calculatePrice() {
         double revenue = 0;
-        for (CustomerPrice cp : simulation.getCustomerPrices()){
-            if (priority == cp.getPriority()) {
-                if (!priority.isDomestic() && !getTo().equals(cp.getTo())) continue;
-                revenue += cp.getVolumeCost() * volume + cp.getWeightCost() * weight;
+        assert simulation != null;
+        CustomerPrice customerPrice = null;
+        for (CustomerPrice cp : simulation.getUniqueCustomerPrices()){
+            if(cp.getPriority() == getPriority() && cp.getTo().equals(getTo())) {
+                customerPrice = cp;
+                break;
+            }
+            if(cp.getTo().equals(getTo())) {
+                customerPrice = cp;
             }
         }
-        return revenue;
+        if(customerPrice == null) {
+            return -1;
+        }
+
+        return customerPrice.getVolumeCost() * getVolume() + customerPrice.getWeightCost() * getWeight();
     }
+
 
     public int getDeliveryTime() {
         if(calculatedRoute == null) {

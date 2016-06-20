@@ -77,7 +77,7 @@ import java.util.*;
         businessEvents.addAll(routes);
         businessEvents.addAll(mail);
         allLocations.addAll(tempLocations);
-        allLocations.add(Route.DOMESTIC_REFERENCE);
+
 
         for(BusinessEventWithLocation e : businessEvents) {
             allLocations.add(e.getFrom());

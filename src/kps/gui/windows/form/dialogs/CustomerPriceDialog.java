@@ -83,6 +83,7 @@ public class CustomerPriceDialog extends FormDialog {
         customerPrice.setVolumeCost((Integer)getValue(FieldNames.VolumeCost));
         customerPrice.setWeightCost((Integer)getValue(FieldNames.WeightCost));
 
+        /*
         if(customerPrice.getPriority().isDomestic() && !customerPrice.isDomestic()) {
             JOptionPane.showMessageDialog(this, "Please set the route to be domestic if the priority is domestic", "Invalid option selected", JOptionPane.ERROR_MESSAGE);
             return;
@@ -90,6 +91,7 @@ public class CustomerPriceDialog extends FormDialog {
             JOptionPane.showMessageDialog(this, "Please set the priority to domestic if the route is domestic", "Invalid option selected", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        */
 
         if(!isInDocument) {
             simulation.getCustomerPrices().add(customerPrice);
