@@ -7,6 +7,7 @@ import kps.xml.objects.Simulation;
 import org.jdesktop.swingx.JXButton;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXTable;
+import org.jetbrains.annotations.Nullable;
 import org.jdesktop.swingx.JXTable;
 import org.jetbrains.annotations.Nullable;
 
@@ -144,10 +145,10 @@ class DecisionSupport extends JFrame {
 
         JXTable businessEventsTable = new JXTable(new BusinessEventsTableModel(simulation));
 
-        outerPanel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
-
-
-        add(outerPanel);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JScrollPane(businessEventsTable), BorderLayout.CENTER);
+        panel.add(figuresPanelOuter, BorderLayout.EAST);
+        add(panel);
     }
 
     private void dataReady(BusinessFiguresCalculator data) {
