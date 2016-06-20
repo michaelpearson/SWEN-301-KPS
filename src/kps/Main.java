@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
  * The main entry-point for the application.
  */
 public class Main {
+
     static {
         try {
             UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");

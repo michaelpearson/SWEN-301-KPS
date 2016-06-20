@@ -19,17 +19,17 @@ import java.io.File;
  * # Mac
  * classpath: /Users/cambis/Documents/Uni/SWEN/301/SWEN-301-KPS/out/artifacts/SWEN_301_KPS_jar/SWEN-301-KPS.jar
  * arguments: /Users/cambis/Documents/Uni/SWEN/301/SWEN-301-KPS/test_data/Test.xml
-
+ *
+ * Files to start with abbotTest for them to run, you can append .old to them if you dont want to use them
  */
 public class AbbotTest extends ScriptFixture {
 
     public AbbotTest(String name) {
         super(name);
-        Robot.setEventMode(1);
+        // Robot.setEventMode(1);
         // Robot.componentDelay = 0;
         // Robot.setAutoDelay(0);
-
-        Robot.setAutoDelay(0);
+        // Robot.setAutoDelay(0);
     }
 
     public static Test suite() {
@@ -39,8 +39,7 @@ public class AbbotTest extends ScriptFixture {
             // Determine whether the given script will be included //
             public boolean accept(File file) {
                 String name = file.getName();
-                return name.equals("abbotTest1");
-                // return name.startsWith("abbotTest") && !name.endsWith("AddRoute1");
+                return name.startsWith("abbotTest") && !name.endsWith(".old");
             }
         };
     }
