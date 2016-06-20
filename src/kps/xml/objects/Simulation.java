@@ -20,6 +20,7 @@ import java.util.*;
     @XmlElement(name="route") private List<Route> routes;
     @XmlElement(name="mail") private List<Mail> mail;
     @XmlElement(name="price") private List<CustomerPrice> customerPrices;
+    @XmlElement(name="location") private List<Location> locations;
 
     /**
      * Used to create a new blank simulation
@@ -28,6 +29,15 @@ import java.util.*;
         this.routes = new ArrayList<>();
         this.mail = new ArrayList<>();
         this.customerPrices = new ArrayList<>();
+        this.locations = new ArrayList<>();
+    }
+
+    /**
+     * Get all of the locations in the simulation
+     * @return a list of {@link Route}'s
+     */
+    @NotNull public List<Location> getLocations() {
+        return locations;
     }
 
     /**
@@ -71,7 +81,8 @@ import java.util.*;
      * Gets all of the known locations in the system plus the temp locations created by the "Add new location..." option
      * @return a list of all of the locations the simulation knows about.
      */
-    @NotNull public Set<String> getLocations() {
+    // TODO
+   /*@NotNull public Set<String> getLocations() {
         Set<String> allLocations = new HashSet<>();
         List<BusinessEventWithLocation> businessEvents = new LinkedList<>();
         businessEvents.addAll(routes);
@@ -83,7 +94,7 @@ import java.util.*;
             allLocations.add(e.getTo());
         }
         return allLocations;
-    }
+    }*/
 
     /**
      * Gets all unique routes in the system. Because an update is defined as creating a new route, this function only
@@ -124,7 +135,7 @@ import java.util.*;
 
     /**
      * Add a new location (which is valid) without having to add it to a business event.
-     * @param location the lcoation to add.
+     * @param location the location to add.
      */
     public static void addTempLocation(String location) {
         tempLocations.add(location);

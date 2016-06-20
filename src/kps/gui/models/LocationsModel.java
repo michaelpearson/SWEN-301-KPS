@@ -1,5 +1,6 @@
 package kps.gui.models;
 
+import kps.xml.objects.Location;
 import kps.xml.objects.Simulation;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class LocationsModel extends AbstractListModel<String> implements ComboBo
     private Object selectedObject = null;
     private final String dummyLocation = "Add new location...";
     private int size;
-    private List<String> allLocations;
+    private List<Location> allLocations;
 
     /**
      * Main constructor which creates a LocationsModel
@@ -40,7 +41,7 @@ public class LocationsModel extends AbstractListModel<String> implements ComboBo
     }
 
     public void updateModel() {
-        allLocations = new ArrayList<>(simulation.getLocations());
+        allLocations = simulation.getLocations();
     }
 
     @Override public int getSize() {
@@ -54,7 +55,7 @@ public class LocationsModel extends AbstractListModel<String> implements ComboBo
         if(index >= allLocations.size()) {
             return dummyLocation;
         }
-        return allLocations.get(index);
+        return allLocations.get(index).getName();
     }
 
     /**

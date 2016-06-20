@@ -102,6 +102,10 @@ public class Home extends JFrame {
         addCustomerPriceButton.addActionListener(e -> {new CustomerPriceDialog(Home.this, simulation); tableModel.updateTable();});
         buttonPanel.add(addCustomerPriceButton);
 
+        JButton viewLocationsButton = new JButton("View locations");
+        viewLocationsButton.addActionListener(e -> {new LocationWindow(simulation); tableModel.updateTable();});
+        buttonPanel.add(viewLocationsButton);
+
         JButton exitButton = new JButton("Save and exit");
         exitButton.addActionListener(e -> save(true));
         buttonPanel.add(exitButton);

@@ -147,7 +147,7 @@
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:36:10AM 21/05/2016">
                 <to>Rome</to>
                 <from>Wellington</from>
@@ -171,7 +171,7 @@
         <weight>1000</weight>
         <volume>120</volume>
         <priority>International Air</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:36:10AM 21/05/2016">
                 <to>Sydney</to>
                 <from>Wellington</from>
@@ -195,7 +195,7 @@
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:36:10AM 21/05/2016">
                 <to>Rome</to>
                 <from>Wellington</from>
@@ -219,7 +219,7 @@
         <weight>2000</weight>
         <volume>120</volume>
         <priority>International Standard</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:36:10AM 21/05/2016">
                 <to>Sydney</to>
                 <from>Wellington</from>
@@ -257,7 +257,7 @@
         <weight>100</weight>
         <volume>3</volume>
         <priority>Domestic Standard</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:14:10AM 20/05/2016">
                 <to>Wellington</to>
                 <from>Auckland</from>
@@ -281,7 +281,7 @@
         <weight>400</weight>
         <volume>50</volume>
         <priority>International Air</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:16:10AM 20/05/2016">
                 <to>Wellington</to>
                 <from>Hamilton</from>
@@ -319,7 +319,7 @@
         <weight>400</weight>
         <volume>25</volume>
         <priority>International Standard</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:18:10AM 20/05/2016">
                 <to>Wellington</to>
                 <from>Hamilton</from>
@@ -357,7 +357,7 @@
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Standard</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:20:10AM 20/05/2016">
                 <to>Wellington</to>
                 <from>Auckland</from>
@@ -395,7 +395,7 @@
         <weight>100</weight>
         <volume>5</volume>
         <priority>International Air</priority>
-        <calculatedroute>
+        <calculatedroute price="0">
             <route date="12:36:10AM 21/05/2016">
                 <to>Rome</to>
                 <from>Wellington</from>
@@ -407,6 +407,30 @@
                 <maxvolume>0</maxvolume>
                 <duration>16</duration>
                 <frequency>36</frequency>
+                <day>Thursday</day>
+                <discontinued>false</discontinued>
+            </route>
+        </calculatedroute>
+    </mail>
+    <mail date="5:22:06PM 20/06/2016">
+        <to>Wellington</to>
+        <from>Auckland</from>
+        <day>Thursday</day>
+        <weight>5250</weight>
+        <volume>6732</volume>
+        <priority>Domestic Standard</priority>
+        <calculatedroute price="5894040">
+            <route date="12:01:10AM 20/05/2016">
+                <to>Wellington</to>
+                <from>Auckland</from>
+                <company>Kelburn Freight</company>
+                <type>Land</type>
+                <weightcost>0</weightcost>
+                <volumecost>1</volumecost>
+                <maxweight>0</maxweight>
+                <maxvolume>0</maxvolume>
+                <duration>14</duration>
+                <frequency>24</frequency>
                 <day>Thursday</day>
                 <discontinued>false</discontinued>
             </route>
@@ -461,4 +485,61 @@
         <weightcost>3</weightcost>
         <volumecost>3</volumecost>
     </price>
+    <price date="5:21:26PM 20/06/2016">
+        <to>Wellington</to>
+        <from>Unknown</from>
+        <priority>Domestic Air</priority>
+        <weightcost>520</weightcost>
+        <volumecost>470</volumecost>
+    </price>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Auckland</name>
+        <domestic>true</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Hamilton</name>
+        <domestic>true</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Rotorua</name>
+        <domestic>true</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Palmerston North</name>
+        <domestic>true</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Wellington</name>
+        <domestic>true</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Christchurch</name>
+        <domestic>true</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Dunedin</name>
+        <domestic>true</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Sydney</name>
+        <domestic>false</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Rome</name>
+        <domestic>false</domestic>
+        <available>true</available>
+    </location>
+    <location date="12:00:00AM 01/01/2016">
+        <name>Suva</name>
+        <domestic>false</domestic>
+        <available>true</available>
+    </location>
 </simulation>
