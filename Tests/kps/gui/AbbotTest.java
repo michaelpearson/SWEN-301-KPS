@@ -39,7 +39,8 @@ public class AbbotTest extends ScriptFixture {
             // Determine whether the given script will be included //
             public boolean accept(File file) {
                 String name = file.getName();
-                return name.startsWith("abbotTest") && !name.endsWith("AddRoute1");
+                return name.equals("abbotTest1");
+                // return name.startsWith("abbotTest") && !name.endsWith("AddRoute1");
             }
         };
     }
