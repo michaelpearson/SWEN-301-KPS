@@ -24,24 +24,30 @@ import java.io.File;
  */
 public class AbbotTest extends ScriptFixture {
 
+    private static final boolean DEBUG = true;
+
     public AbbotTest(String name) {
         super(name);
-        // Robot.setEventMode(1);
-        // Robot.componentDelay = 0;
-        // Robot.setAutoDelay(0);
-        // Robot.setAutoDelay(0);
     }
 
     public static Test suite() {
-
-        return new ScriptTestSuite(AbbotTest.class, "abbotTestScripts/homeScreenTests") {
-
-            // Determine whether the given script will be included //
-            public boolean accept(File file) {
-                String name = file.getName();
-                return name.startsWith("abbotTest") && name.endsWith("Edit.xml");
-            }
-        };
+        if (DEBUG) {
+            String dir = "loginTests";
+            return new ScriptTestSuite(AbbotTest.class, "abbotTestScripts/"+dir) {
+                // Determine whether the given script will be included //
+                public boolean accept(File file) {
+                    String name = file.getName();
+                    return name.startsWith("abbotTest") && name.contains(".xml");
+                }
+            };
+        } else {
+            return new ScriptTestSuite(AbbotTest.class, "abbotTestScripts/",true) {//Run all tests
+                public boolean accept(File file) {
+                    String name = file.getName();
+                    return name.startsWith("abbotTest") && name.endsWith(".xml");
+                }
+            };
+        }
     }
 
     public static void main(String[] args) {
