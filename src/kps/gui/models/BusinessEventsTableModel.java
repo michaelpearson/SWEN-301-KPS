@@ -48,8 +48,21 @@ public class BusinessEventsTableModel extends AbstractTableModel {
         this.businessEvents = getBusinessEvents();
         tableColumns.put(EVENT_TYPE, row -> businessEvents.get(row).getEventType());
         tableColumns.put(DATE, row -> dateFormat.format(businessEvents.get(row).getDate()));
-        tableColumns.put(FROM, row -> (Mail.class.isAssignableFrom(businessEvents.get(row).getClass()) ? "N/A" : ((BusinessEventWithLocation)businessEvents.get(row)).getFrom()));
-        tableColumns.put(TO, row -> (Mail.class.isAssignableFrom(businessEvents.get(row).getClass()) ? ((Mail)businessEvents.get(row)).getTo() : ((BusinessEventWithLocation)businessEvents.get(row)).getTo()));
+        tableColumns.put(FROM, row -> {
+            if(BusinessEventWithLocation.class.isAssignableFrom(businessEvents.get(row).getClass())) {
+                return ((BusinessEventWithLocation)businessEvents.get(row)).getFrom();
+            }
+            return "N/A";
+        });
+        tableColumns.put(TO, row -> {
+            if(Mail.class.isAssignableFrom(businessEvents.get(row).getClass())) {
+                return ((Mail)businessEvents.get(row)).getTo();
+            }
+            if(BusinessEventWithLocation.class.isAssignableFrom(businessEvents.get(row).getClass())) {
+                return ((BusinessEventWithLocation)businessEvents.get(row)).getTo();
+            }
+            return "N/A";
+        });
         tableColumns.put(TRANSPORT_FIRM, row -> {
             BusinessEvent event = businessEvents.get(row);
             return Route.class.isAssignableFrom(event.getClass()) ? ((Route)event).getCompany() : "N/A";
