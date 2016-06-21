@@ -49,6 +49,7 @@
     <action args="Add route" class="javax.swing.AbstractButton" method="actionClick" />
     <wait args="Add route 2" class="abbot.tester.ComponentTester" method="assertComponentShowing" />
     <action args="JTextField Instance,Michaels Mad Movers" method="actionKeyString" />
+    <action args="Add route 2,619,148" class="java.awt.Window" method="actionMove" />
     <assert component="JTextField Instance" method="getText" value="Michaels Mad Movers" />
     <action args="JComboBox Instance,Rome" class="javax.swing.JComboBox" method="actionSelectItem" />
     <action args="JComboBox Instance 2,Wellington" class="javax.swing.JComboBox" method="actionSelectItem" />
