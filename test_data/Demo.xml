@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<simulation>
+    <route date="3:28:06PM 21/06/2016" domestic="false">
+        <to>Rome</to>
+        <from>Wellington</from>
+        <company>Air NZ</company>
+        <type>Air</type>
+        <weightcost>6</weightcost>
+        <volumecost>6</volumecost>
+        <maxweight>500</maxweight>
+        <maxvolume>500</maxvolume>
+        <duration>16</duration>
+        <frequency>36</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:29:39PM 21/06/2016" domestic="false">
+        <to>Sydney</to>
+        <from>Wellington</from>
+        <company>Kelburn Airways</company>
+        <type>Air</type>
+        <weightcost>2</weightcost>
+        <volumecost>5</volumecost>
+        <maxweight>10000</maxweight>
+        <maxvolume>50000</maxvolume>
+        <duration>3</duration>
+        <frequency>12</frequency>
+        <day>Friday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:30:25PM 21/06/2016" domestic="false">
+        <to>Sydney</to>
+        <from>Wellington</from>
+        <company>Qantas</company>
+        <type>Air</type>
+        <weightcost>2</weightcost>
+        <volumecost>1</volumecost>
+        <maxweight>500</maxweight>
+        <maxvolume>1000</maxvolume>
+        <duration>3</duration>
+        <frequency>12</frequency>
+        <day>Monday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:31:45PM 21/06/2016" domestic="false">
+        <to>Rome</to>
+        <from>Auckland</from>
+        <company>Davy Jones Ltd</company>
+        <type>Sea</type>
+        <weightcost>5</weightcost>
+        <volumecost>4</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>14</duration>
+        <frequency>168</frequency>
+        <day>Monday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:32:50PM 21/06/2016" domestic="false">
+        <to>Suva</to>
+        <from>Sydney</from>
+        <company>Pacifica Merchants</company>
+        <type>Sea</type>
+        <weightcost>3</weightcost>
+        <volumecost>3</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>36</duration>
+        <frequency>168</frequency>
+        <day>Monday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:34:11PM 21/06/2016" domestic="false">
+        <to>Rome</to>
+        <from>Sydney</from>
+        <company>Roman Air Freight Ltd</company>
+        <type>Air</type>
+        <weightcost>2</weightcost>
+        <volumecost>3</volumecost>
+        <maxweight>20000</maxweight>
+        <maxvolume>20000</maxvolume>
+        <duration>12</duration>
+        <frequency>24</frequency>
+        <day>Monday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:35:05PM 21/06/2016" domestic="true">
+        <to>Hamilton</to>
+        <from>Auckland</from>
+        <company>Rodney's Longhaul</company>
+        <type>Land</type>
+        <weightcost>0</weightcost>
+        <volumecost>1</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>2</duration>
+        <frequency>12</frequency>
+        <day>Monday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:35:59PM 21/06/2016" domestic="true">
+        <to>Wellington</to>
+        <from>Hamilton</from>
+        <company>Kelburn Freight</company>
+        <type>Land</type>
+        <weightcost>0</weightcost>
+        <volumecost>1</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>10</duration>
+        <frequency>24</frequency>
+        <day>Tuesday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:36:50PM 21/06/2016" domestic="true">
+        <to>Wellington</to>
+        <from>Auckland</from>
+        <company>Kelburn Freight</company>
+        <type>Land</type>
+        <weightcost>0</weightcost>
+        <volumecost>1</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>14</duration>
+        <frequency>24</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="3:40:47PM 21/06/2016" domestic="false">
+        <to>Sydney</to>
+        <from>Wellington</from>
+        <company>Kelburn Airways</company>
+        <type>Air</type>
+        <weightcost>2</weightcost>
+        <volumecost>5</volumecost>
+        <maxweight>10000</maxweight>
+        <maxvolume>50000</maxvolume>
+        <duration>3</duration>
+        <frequency>12</frequency>
+        <day>Friday</day>
+        <discontinued>true</discontinued>
+    </route>
+    <route date="5:49:01PM 21/06/2016" domestic="false">
+        <to>Sydney</to>
+        <from>Hamilton</from>
+        <company>company</company>
+        <type>Air</type>
+        <weightcost>10</weightcost>
+        <volumecost>5</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>50</duration>
+        <frequency>50</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="5:51:49PM 21/06/2016" domestic="false">
+        <to>Sydney</to>
+        <from>Hamilton</from>
+        <company>company</company>
+        <type>Air</type>
+        <weightcost>14</weightcost>
+        <volumecost>5</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>50</duration>
+        <frequency>50</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <route date="5:51:54PM 21/06/2016" domestic="false">
+        <to>Sydney</to>
+        <from>Hamilton</from>
+        <company>company</company>
+        <type>Air</type>
+        <weightcost>14</weightcost>
+        <volumecost>5</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>50</duration>
+        <frequency>50</frequency>
+        <day>Thursday</day>
+        <discontinued>true</discontinued>
+    </route>
+    <route date="5:52:03PM 21/06/2016" domestic="false">
+        <to>Sydney</to>
+        <from>Hamilton</from>
+        <company>company</company>
+        <type>Air</type>
+        <weightcost>14</weightcost>
+        <volumecost>5</volumecost>
+        <maxweight>0</maxweight>
+        <maxvolume>0</maxvolume>
+        <duration>50</duration>
+        <frequency>50</frequency>
+        <day>Thursday</day>
+        <discontinued>false</discontinued>
+    </route>
+    <mail date="5:50:03PM 21/06/2016">
+        <to>Sydney</to>
+        <from>Hamilton</from>
+        <day>Tuesday</day>
+        <weight>10</weight>
+        <volume>10</volume>
+        <priority>International Air</priority>
+        <calculatedroute price="700">
+            <route date="5:49:01PM 21/06/2016" domestic="false">
+                <to>Sydney</to>
+                <from>Hamilton</from>
+                <company>company</company>
+                <type>Air</type>
+                <weightcost>10</weightcost>
+                <volumecost>5</volumecost>
+                <maxweight>0</maxweight>
+                <maxvolume>0</maxvolume>
+                <duration>50</duration>
+                <frequency>50</frequency>
+                <day>Thursday</day>
+                <discontinued>false</discontinued>
+            </route>
+        </calculatedroute>
+    </mail>
+    <mail date="5:52:54PM 21/06/2016">
+        <to>Sydney</to>
+        <from>Hamilton</from>
+        <day>Monday</day>
+        <weight>1</weight>
+        <volume>1</volume>
+        <priority>International Air</priority>
+        <calculatedroute price="120">
+            <route date="5:52:03PM 21/06/2016" domestic="false">
+                <to>Sydney</to>
+                <from>Hamilton</from>
+                <company>company</company>
+                <type>Air</type>
+                <weightcost>14</weightcost>
+                <volumecost>5</volumecost>
+                <maxweight>0</maxweight>
+                <maxvolume>0</maxvolume>
+                <duration>50</duration>
+                <frequency>50</frequency>
+                <day>Thursday</day>
+                <discontinued>false</discontinued>
+            </route>
+        </calculatedroute>
+    </mail>
+    <price date="4:05:29PM 21/06/2016">
+        <priority>International Air</priority>
+        <weightcost>6</weightcost>
+        <volumecost>8</volumecost>
+        <to>Rome</to>
+    </price>
+    <price date="4:05:39PM 21/06/2016">
+        <priority>International Air</priority>
+        <weightcost>4</weightcost>
+        <volumecost>4</volumecost>
+        <to>Suva</to>
+    </price>
+    <price date="4:07:54PM 21/06/2016">
+        <priority>International Standard</priority>
+        <weightcost>3</weightcost>
+        <volumecost>2</volumecost>
+        <to>Suva</to>
+    </price>
+    <price date="4:08:03PM 21/06/2016">
+        <priority>Domestic Standard</priority>
+        <weightcost>1</weightcost>
+        <volumecost>1</volumecost>
+        <to>New Zealand</to>
+    </price>
+    <price date="4:08:10PM 21/06/2016">
+        <priority>Domestic Air</priority>
+        <weightcost>1</weightcost>
+        <volumecost>2</volumecost>
+        <to>New Zealand</to>
+    </price>
+    <price date="4:08:19PM 21/06/2016">
+        <priority>International Air</priority>
+        <weightcost>3</weightcost>
+        <volumecost>3</volumecost>
+        <to>Sydney</to>
+    </price>
+    <price date="5:49:24PM 21/06/2016">
+        <priority>International Air</priority>
+        <weightcost>50</weightcost>
+        <volumecost>20</volumecost>
+        <to>Sydney</to>
+    </price>
+    <price date="5:52:28PM 21/06/2016">
+        <priority>International Air</priority>
+        <weightcost>100</weightcost>
+        <volumecost>20</volumecost>
+        <to>Sydney</to>
+    </price>
+</simulation>
