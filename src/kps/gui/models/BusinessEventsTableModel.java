@@ -120,5 +120,6 @@ public class BusinessEventsTableModel extends AbstractTableModel {
 
     public void updateTable(){
         this.businessEvents = simulation.getAllBusinessEvents();
+        fireTableDataChanged();
     }
 }
