@@ -6,6 +6,7 @@ import kps.xml.objects.Mail;
 import kps.xml.objects.Route;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.abstracts.BusinessEvent;
+import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.table.AbstractTableModel;
@@ -47,8 +48,8 @@ public class BusinessEventsTableModel extends AbstractTableModel {
         this.businessEvents = getBusinessEvents();
         tableColumns.put(EVENT_TYPE, row -> businessEvents.get(row).getEventType());
         tableColumns.put(DATE, row -> dateFormat.format(businessEvents.get(row).getDate()));
-        tableColumns.put(FROM, row -> businessEvents.get(row).getFrom());
-        tableColumns.put(TO, row -> businessEvents.get(row).getTo());
+        //tableColumns.put(FROM, row -> ((BusinessEventWithLocation)businessEvents.get(row)).getFrom());
+        //tableColumns.put(TO, row -> ((BusinessEventWithLocation)businessEvents.get(row)).getTo());
         tableColumns.put(TRANSPORT_FIRM, row -> {
             BusinessEvent event = businessEvents.get(row);
             return Route.class.isAssignableFrom(event.getClass()) ? ((Route)event).getCompany() : "N/A";

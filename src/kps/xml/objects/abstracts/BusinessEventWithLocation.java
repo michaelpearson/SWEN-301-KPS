@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NotNull @XmlElement private String from = "Unknown";
 
     //Todo: Remove this because its bad :(
-    @XmlTransient private static final String DOMESTIC_REFERENCE = "new zealand";
+    @XmlTransient public static final String DOMESTIC_REFERENCE = "New Zealand";
 
     public BusinessEventWithLocation() {}
 
@@ -36,11 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
         this.from = from;
     }
 
-    @NotNull @Override public String getTo() {
+    @NotNull public String getTo() {
         return to;
     }
 
-    @NotNull @Override public String getFrom() {
+    @NotNull public String getFrom() {
         return from;
     }
 
@@ -49,6 +49,6 @@ import javax.xml.bind.annotation.XmlTransient;
     }
 
     public boolean isDomestic() {
-        return getTo().toLowerCase().equals(DOMESTIC_REFERENCE) && getFrom().toLowerCase().equals(DOMESTIC_REFERENCE);
+        return getTo().equals(DOMESTIC_REFERENCE) && getFrom().equals(DOMESTIC_REFERENCE);
     }
 }

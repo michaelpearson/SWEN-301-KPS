@@ -7,6 +7,7 @@ import kps.xml.objects.enums.TransportType;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import java.awt.*;
 
@@ -25,6 +26,7 @@ import java.awt.*;
     @XmlElement private int frequency;
     @XmlElement(name="day") private DayOfWeek day;
     @XmlElement private boolean discontinued;
+    @XmlAttribute(name="domestic") private boolean isDomestic;
 
 
     @SuppressWarnings("unused")
@@ -136,6 +138,14 @@ import java.awt.*;
 
     public void setDiscontinued(boolean discontinued) {
         this.discontinued = discontinued;
+    }
+
+    public void setDomestic(boolean domestic) {
+        this.isDomestic = domestic;
+    }
+
+    @Override public boolean isDomestic() {
+        return isDomestic;
     }
 
     private Route copy() {

@@ -90,6 +90,10 @@ public class Home extends JFrame {
         updateTransportCostButton.addActionListener(e -> {new TransportRouteUpdateTable(Home.this, simulation); tableModel.updateTable();});
         buttonPanel.add(updateTransportCostButton);
 
+        JButton updatePriceButton = new JButton("Update customer price");
+        updatePriceButton.addActionListener(e -> {new CustomerPriceUpdateTable(Home.this, simulation); tableModel.updateTable();});
+        buttonPanel.add(updatePriceButton);
+
 
         if(user == Login.UserName.Manager) {
             JButton viewDecisionSupportButton = new JButton("Open decision support");

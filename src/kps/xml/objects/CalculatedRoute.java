@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.NONE) public class CalculatedRoute {
     @XmlElement(name="route") private List<Route> routes;
+    @XmlAttribute(name="price") private int calculatedPrice;
 
     /**
      * Default constructor for xml unmarshaller
@@ -43,5 +45,13 @@ import java.util.List;
             builder.append(" -> " + r.getTo());
         }
         return builder.toString();
+    }
+
+    public void setCalculatedPrice(int calculatedPrice) {
+        this.calculatedPrice = calculatedPrice;
+    }
+
+    public int getCalculatedPrice() {
+        return calculatedPrice;
     }
 }

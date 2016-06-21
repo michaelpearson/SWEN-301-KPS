@@ -58,6 +58,9 @@ import java.awt.*;
     }
 
     @NotNull public Priority getPriority() {
+        if(priority == null) {
+            priority = Priority.values()[0];
+        }
         return priority;
     }
 
@@ -85,15 +88,32 @@ import java.awt.*;
     }
 
     @Override public double getRevenue() {
-        double revenue = 0;
-        for (CustomerPrice cp : simulation.getCustomerPrices()){
-            if (priority == cp.getPriority()) {
-                if (!priority.isDomestic() && !getTo().equals(cp.getTo())) continue;
-                revenue += cp.getVolumeCost() * volume + cp.getWeightCost() * weight;
+        if(getCalculatedRoute() == null) {
+            throw new RuntimeException("Cannot get revenue of not calculated route");
+        }
+        return getCalculatedRoute().getCalculatedPrice();
+    }
+
+    public int calculatePrice() {
+        assert simulation != null;
+        CustomerPrice customerPrice = null;
+        String destination = isDomestic() ? Route.DOMESTIC_REFERENCE : getTo();
+        for (CustomerPrice cp : simulation.getUniqueCustomerPrices()){
+            if(cp.getPriority() == getPriority() && cp.getDestination().equals(destination)) {
+                customerPrice = cp;
+                break;
+            }
+            if(cp.getDestination().equals(destination)) {
+                customerPrice = cp;
             }
         }
-        return revenue;
+        if(customerPrice == null) {
+            return -1;
+        }
+
+        return customerPrice.getVolumeCost() * getVolume() + customerPrice.getWeightCost() * getWeight();
     }
+
 
     public int getDeliveryTime() {
         if(calculatedRoute == null) {
@@ -109,6 +129,10 @@ import java.awt.*;
             day = r.getDay();
         }
         return time;
+    }
+
+    @Override public boolean isDomestic() {
+        return getPriority().isDomestic();
     }
 
     @Nullable public CalculatedRoute getCalculatedRoute() {

@@ -34,7 +34,8 @@ public class RouteDialog extends FormDialog {
         Duration,
         DayOfWeek,
         Frequency,
-        Discontinued
+        Discontinued,
+        Domestic
     }
 
     /**
@@ -89,6 +90,7 @@ public class RouteDialog extends FormDialog {
         builder.addEnumField(FieldNames.DayOfWeek, "Day of the week", route.getDay(), DayOfWeek.class);
         builder.addIntegerField(FieldNames.Frequency, "Frequency of delivery (days)", route.getFrequency());
         builder.addBooleanField(FieldNames.Discontinued, "Is discontinued", route.isDiscontinued());
+        builder.addBooleanField(FieldNames.Domestic, "Is domestic", route.isDomestic());
     }
 
     protected void save() {
@@ -106,6 +108,7 @@ public class RouteDialog extends FormDialog {
         route.setVolumeCost((Integer)entries.get(FieldNames.VolumeCost));
         route.setWeightCost((Integer)entries.get(FieldNames.WeightCost));
         route.setDiscontinued((Boolean)entries.get(FieldNames.Discontinued));
+        route.setDomestic((Boolean)entries.get(FieldNames.Domestic));
         if(!isInDocument) {
             simulation.getRoutes().add(route);
         }

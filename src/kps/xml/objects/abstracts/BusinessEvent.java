@@ -18,11 +18,11 @@ import java.util.Date;
 
     @XmlJavaTypeAdapter(DateAdapter.class) @XmlAttribute private Date date;
 
-    BusinessEvent(Simulation s) {
+    public BusinessEvent(Simulation s) {
         super(s);
     }
 
-    BusinessEvent() {}
+    public BusinessEvent() {}
 
     public Date getDate() {
         if(date == null) {
@@ -33,8 +33,5 @@ import java.util.Date;
 
     public abstract String getEventType();
     public abstract void edit(Frame owner);
-
-    @NotNull public abstract String getFrom();
-    @NotNull public abstract String getTo();
 
 }

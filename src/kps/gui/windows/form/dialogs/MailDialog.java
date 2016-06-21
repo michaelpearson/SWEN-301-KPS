@@ -78,7 +78,7 @@ public class MailDialog extends FormDialog {
         String to = (String) getValue(FieldNames.LocationTo);
         Priority priority = (Priority) getValue(FieldNames.Priority);
 
-        Mail mail = new Mail();
+        Mail mail = new Mail(simulation);
         mail.setTo(to);
         mail.setFrom(from);
         mail.setPriority(priority);
@@ -94,6 +94,16 @@ public class MailDialog extends FormDialog {
                     "No viable route", JOptionPane.WARNING_MESSAGE);
             return false;
         }
+        int price = mail.calculatePrice();
+        if(price == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    String.format("Sorry there is no price between %s and %s", from, to),
+                    "No viable route", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        calculatedRoute.setCalculatedPrice(price);
+
         return true;
     }
 

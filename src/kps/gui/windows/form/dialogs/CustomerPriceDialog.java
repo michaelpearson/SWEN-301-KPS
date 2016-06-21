@@ -3,6 +3,7 @@ package kps.gui.windows.form.dialogs;
 import kps.gui.windows.form.FormBuilder;
 import kps.gui.windows.form.FormDialog;
 import kps.xml.objects.CustomerPrice;
+import kps.xml.objects.Route;
 import kps.xml.objects.Simulation;
 import kps.xml.objects.enums.Priority;
 import org.jetbrains.annotations.NotNull;
@@ -22,8 +23,7 @@ public class CustomerPriceDialog extends FormDialog {
      * The tags for each field so the values can be retrieved.
      */
     private enum FieldNames {
-        LocationTo,
-        LocationFrom,
+        Destination,
         Priority,
         WeightCost,
         VolumeCost,
@@ -59,7 +59,7 @@ public class CustomerPriceDialog extends FormDialog {
         super(owner, previousCustomerPrice == null ? "Add Customer Price" : "Edit Customer Price", true, simulation);
         if(isUpdate) {
             isInDocument = false;
-            setTitle("Update route");
+            setTitle("Update customer price");
         } else {
             this.isInDocument = previousCustomerPrice != null;
         }
@@ -70,28 +70,53 @@ public class CustomerPriceDialog extends FormDialog {
 
     @Override
     protected void initializeForm(@NotNull FormBuilder builder) {
-        builder.addLocationField(FieldNames.LocationFrom, "Location from", customerPrice.getFrom());
-        builder.addLocationField(FieldNames.LocationTo, "Location to", customerPrice.getTo());
         builder.addEnumField(FieldNames.Priority, "Priority", customerPrice.getPriority(), Priority.class);
+        builder.addLocationField(FieldNames.Destination, "Destination", customerPrice.getDestination());
         builder.addIntegerField(FieldNames.WeightCost, "Weight cost (cents/grams)", customerPrice.getWeightCost());
         builder.addIntegerField(FieldNames.VolumeCost, "Volume cost (cents/cm^3)", customerPrice.getVolumeCost());
+
+        Field priorityField = getField(FieldNames.Priority);
+        Field destinationField = getField(FieldNames.Destination);
+
+        JComboBox priorityComponent = (JComboBox)priorityField.field;
+        JComboBox destinationComponent = (JComboBox)destinationField.field;
+        priorityComponent.addActionListener(l -> {
+
+            if(((Priority)(priorityComponent.getSelectedItem())).isDomestic()) {
+                destinationComponent.setEnabled(false);
+                destinationField.required = false;
+            } else {
+                destinationComponent.setEnabled(true);
+                destinationField.required = true;
+            }
+        });
+        priorityComponent.getActionListeners()[0].actionPerformed(null);
+
     }
 
     protected void save() {
         if (!validateFields()) return;
-        customerPrice.setTo((String)getValue(FieldNames.LocationTo));
-        customerPrice.setFrom((String)getValue(FieldNames.LocationFrom));
-        customerPrice.setPriority((Priority)getValue(FieldNames.Priority));
-        customerPrice.setVolumeCost((Integer)getValue(FieldNames.VolumeCost));
-        customerPrice.setWeightCost((Integer)getValue(FieldNames.WeightCost));
 
-        if(customerPrice.getPriority().isDomestic() && !customerPrice.isDomestic()) {
+        Priority newPriority = (Priority)getValue(FieldNames.Priority);
+        String newDestination;
+        if(newPriority.isDomestic()) {
+            newDestination = Route.DOMESTIC_REFERENCE;
+        } else {
+            newDestination = (String)getValue(FieldNames.Destination);
+        }
+
+        if(newPriority.isDomestic() && !newDestination.equals(Route.DOMESTIC_REFERENCE)) {
             JOptionPane.showMessageDialog(this, "Please set the route to be domestic if the priority is domestic", "Invalid option selected", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if(!customerPrice.getPriority().isDomestic() && customerPrice.isDomestic()) {
+        } else if(!newPriority.isDomestic() && newDestination.equals(Route.DOMESTIC_REFERENCE)) {
             JOptionPane.showMessageDialog(this, "Please set the priority to domestic if the route is domestic", "Invalid option selected", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
+        customerPrice.setVolumeCost((Integer)getValue(FieldNames.VolumeCost));
+        customerPrice.setWeightCost((Integer)getValue(FieldNames.WeightCost));
+        customerPrice.setPriority(newPriority);
+        customerPrice.setDestination(newDestination);
 
         if(!isInDocument) {
             simulation.getCustomerPrices().add(customerPrice);

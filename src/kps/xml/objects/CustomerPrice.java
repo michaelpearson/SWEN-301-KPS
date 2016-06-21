@@ -1,6 +1,7 @@
 package kps.xml.objects;
 
 import kps.gui.windows.form.dialogs.CustomerPriceDialog;
+import kps.xml.objects.abstracts.BusinessEvent;
 import kps.xml.objects.abstracts.BusinessEventWithLocation;
 import kps.xml.objects.enums.Priority;
 import org.jetbrains.annotations.NotNull;
@@ -13,10 +14,11 @@ import java.awt.*;
 /**
  * The route object represents the price a customer must pay to travel this particular route with a given priority.
  */
-@XmlAccessorType(XmlAccessType.NONE) public class CustomerPrice extends BusinessEventWithLocation {
+@XmlAccessorType(XmlAccessType.NONE) public class CustomerPrice extends BusinessEvent {
     @XmlElement(name="priority") private Priority priority;
     @XmlElement(name="weightcost") private int weightCost;
     @XmlElement(name="volumecost") private int volumeCost;
+    @XmlElement(name="to") private String destination;
 
     CustomerPrice() {}
 
@@ -45,6 +47,9 @@ import java.awt.*;
         this.volumeCost = volumeCost;
     }
 
+    public @NotNull String getFrom() {
+        return Route.DOMESTIC_REFERENCE;
+    }
 
     public int getWeightCost() {
         return weightCost;
@@ -73,13 +78,23 @@ import java.awt.*;
         return 0;
     }
 
+    @NotNull public String getDestination() {
+        if(destination == null) {
+            return "";
+        }
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     private CustomerPrice copy() {
         CustomerPrice object = new CustomerPrice(simulation);
         object.setPriority(getPriority());
         object.setWeightCost(getWeightCost());
         object.setVolumeCost(getVolumeCost());
-        object.setFrom(getFrom());
-        object.setTo(getTo());
+        object.setDestination(getDestination());
         return object;
     }
 }
