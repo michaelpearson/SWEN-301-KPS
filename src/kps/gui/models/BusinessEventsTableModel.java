@@ -49,14 +49,17 @@ public class BusinessEventsTableModel extends AbstractTableModel {
         tableColumns.put(EVENT_TYPE, row -> businessEvents.get(row).getEventType());
         tableColumns.put(DATE, row -> dateFormat.format(businessEvents.get(row).getDate()));
         tableColumns.put(FROM, row -> {
+            if(CustomerPrice.class.isAssignableFrom(businessEvents.get(row).getClass())) {
+                return Route.DOMESTIC_REFERENCE;
+            }
             if(BusinessEventWithLocation.class.isAssignableFrom(businessEvents.get(row).getClass())) {
                 return ((BusinessEventWithLocation)businessEvents.get(row)).getFrom();
             }
             return "N/A";
         });
         tableColumns.put(TO, row -> {
-            if(Mail.class.isAssignableFrom(businessEvents.get(row).getClass())) {
-                return ((Mail)businessEvents.get(row)).getTo();
+            if(CustomerPrice.class.isAssignableFrom(businessEvents.get(row).getClass())) {
+                return ((CustomerPrice)businessEvents.get(row)).getDestination();
             }
             if(BusinessEventWithLocation.class.isAssignableFrom(businessEvents.get(row).getClass())) {
                 return ((BusinessEventWithLocation)businessEvents.get(row)).getTo();

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class RouteCalculator implements IRouteCalculator {
     private final List<Route> routes;
     private final Simulation simulation;
-    private final List<CalculatedRoute> possiblePaths = new ArrayList<>();
+    private List<CalculatedRoute> possiblePaths = new ArrayList<>();
     private final Set<String> visitedNodes = new HashSet<>();
     private final @NotNull Mail mailDelivery;
 
@@ -65,9 +65,17 @@ public class RouteCalculator implements IRouteCalculator {
                 calculateRoute(from, goal, null);
             }
         }
+
+        if(mailDelivery.isDomestic()) {
+            possiblePaths = possiblePaths.stream().filter(
+                    calculatedRoute -> !calculatedRoute.getRoute().stream().anyMatch(r -> !r.isDomestic())
+            ).collect(Collectors.toList());
+        }
+
         if(possiblePaths.size() == 0) {
             return null;
         }
+
         return possiblePaths.stream().min((a, b) -> Integer.compare(getFit(a), getFit(b))).get();
     }
 
