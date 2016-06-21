@@ -54,7 +54,7 @@ public class AbbotTest extends ScriptFixture {
              */
             public boolean accept(File file) {
                 String name = file.getName();
-                return name.startsWith("abbotTest") && name.endsWith(".xml");
+                return name.startsWith("abbotTest-AddInvalid") && name.endsWith(".xml");
             }
         };
     }
