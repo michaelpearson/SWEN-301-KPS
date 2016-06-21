@@ -159,7 +159,7 @@ public class BusinessFiguresCalculator {
     }
 
     public double getAverageDeliveryTime() {
-        return (double) sumDeliveryTime / (double)amountOfMail;
+        return (double) sumDeliveryTime / Math.max(1, amountOfMail);
     }
 
     @NotNull public List<Route> getCriticalRoutes() {
