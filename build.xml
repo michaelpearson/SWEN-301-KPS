@@ -6,6 +6,7 @@
     <property name="tests_build_path" location="${basedir}/out/test/${project_name}"/>
     <property name="libs" location="${basedir}/lib"/>
 
+
     <path id="junit_classpath">
         <fileset dir="lib">
             <include name="junit-4.12.jar" />
@@ -51,21 +52,33 @@
         </copy>
     </target>
 
+    <target name="run_tests" depends="compile">
+        <junit fork="yes" showoutput="yes" dir="${tests_build_path}" errorProperty="test_error" failureproperty="test_fail">
+            <classpath refid="tests_classpath" />
+            <batchtest>
+                <fileset dir="${tests_build_path}"
+                         includes = "**/Test*.class"
+                         excludes = "**/*$*.class"/>
+            </batchtest>
+        </junit>
+        <fail if="${test_fail}" message="Not all tests passed" />
+    </target>
+
+    <target name="run_abbot_tests" depends="compile">
+        <property name="unit.test" value="kps.gui.AbbotTest"/>
+        <junit printsummary="on" fork="yes" showoutput="yes">
+            <sysproperty key="abbot.robot.mode" value="${abbot.robot.mode}"/>
+            <sysproperty key="abbot.skip_ui_tests" value="${abbot.skip_ui_tests}"/>
+            <classpath refid="tests_classpath"/>
+            <formatter type="brief" usefile="false"/>
+            <test name="${unit.test}"/>
+        </junit>
+    </target>
+
     <target name="clean">
         <delete dir="${build_path}"/>
         <delete dir="${tests_build_path}"/>
     </target>
 
-    <target name="run_tests" depends="compile">
-        <junit fork="no" showoutput="yes" dir="${tests_build_path}" errorProperty="test_error" failureproperty="test_fail">
-            <classpath refid="tests_classpath" />
-            <batchtest>
-                <fileset dir="${tests_build_path}"
-                     includes = "**/Test*.class"
-                     excludes = "**/*$*.class"/>
-            </batchtest>
-        </junit>
-        <fail if="${test_fail}" message="Not all tests passed" />
-    </target>
 
 </project>

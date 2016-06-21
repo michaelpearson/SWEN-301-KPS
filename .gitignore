@@ -7,3 +7,4 @@ out/
 *.iml
 log.xml
 .DS_Store
+test_data/Test.xml
