@@ -57,7 +57,7 @@ public class Home extends JFrame {
         table.setFillsViewportHeight(true);
         table.packColumn(0, 6);
         table.setBorder(BorderFactory.createEmptyBorder());
-        table.addMouseListener(new MouseAdapter() {
+        /*table.addMouseListener(new MouseAdapter() {
             @Override public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     JXTable table = (JXTable) e.getSource();
@@ -66,7 +66,7 @@ public class Home extends JFrame {
                     tableModel.fireTableDataChanged();
                 }
             }
-        });
+        });*/
         tablePanel.add(new JScrollPane(table), BorderLayout.CENTER);
 
         add(tablePanel, BorderLayout.CENTER);
