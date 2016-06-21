@@ -26,6 +26,8 @@ public class BusinessFiguresCalculator {
     private double totalExpenditure = 0;
     private int totalNumberOfEvents = 0;
     private int amountOfMail = 0;
+    private int volumeOfMail = 0;
+    private int weightOfMail = 0;
     private int sumDeliveryTime = 0;
     @NotNull private List<Route> criticalRoutes = new ArrayList<>();
 
@@ -109,6 +111,8 @@ public class BusinessFiguresCalculator {
             totalNumberOfEvents++;
             if(Mail.class.isAssignableFrom(businessEvent.getClass())) {
                 amountOfMail++;
+                volumeOfMail += ((Mail)businessEvent).getVolume();
+                weightOfMail += ((Mail)businessEvent).getWeight();
                 sumDeliveryTime += ((Mail)businessEvent).getDeliveryTime();
             }
             totalRevenue += businessEvent.getRevenue();
@@ -144,6 +148,14 @@ public class BusinessFiguresCalculator {
 
     public int getAmountOfMail() {
         return amountOfMail;
+    }
+
+    public int getVolumeOfMail() {
+        return volumeOfMail;
+    }
+
+    public int getWeightOfMail() {
+        return weightOfMail;
     }
 
     public double getAverageDeliveryTime() {

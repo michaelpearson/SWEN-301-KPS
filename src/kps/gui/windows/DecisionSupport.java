@@ -18,7 +18,9 @@ class DecisionSupport extends JFrame {
     private JLabel totalRevenue;
     private JLabel totalExpenditure;
     private JLabel totalNumberOfEvents;
-    private JLabel totalAmountOfMail;
+    private JLabel totalItemsOfMail;
+    private JLabel totalVolumeOfMail;
+    private JLabel totalWeightOfMail;
     private JLabel averageDeliveryTime;
     private JButton criticalRoutes;
     private JTable table;
@@ -92,8 +94,12 @@ class DecisionSupport extends JFrame {
         figuresPanel.add(totalExpenditure = new JLabel());
         figuresPanel.add(new JLabel("Total number of events:"));
         figuresPanel.add(totalNumberOfEvents = new JLabel());
-        figuresPanel.add(new JLabel("Total amount of mail:"));
-        figuresPanel.add(totalAmountOfMail = new JLabel());
+        figuresPanel.add(new JLabel("Total number of mail items:"));
+        figuresPanel.add(totalItemsOfMail = new JLabel());
+        figuresPanel.add(new JLabel("Total volume of mail:"));
+        figuresPanel.add(totalVolumeOfMail = new JLabel());
+        figuresPanel.add(new JLabel("Total weight of mail:"));
+        figuresPanel.add(totalWeightOfMail = new JLabel());
         figuresPanel.add(new JLabel("average delivery time:"));
         figuresPanel.add(averageDeliveryTime = new JLabel());
         figuresPanel.add(new JLabel("Critical routes:"));
@@ -142,10 +148,12 @@ class DecisionSupport extends JFrame {
     }
 
     private void dataReady(BusinessFiguresCalculator data) {
-        totalAmountOfMail.setText(String.format("%d", data.getAmountOfMail()));
+        totalItemsOfMail.setText(String.format("%d", data.getAmountOfMail()));
         totalRevenue.setText(String.format("%2.2f", data.getTotalRevenue()));
         totalExpenditure.setText(String.format("%2.2f", data.getTotalExpenditure()));
         totalNumberOfEvents.setText(String.format("%d", data.getTotalNumberOfEvents()));
+        totalVolumeOfMail.setText(String.format("%d", data.getVolumeOfMail()));
+        totalWeightOfMail.setText(String.format("%d", data.getWeightOfMail()));
         averageDeliveryTime.setText(String.format("%2.2f", data.getAverageDeliveryTime()));
         //criticalRoutes.setText(String.format("%d", data.getCriticalRoutes()));
     }
