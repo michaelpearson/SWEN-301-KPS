@@ -31,9 +31,10 @@ public class AbbotTest extends ScriptFixture {
     }
 
     public static Test suite() {
+
         if (DEBUG) {
-            String dir = "loginTests";
-            return new ScriptTestSuite(AbbotTest.class, "abbotTestScripts/"+dir) {
+            String dir = "updateCostTests";
+            return new ScriptTestSuite(AbbotTest.class, "abbotTestScripts/" + dir) {
                 // Determine whether the given script will be included //
                 public boolean accept(File file) {
                     String name = file.getName();

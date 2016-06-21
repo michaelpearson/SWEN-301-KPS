@@ -251,7 +251,7 @@
   <component class="kps.gui.windows.Home" id="Swen 301 - KPS" root="true" title="Swen 301 - KPS" />
   <component class="javax.swing.JButton" id="Update transport cost" index="2" parent="JPanel Instance 3" text="Update transport cost" window="Swen 301 - KPS" />
   <component class="javax.swing.SwingUtilities$SharedOwnerFrame" id="shared frame" root="true" title="" />
-  <launch args="[/home/cullum/IdeaProjects/SWEN-301-KPS/test_data/Test.xml]" class="kps.Main" classpath="/home/cullum/IdeaProjects/SWEN-301-KPS/out/artifacts/SWEN_301_KPS_jar/SWEN-301-KPS.jar" method="main" threaded="true" />
+  <launch args="[test_data/Test.xml]" class="kps.Main" classpath="out/artifacts/SWEN_301_KPS_jar/SWEN-301-KPS.jar" method="main" threaded="true" />
   <sequence>
     <action args="Login 2" class="javax.swing.AbstractButton" method="actionClick" />
     <wait args="Login" class="abbot.tester.ComponentTester" invert="true" method="assertComponentShowing" />
