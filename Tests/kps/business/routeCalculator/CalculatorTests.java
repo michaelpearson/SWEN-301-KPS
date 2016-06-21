@@ -32,6 +32,19 @@ public class CalculatorTests {
         Assert.assertNull(calculatedRoute);
     }
 
+    @Test public void ensureThatInternationalStandardWillUpgradeIfNoOtherOption() throws FileNotFoundException, XMLException {
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
+
+        Mail m = new Mail();
+        m.setFrom("Wellington");
+        m.setTo("Sydney");
+        m.setPriority(Priority.INTERNATIONAL_STANDARD);
+
+        IRouteCalculator rc = new RouteCalculator(s, m);
+        CalculatedRoute calculatedRoute = rc.buildCalculatedRoute();
+        Assert.assertNotNull(calculatedRoute);
+    }
+
     @Test public void ensureThatSystemCanCalculateARouteFromTestData() throws FileNotFoundException, XMLException {
         Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
 
