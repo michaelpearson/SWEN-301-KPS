@@ -148,13 +148,13 @@ class DecisionSupport extends JFrame {
     }
 
     private void dataReady(BusinessFiguresCalculator data) {
-        totalItemsOfMail.setText(String.format("%d", data.getAmountOfMail()));
-        totalRevenue.setText(String.format("%2.2f", data.getTotalRevenue()));
-        totalExpenditure.setText(String.format("%2.2f", data.getTotalExpenditure()));
-        totalNumberOfEvents.setText(String.format("%d", data.getTotalNumberOfEvents()));
-        totalVolumeOfMail.setText(String.format("%d", data.getVolumeOfMail()));
-        totalWeightOfMail.setText(String.format("%d", data.getWeightOfMail()));
-        averageDeliveryTime.setText(String.format("%2.2f", data.getAverageDeliveryTime()));
+        totalItemsOfMail.setText(String.format("%d", data.getAmountOfMail()) + " items");
+        totalRevenue.setText("$" + String.format("%2.2f", data.getTotalRevenue()));
+        totalExpenditure.setText("$" + String.format("%2.2f", data.getTotalExpenditure()));
+        totalNumberOfEvents.setText(String.format("%d", data.getTotalNumberOfEvents()) + " events");
+        totalVolumeOfMail.setText(String.format("%d", data.getVolumeOfMail()) + " grams");
+        totalWeightOfMail.setText(String.format("%d", data.getWeightOfMail()) + "cm3");
+        averageDeliveryTime.setText(String.format("%2.2f", data.getAverageDeliveryTime()) + " days");
         //criticalRoutes.setText(String.format("%d", data.getCriticalRoutes()));
     }
 }
