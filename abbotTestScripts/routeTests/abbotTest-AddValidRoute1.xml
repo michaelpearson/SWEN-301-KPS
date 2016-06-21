@@ -51,8 +51,11 @@
     <action args="JTextField Instance,Michaels Mad Movers" method="actionKeyString" />
     <assert component="JTextField Instance" method="getText" value="Michaels Mad Movers" />
     <action args="JComboBox Instance,Rome" class="javax.swing.JComboBox" method="actionSelectItem" />
+    <assert component="JComboBox Instance" method="getSelectedItem" value="Rome" />
     <action args="JComboBox Instance 2,Wellington" class="javax.swing.JComboBox" method="actionSelectItem" />
+    <assert component="JComboBox Instance 2" method="getSelectedItem" value="Wellington" />
     <action args="JComboBox Instance 3,Air" class="javax.swing.JComboBox" method="actionSelectItem" />
+    <assert component="JComboBox Instance 3" method="getSelectedItem" value="Air" />
     <action args="Spinner.formattedTextField,0" class="javax.swing.text.JTextComponent" method="actionClick" />
     <action args="Spinner.formattedTextField,2" method="actionKeyString" />
     <action args="Spinner.formattedTextField,VK_TAB" method="actionKeyStroke" />
