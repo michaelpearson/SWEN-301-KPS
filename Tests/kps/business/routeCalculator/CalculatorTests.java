@@ -19,13 +19,39 @@ public class CalculatorTests {
 
     private static final String TEST_XML_FILE = "test_data/Test.xml";
 
-    @Test public void ensureThatSystemCanCalculateARouteFromTestData() throws FileNotFoundException, XMLException {
+    @Test public void ensureThatInternationalAirPriorityDoesNotPickInternationalStandard() throws FileNotFoundException, XMLException {
         Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
 
         Mail m = new Mail();
         m.setFrom("Auckland");
         m.setTo("Suva");
         m.setPriority(Priority.INTERNATIONAL_AIR);
+
+        IRouteCalculator rc = new RouteCalculator(s, m);
+        CalculatedRoute calculatedRoute = rc.buildCalculatedRoute();
+        Assert.assertNull(calculatedRoute);
+    }
+
+    @Test public void ensureThatInternationalStandardWillUpgradeIfNoOtherOption() throws FileNotFoundException, XMLException {
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
+
+        Mail m = new Mail();
+        m.setFrom("Wellington");
+        m.setTo("Sydney");
+        m.setPriority(Priority.INTERNATIONAL_STANDARD);
+
+        IRouteCalculator rc = new RouteCalculator(s, m);
+        CalculatedRoute calculatedRoute = rc.buildCalculatedRoute();
+        Assert.assertNotNull(calculatedRoute);
+    }
+
+    @Test public void ensureThatSystemCanCalculateARouteFromTestData() throws FileNotFoundException, XMLException {
+        Simulation s = SimulationXML.readSimulationFromFile(new FileInputStream(TEST_XML_FILE));
+
+        Mail m = new Mail();
+        m.setFrom("Auckland");
+        m.setTo("Suva");
+        m.setPriority(Priority.INTERNATIONAL_STANDARD);
 
         IRouteCalculator rc = new RouteCalculator(s, m);
         CalculatedRoute calculatedRoute = rc.buildCalculatedRoute();

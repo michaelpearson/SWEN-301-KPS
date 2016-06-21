@@ -21,12 +21,14 @@ import java.util.stream.Collectors;
  */
 public class RouteCalculator implements IRouteCalculator {
     private final List<Route> routes;
+    private final Simulation simulation;
     private final List<CalculatedRoute> possiblePaths = new ArrayList<>();
     private final Set<String> visitedNodes = new HashSet<>();
     private final @NotNull Mail mailDelivery;
 
     public RouteCalculator(@NotNull Simulation simulation, @NotNull Mail mailDelivery) {
         this.mailDelivery = mailDelivery;
+        this.simulation = simulation;
         this.routes = simulation.getUniqueRoutes().stream().filter(this::isRouteSuitable).collect(Collectors.toList());
 
     }
@@ -45,6 +47,13 @@ public class RouteCalculator implements IRouteCalculator {
         return true;
     }
 
+    private boolean isNextRouteSuitable(Route r){
+        if (visitedNodes.contains(r.getTo())) return false;
+        if (mailDelivery.getPriority() == Priority.INTERNATIONAL_AIR &&
+                r.getTransportType() != TransportType.Air && !r.isDomestic()) return false;
+        return true;
+    }
+
     @SuppressWarnings("Convert2streamapi") @Nullable
     public CalculatedRoute buildCalculatedRoute() {
         String from = mailDelivery.getFrom();
@@ -59,7 +68,7 @@ public class RouteCalculator implements IRouteCalculator {
         if(possiblePaths.size() == 0) {
             return null;
         }
-        return possiblePaths.stream().min((a, b) -> Integer.compare(getFit(a, mailDelivery.getPriority()), getFit(b, mailDelivery.getPriority()))).get();
+        return possiblePaths.stream().min((a, b) -> Integer.compare(getFit(a), getFit(b))).get();
     }
 
     private void calculateRoute(@NotNull String from, @NotNull String goal, @Nullable CalculatedRoute currentRoute) {
@@ -68,7 +77,7 @@ public class RouteCalculator implements IRouteCalculator {
         }
         for (Route r : routes) {
             if (r.getFrom().equals(from)) {
-                if (visitedNodes.contains(r.getTo())) continue;
+                if (!isNextRouteSuitable(r)) continue;
                 CalculatedRoute temp = new CalculatedRoute(currentRoute, r);
 
                 if (r.getTo().equals(goal)) {
@@ -83,12 +92,12 @@ public class RouteCalculator implements IRouteCalculator {
         }
     }
 
-    private int getFit(CalculatedRoute c, Priority p) {
+    private int getFit(CalculatedRoute c) {
         int fitness = 0;
         for (Route r : c.getRoute()) {
             fitness += 1;
-            if (r.getTransportType() != TransportType.Air && p.isAir())
-                fitness += 1;
+            if (r.getTransportType() == TransportType.Air && mailDelivery.getPriority() != Priority.INTERNATIONAL_AIR)
+                fitness += 10;
         }
         return fitness;
     }
